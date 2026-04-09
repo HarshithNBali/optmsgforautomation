@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "403388879371",
+    "project_id": "opt-msg-app",
+    "storage_bucket": "opt-msg-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:403388879371:android:926ffda9fb4b034c15ad0e",
+        "android_client_info": {
+          "package_name": "com.optmsg.mail"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6wu4t8R8z4NMtk5B1Aghp0oceHR5dIhE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

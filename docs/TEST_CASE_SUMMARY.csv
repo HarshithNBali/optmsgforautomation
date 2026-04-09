@@ -1,0 +1,67 @@
+Metric,Value
+Test Type: Unit,790
+Test Type: Widget,426
+Test Type: Integration,59
+Test Type: E2E,102
+Test Type: Infrastructure,18
+Total Test Cases Documented,1395
+Snackbar/Toast Entries,99
+
+Implementation Status,Count
+Tests Implemented (Passing),316
+Tests Implemented (Skipped),0
+Tests Not Yet Implemented,1079
+Test Files Created,18
+Infrastructure Files Created,6
+Bugs Found During Testing,2
+Bugs Fixed,2
+
+Line Coverage,Value
+Total Lines in lib/,22867
+Lines Covered,1423
+Line Coverage Percentage,6.2%
+Files With Any Coverage,97/266
+Files at 100%,14
+Files at >90%,30
+Files at 0%,169
+
+Platform,Count
+All,1253
+Web,53
+iOS,7
+Android,6
+"iOS, Android",76
+
+Priority,Count
+P0,464
+P1,686
+P2,80
+
+Screen Size,Count
+All,1250
+Small,90
+Medium,10
+Large,45
+
+Implementation Coverage by Category,Implemented,Documented,Percentage
+Model Serialization (all 22 models),~100,~120,83%
+Auth State / Freezed States (5 classes),50,~50,100%
+isSubscriptionValid,8,8,100%
+RequestError / RequestResponse,16,~20,80%
+Form Validation,34,~40,85%
+Notifier State Classes (Inbox/Settings),21,~30,70%
+AuthNotifier (unit),6,~50,12%
+GlobalVariableNotifier,8,~10,80%
+CountNotifier / CountState,6,~10,60%
+Security Utilities (URL/Stripe),12,~14,86%
+HTML Sanitizer Service,27,~30,90%
+AppBreakpoints,22,~30,73%
+EndPoints,14,~15,93%
+AppCache (LRU + redirect cache),17,~20,85%
+Infrastructure Smoke Tests,9,9,100%
+
+Validation Pass,Date
+Last Generated,2026-02-17
+Last Validated,2026-03-09
+Last Implementation Update,2026-03-24
+App Version,1.0.6+35

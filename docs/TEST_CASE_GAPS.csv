@@ -1,0 +1,43 @@
+Feature/Module,Gap Description,Severity,Recommended Priority,Status
+Authentication,"Zero test coverage on login, OTP, passkey, biometric flows",Critical,P0,Addressed
+Inbox/Email,"Zero test coverage on core email list, reading, archiving",Critical,P0,Addressed
+API Service,Foundation HTTP layer untested - affects all features,Critical,P0,Addressed
+Result<T>,Core data type wrapper untested,Critical,P0,Addressed
+Model Serialization,34 models with fromJson/toJson completely untested,Critical,P0,Addressed
+Riverpod Notifiers,13 state notifiers with complex logic untested,Critical,P0,Addressed
+Contact CRUD,Full contact lifecycle untested,High,P0,Addressed
+Navigation/Routing,GoRouter config and auth guard untested,High,P0,Addressed
+Socket Service,Real-time messaging completely untested,High,P0,Addressed
+Form Validation,All validators untested,High,P0,Addressed
+Settings,"Profile edit, account delete, all toggles untested",High,P1,Addressed
+Tags,Tag CRUD operations untested,Medium,P1,Addressed
+Notifications,Notification list and actions untested,Medium,P1,Addressed
+Responsive Layouts,All breakpoint-dependent layouts untested,Medium,P1,Addressed
+Subscription/Payment,Plan selection and checkout untested,Medium,P1,Addressed
+Biometric Service,Platform-specific auth untested,Medium,P1,Addressed
+Push Notifications,FCM integration untested,Medium,P1,Addressed
+Storage Service,Secure storage operations untested,High,P0,Addressed
+Help Center,FAQ browsing and search untested,Low,P2,Addressed
+Static Pages,HTML content rendering untested,Low,P2,Addressed
+Web-Specific Layouts,"Web auth screens, hover states untested",Medium,P1,Partially Addressed
+Offline Handling,No internet detection and recovery untested,High,P1,Addressed
+Deep Linking,mailto: and app link handling untested,Medium,P1,Remaining
+App Lifecycle,"Biometric on resume, background handling untested",Medium,P1,Remaining
+Reader Account,Reader account module had test cases but no code exists,N/A,N/A,Removed (orphaned)
+Community Recommendations,Tag test cases referenced non-existent feature,N/A,N/A,Removed (orphaned)
+Breach Check,check_breach_mails.dart and breach_notifier.dart deleted in v1.0.7,N/A,N/A,Removed (code deleted)
+WebCompose/Viewers,"Web compose, email detail, file viewers had no tests",High,P0,Addressed
+Responsive Route Wrappers,27+ wrapper widgets had no tests,High,P0,Addressed
+AppCache/AppEnvironment,Core singleton utilities had no tests,Medium,P1,Addressed
+CustomDismissible,Complex slidable email item widget had no tests,High,P0,Addressed
+Subscription Mgmt Screens,"Change plan, payment method, subscription detail untested",Medium,P1,Addressed
+Auth Support Screens,"LoginPostProcessor, OTP profile, payment success untested",Medium,P1,Addressed (v1.0.7)
+User State Lifecycle,"State transitions, notifications, Descope/Stripe sync, admin actions untested",Critical,P0,Addressed
+SessionExpiryManager,Centralized session expiry handler — new in v1.0.7,Critical,P0,Addressed (v1.0.7)
+SessionRefreshMutex,JWT refresh serialization — new in v1.0.7,Critical,P0,Addressed (v1.0.7)
+AnalyticsService,Firebase Analytics wrapper with 30+ event helpers — new in v1.0.7,High,P0,Addressed (v1.0.7)
+Security Utilities,"secure_url_helper, stripe_url_validator, secure_print_helper — new in v1.0.7",High,P0,Addressed (v1.0.7)
+PlatformSecureStorage,Cross-platform secure storage abstraction — new in v1.0.7,High,P0,Addressed (v1.0.7)
+Route Extras,GoRouter safe extras extraction — new in v1.0.7,Medium,P1,Addressed (v1.0.7)
+DelayedLoadingOverlay,Debounced loading spinner widget — new in v1.0.7,Medium,P1,Addressed (v1.0.7)
+ConnectivityService,Network detection service — new in v1.0.7,Medium,P1,Addressed (v1.0.7)

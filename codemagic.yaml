@@ -1,0 +1,238 @@
+workflows:
+  ios-release-stag:
+    name: iOS Release Build
+    instance_type: mac_mini_m2
+    max_build_duration: 120
+    triggering:
+      events:
+        - push
+        - pull_request
+      branch_patterns:                         
+        - pattern: 'dev'    #change the branch name as per your requirement
+          include: true
+          source: true
+    integrations:
+      app_store_connect: APK CI-CD
+    environment:
+      groups:
+        - OptMsg
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.optmsg.stag
+      vars:
+        BUNDLE_ID: com.optmsg.stag
+        FLAVOR: stage
+    cache:
+      cache_paths:
+        - ~/.pub-cache
+        - ~/Library/Caches/CocoaPods
+    scripts:
+      - name: Fetch config files from S3 staging
+        script: |
+          echo "Decoding config files passed from Bitbucket (STAGING)..."
+
+          if [ -z "$APP_CONFIG_B64" ]; then
+            echo "ERROR: APP_CONFIG_B64 is not set - was it passed from Bitbucket trigger?"
+            exit 1
+          fi
+          if [ -z "$FIREBASE_OPTIONS_B64" ]; then
+            echo "ERROR: FIREBASE_OPTIONS_B64 is not set - was it passed from Bitbucket trigger?"
+            exit 1
+          fi
+
+          mkdir -p lib/constant
+
+          echo "$APP_CONFIG_B64"       | base64 --decode > lib/constant/app_config.dart
+          echo "$FIREBASE_OPTIONS_B64" | base64 --decode > lib/firebase_options.dart
+
+          if [ -n "$GOOGLE_PLIST_B64" ]; then
+            echo "$GOOGLE_PLIST_B64" | base64 --decode > ios/Runner/leGoogService-Info.plist
+            echo "GoogleService-Info.plist: OK"
+          else
+            echo "WARNING: GOOGLE_PLIST_B64 not provided, skipping..."
+          fi
+
+          [ -f "lib/constant/app_config.dart" ] && echo "app_config.dart: OK" || { echo "ERROR: app_config.dart missing"; exit 1; }
+          [ -f "lib/firebase_options.dart" ]    && echo "firebase_options.dart: OK" || { echo "ERROR: firebase_options.dart missing"; exit 1; }
+
+          echo " All STAGING config files decoded successfully"
+
+      - name: Install Flutter dependencies
+        script: |
+          flutter pub get
+
+      - name: Setup iOS signing
+        script: |
+          xcode-project use-profiles
+
+      - name: Install CocoaPods
+        script: |
+          cd ios && pod install && cd ..
+
+      - name: Flutter analyze
+        script: |
+          flutter analyze
+
+      - name: Run tests
+        script: |
+          flutter test
+        ignore_failure: true
+
+      - name: Build iOS IPA
+        script: |
+          # Concatenate STAGE_START and BUILD_NUMBER (e.g., 10 + 1 = 101)
+          FINAL_BUILD_NUMBER="${STAGE_START}${BUILD_NUMBER}"
+          echo "Codemagic BUILD_NUMBER: $BUILD_NUMBER"
+          echo "STAGE_START prefix: $STAGE_START"
+          echo "FINAL_BUILD_NUMBER: $FINAL_BUILD_NUMBER"
+          
+          cd ios && agvtool new-version -all $FINAL_BUILD_NUMBER && cd ..
+          flutter build ipa \
+            --flavor "$FLAVOR" \
+            --dart-define=USE_NATIVE_COMPOSE=true \
+            --release \
+            --export-options-plist=ios/ExportOptions.plist
+     
+
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
+      email:
+        recipients:
+          - "rlamirand@optmessage.com"
+          - "kavya@greatlakesdp.us"
+          - "santhosh.gujjar@outlook.com"
+          - "mdobbie@optmessage.com"
+          - "prakash.dgs@outlook.com"
+        notify:
+          success: true
+          failure: true
+
+  # ---------------------------------------------
+  # PRODUCTION WORKFLOW
+  # ---------------------------------------------
+  ios-release-prod:
+    name: iOS Production Release Build
+    instance_type: mac_mini_m2
+    max_build_duration: 120
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: 'main'  #change the branch name as per your requirement
+          include: true
+          source: true
+        - pattern: 'main'
+          include: true
+          source: true
+    integrations:
+      app_store_connect: APK CI-CD
+    environment:
+      groups:
+        - OptMsg
+        - OptMsg_Prod
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.optmsg.mail    # corrected
+      vars:
+        BUNDLE_ID: com.optmsg.mail            # corrected
+        FLAVOR: prod
+    cache:
+      cache_paths:
+        - ~/.pub-cache
+        - ~/Library/Caches/CocoaPods
+    scripts:
+      - name: Fetch config files from S3 production
+        script: |
+          echo "Decoding config files passed from Bitbucket (PRODUCTION)..."
+
+          if [ -z "$APP_CONFIG_B64" ]; then
+            echo "ERROR: APP_CONFIG_B64 is not set - was it passed from Bitbucket trigger?"
+            exit 1
+          fi
+          if [ -z "$FIREBASE_OPTIONS_B64" ]; then
+            echo "ERROR: FIREBASE_OPTIONS_B64 is not set - was it passed from Bitbucket trigger?"
+            exit 1
+          fi
+
+          mkdir -p lib/constant
+
+          echo "$APP_CONFIG_B64"       | base64 --decode > lib/constant/app_config.dart
+          echo "$FIREBASE_OPTIONS_B64" | base64 --decode > lib/firebase_options.dart
+
+          if [ -n "$GOOGLE_PLIST_B64" ]; then
+            echo "$GOOGLE_PLIST_B64" | base64 --decode > ios/Runner/GoogleService-Info.plist
+            echo "GoogleService-Info.plist: OK"
+          else
+            echo "WARNING: GOOGLE_PLIST_B64 not provided, skipping..."
+          fi
+
+          [ -f "lib/constant/app_config.dart" ] && echo "app_config.dart: OK" || { echo "ERROR: app_config.dart missing"; exit 1; }
+          [ -f "lib/firebase_options.dart" ]    && echo "firebase_options.dart: OK" || { echo "ERROR: firebase_options.dart missing"; exit 1; }
+
+          echo "All PRODUCTION config files decoded successfully"
+
+      - name: Install Flutter dependencies
+        script: |
+          flutter pub get
+
+      - name: Setup iOS signing
+        script: |
+          xcode-project use-profiles
+
+      - name: Install CocoaPods
+        script: |
+          cd ios && pod install && cd ..
+
+      - name: Flutter analyze
+        script: |
+          flutter analyze
+
+      - name: Run tests
+        script: |
+          flutter test
+        ignore_failure: true
+
+      - name: Build iOS IPA
+        script: |
+          FINAL_BUILD_NUMBER="${PROD_START}${BUILD_NUMBER}"
+          echo "Codemagic BUILD_NUMBER: $BUILD_NUMBER"
+          echo "PROD_START prefix: $PROD_START"
+          echo "FINAL_BUILD_NUMBER: $FINAL_BUILD_NUMBER"
+
+          cd ios && agvtool new-version -all $FINAL_BUILD_NUMBER && cd ..
+          flutter build ipa \
+            --flavor "$FLAVOR" \
+            --release \
+            --export-options-plist=ios/ExportOptions-prod.plist
+
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
+        submit_to_app_store: false
+      email:
+        recipients:
+          - "rlamirand@optmessage.com"
+          - "kavya@greatlakesdp.us"
+          - "santhosh.gujjar@outlook.com"
+          - "mdobbie@optmessage.com"
+          - "prakash.dgs@outlook.com"
+        notify:
+          success: true
+          failure: true

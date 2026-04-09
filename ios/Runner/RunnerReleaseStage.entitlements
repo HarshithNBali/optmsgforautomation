@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>aps-environment</key>
+	<string>development</string>
+	<!-- TODO: Re-enable once Apple grants mail-client entitlement for com.optmsg.stag -->
+	<!-- <key>com.apple.developer.mail-client</key> -->
+	<!-- <true/> -->
+	<key>com.apple.developer.associated-domains</key>
+	<array>
+		<string>applinks:*.optmsg.com</string>
+		<string>webcredentials:optmsg.com</string>
+		<string>webcredentials:staging.optmsg.com</string>
+	</array>
+</dict>
+</plist>

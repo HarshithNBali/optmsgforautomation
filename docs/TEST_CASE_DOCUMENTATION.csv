@@ -1,0 +1,1396 @@
+ID,Feature/Module,Test Type,Test Case,Description,Priority,Edge Case?,Platform,Screen Size
+AUTH-U001,Auth/AuthState,Unit,should create unauthenticated state by default,Verify AuthState factory creates correct initial state,P0,No,All,All
+AUTH-U002,Auth/AuthState,Unit,should create authenticated state with user data,Verify authenticated factory sets all fields,P0,No,All,All
+AUTH-U003,Auth/AuthState,Unit,should create error state with message,Verify error factory captures message,P0,No,All,All
+AUTH-U004,Auth/AuthState,Unit,should create authenticating state,Verify authenticating factory,P0,No,All,All
+AUTH-U005,Auth/AuthState,Unit,should return correct boolean getters for each status,Verify computed properties,P1,No,All,All
+AUTH-U006,Auth/AuthState,Unit,should handle setDescope factory,Verify Descope flag state,P1,No,All,All
+AUTH-U007,Auth/EnterOtpState,Unit,should have correct defaults when created,Verify default state values,P0,No,All,All
+AUTH-U008,Auth/EnterOtpState,Unit,should return isValid=true when mobile and userData present,Verify validation computed property,P0,No,All,All
+AUTH-U009,Auth/EnterOtpState,Unit,should return isValid=false when mobile empty,Verify validation rejects empty mobile,P0,Yes,All,All
+AUTH-U010,Auth/EnterOtpState,Unit,should return isValid=false when userData null,Verify validation rejects null user,P0,Yes,All,All
+AUTH-U011,Auth/EnterOtpState,Unit,should compute fullPhone correctly,Verify phone concatenation,P1,No,All,All
+AUTH-U012,Auth/EnterOtpState,Unit,should prefer formattedPhone for displayPhone,Verify displayPhone computed property,P1,No,All,All
+AUTH-U013,Auth/PasskeyState,Unit,should have correct defaults,Verify default passkey state,P0,No,All,All
+AUTH-U014,Auth/PasskeyState,Unit,should compute canEnable correctly,Verify canEnable logic,P1,No,All,All
+AUTH-U015,Auth/PasskeyState,Unit,should extract userName from userData,Verify data extraction,P1,No,All,All
+AUTH-U016,Auth/PasskeyState,Unit,should handle null userData gracefully,Verify null safety,P1,Yes,All,All
+AUTH-U017,Auth/BiometricAcceptResult,Unit,should store all fields correctly,Verify DTO construction,P1,No,All,All
+AUTH-U018,Auth/BiometricDeniedResult,Unit,should store all fields correctly,Verify DTO construction,P1,No,All,All
+AUTH-U019,Auth/AuthNotifier,Unit,should start in unauthenticated state,Verify initial notifier state,P0,No,All,All
+AUTH-U020,Auth/AuthNotifier,Unit,should transition to authenticating on userVerify,Verify state transition on login start,P0,No,All,All
+AUTH-U021,Auth/AuthNotifier,Unit,should set error state on API failure,Verify error handling,P0,No,All,All
+AUTH-U022,Auth/AuthNotifier,Unit,should set error state on network failure,Verify NoInternetException handling,P0,Yes,All,All
+AUTH-U023,Auth/AuthNotifier,Unit,should handle Descope passkey timeout,Verify timeout fallback,P1,Yes,All,All
+AUTH-U024,Auth/AuthNotifier,Unit,should handle DescopeException gracefully,Verify SDK error handling,P1,Yes,All,All
+AUTH-U025,Auth/EnterOtpNotifier,Unit,should initialize with user data from storage,Verify init loads stored data,P0,No,All,All
+AUTH-U026,Auth/EnterOtpNotifier,Unit,should submit OTP via Descope,Verify OTP submission,P0,No,All,All
+AUTH-U027,Auth/EnterOtpNotifier,Unit,should handle invalid OTP,Verify error on wrong OTP,P0,Yes,All,All
+AUTH-U028,Auth/EnterOtpNotifier,Unit,should resend OTP successfully,Verify resend flow,P1,No,All,All
+AUTH-U029,Auth/EnterOtpNotifier,Unit,should handle biometricAccept result,Verify biometric accept flow,P1,No,All,All
+AUTH-U030,Auth/EnterOtpNotifier,Unit,should handle biometricDenied result,Verify biometric deny flow,P1,No,All,All
+AUTH-U031,Auth/PasskeyNotifier,Unit,should check passkey support,Verify platform capability check,P1,No,All,All
+AUTH-U032,Auth/PasskeyNotifier,Unit,should enable passkey for user,Verify passkey registration,P1,No,All,All
+AUTH-U033,Auth/PasskeyNotifier,Unit,should handle passkey enable failure,Verify error on enable failure,P1,Yes,All,All
+AUTH-U034,Auth/AuthAPI,Unit,should call userVerify endpoint,Verify API call construction,P0,No,All,All
+AUTH-U035,Auth/AuthAPI,Unit,should call userLogin endpoint with refreshable auth,Verify refreshable header injection,P0,No,All,All
+AUTH-U036,Auth/AuthAPI,Unit,should call resendOTP endpoint,Verify resend API call,P1,No,All,All
+AUTH-U037,Auth/AuthAPI,Unit,should call verifyOTP endpoint,Verify OTP verification API,P0,No,All,All
+AUTH-U038,Auth/BiometricService,Unit,should return true when biometrics available,Verify availability check,P1,No,All,All
+AUTH-U039,Auth/BiometricService,Unit,should return false when no biometrics,Verify fallback,P1,No,All,All
+AUTH-U040,Auth/BiometricService,Unit,should authenticate successfully,Verify auth flow,P1,No,All,All
+AUTH-U041,Auth/BiometricService,Unit,should return false on auth failure,Verify rejection,P1,Yes,All,All
+AUTH-U042,Auth/BiometricService,Unit,should handle platform exception,Verify error handling,P1,Yes,All,All
+AUTH-U043,Auth/PasskeyNotifier,Unit,should validate passkey on-device (platform authenticator),Verify local passkey auth uses device's own biometric/PIN,P1,No,All,All
+AUTH-U044,Auth/PasskeyNotifier,Unit,should validate passkey via another device using QR code,Verify cross-device passkey flow shows QR code,P1,No,All,All
+AUTH-U045,Auth/PasskeyNotifier,Unit,should skip passkey prompt when passkey already registered,Verify no duplicate setup prompt,P0,No,All,All
+AUTH-U046,Auth/PasskeyNotifier,Unit,should skip passkey prompt when device does not support passkeys,Verify graceful skip on unsupported devices,P0,No,All,All
+AUTH-U047,Auth/ForgotUsername,Unit,should reject invalid phone number format,Verify phone validation,P1,Yes,All,All
+AUTH-U048,Auth/ForgotUsername,Unit,should reject unregistered phone number,Verify API response for unknown phone,P1,Yes,All,All
+AUTH-U049,Auth/ForgotUsername,Unit,should reject empty phone number field,Verify empty field validation,P1,Yes,All,All
+AUTH-U050,Auth/ForgotUsername,Unit,should handle inactive account phone lookup,Verify inactive account response,P1,Yes,All,All
+AUTH-U051,Auth/ForgotUsername,Unit,should reject incorrect OTP on forgot username flow,Verify OTP validation,P1,Yes,All,All
+AUTH-U052,Auth/ForgotUsername,Unit,should reject expired OTP on forgot username flow,Verify OTP expiry,P1,Yes,All,All
+AUTH-U053,Auth/ForgotUsername,Unit,should resend OTP on forgot username flow,Verify resend,P1,No,All,All
+AUTH-U054,Auth/ForgotUsername,Unit,should limit failed OTP attempts,Verify attempt limiting,P1,Yes,All,All
+AUTH-U055,Auth/ForgotUsername,Unit,should reject empty OTP field,Verify empty OTP validation,P1,Yes,All,All
+AUTH-U056,Auth/ForgotUsername,Unit,should display correct username after successful OTP verification,Verify username returned,P0,No,All,All
+AUTH-W001,Auth/Login,Widget,should render login form with username field,Verify initial render,P0,No,All,All
+AUTH-W002,Auth/Login,Widget,should show validation error when username empty,Verify form validation,P0,Yes,All,All
+AUTH-W003,Auth/Login,Widget,should call userVerify on valid form submit,Verify login action,P0,No,All,All
+AUTH-W004,Auth/Login,Widget,should show loader during authentication,Verify loading state,P0,No,All,All
+AUTH-W005,Auth/Login,Widget,should navigate to OTP screen on success,Verify navigation,P0,No,All,All
+AUTH-W006,Auth/Login,Widget,should navigate to forgot username,Verify navigation,P1,No,All,All
+AUTH-W007,Auth/Login,Widget,should navigate to signup,Verify signup navigation,P1,No,All,All
+AUTH-W008,Auth/Login,Widget,should show SnackBar on API error,Verify error display,P0,No,All,All
+AUTH-W009,Auth/Login,Widget,should render mobile layout on small screen,Verify responsive layout,P1,No,All,Small
+AUTH-W010,Auth/Login,Widget,should render desktop layout on large screen,Verify responsive layout,P1,No,All,Large
+AUTH-W011,Auth/Login,Widget,should append email domain to username,Verify domain suffix,P1,No,All,All
+AUTH-W012,Auth/OTP,Widget,should render OTP input field,Verify initial render,P0,No,All,All
+AUTH-W013,Auth/OTP,Widget,should show error on empty OTP submit,Verify validation,P0,Yes,All,All
+AUTH-W014,Auth/OTP,Widget,should submit OTP and navigate on success,Verify submit flow,P0,No,All,All
+AUTH-W015,Auth/OTP,Widget,should resend OTP on tap,Verify resend,P1,No,All,All
+AUTH-W016,Auth/OTP,Widget,should render mobile layout,Verify responsive,P1,No,All,Small
+AUTH-W017,Auth/OTP,Widget,should render desktop layout,Verify responsive,P1,No,All,Large
+AUTH-W018,Auth/CreateAccount,Widget,should render account creation form,Verify initial render,P0,No,All,All
+AUTH-W019,Auth/CreateAccount,Widget,should validate required fields,Verify validation,P0,Yes,All,All
+AUTH-W020,Auth/CreateAccount,Widget,should check username availability,Verify async validation,P1,No,All,All
+AUTH-W021,Auth/CreateAccount,Widget,should require terms acceptance,Verify checkbox validation,P0,Yes,All,All
+AUTH-W022,Auth/CreateAccount,Widget,should navigate to login,Verify navigation,P1,No,All,All
+AUTH-W023,Auth/SetupProfile,Widget,should render profile form fields,Verify initial render,P0,No,All,All
+AUTH-W024,Auth/SetupProfile,Widget,should validate name fields,Verify validation,P0,Yes,All,All
+AUTH-W025,Auth/SetupProfile,Widget,should open date picker on DOB tap,Verify date interaction,P1,No,All,All
+AUTH-W026,Auth/SetupProfile,Widget,should validate DOB format,Verify date validation,P1,Yes,All,All
+AUTH-W027,Auth/SetupProfile,Widget,should reject future dates,Verify date boundary,P1,Yes,All,All
+AUTH-W028,Auth/ForgotUsername,Widget,should render recovery form,Verify initial render,P1,No,All,All
+AUTH-W029,Auth/ForgotUsername,Widget,should validate phone number,Verify validation,P1,Yes,All,All
+AUTH-W030,Auth/ForgotUsername,Widget,should navigate back to login,Verify navigation,P1,No,All,All
+AUTH-W031,Auth/Passkey,Widget,should render passkey setup screen,Verify initial render,P1,No,"iOS, Android",All
+AUTH-W032,Auth/Passkey,Widget,should show skip option,Verify skip,P1,No,"iOS, Android",All
+AUTH-W033,Auth/Passkey,Widget,should enable passkey on tap,Verify enable flow,P1,No,"iOS, Android",All
+AUTH-W034,Auth/WebLogin,Widget,should render web-specific login layout,Verify web layout,P1,No,Web,Large
+AUTH-W035,Auth/WebOTP,Widget,should render web OTP layout,Verify web layout,P1,No,Web,Large
+AUTH-W036,Auth/Passkey,Widget,should show QR code option for cross-device passkey authentication,Verify cross-device UI,P1,No,"iOS, Android",All
+AUTH-W037,Auth/Passkey,Widget,should not show passkey setup when already registered,Verify skip logic in UI,P0,No,"iOS, Android",All
+AUTH-W038,Auth/Passkey,Widget,should not show passkey setup when device does not support passkeys,Verify skip logic in UI,P0,No,"iOS, Android",All
+AUTH-W039,Auth/ForgotUsername,Widget,should show OTP screen after valid phone submission,Verify OTP navigation,P1,No,All,All
+AUTH-W040,Auth/ForgotUsername,Widget,should show error for unregistered phone number,Verify error display,P1,Yes,All,All
+AUTH-W041,Auth/ForgotUsername,Widget,should show resend OTP option on forgot username OTP screen,Verify resend UI,P1,No,All,All
+AUTH-W042,Auth/ForgotUsername,Widget,should display recovered username after correct OTP,Verify success display,P0,No,All,All
+AUTH-I001,Auth/LoginFlow,Integration,should complete OTP login flow end-to-end,Full login with OTP verification,User navigates Login → OTP → Inbox,All,All,All
+AUTH-I002,Auth/LoginFlow,Integration,should handle expired session and redirect to login,Session expiration flow,"Session cleared, redirected to /login",All,All,All
+AUTH-I003,Auth/LoginFlow,Integration,should complete passkey authentication,Passkey auth flow,"User authenticates via passkey, navigates to inbox","iOS, Android",All,All
+AUTH-I004,Auth/LoginFlow,Integration,should fall back to OTP when passkey times out,Timeout fallback,OTP screen shown with pre-filled data,"iOS, Android",All,All
+AUTH-I005,Auth/BiometricFlow,Integration,should prompt biometric on app resume,App lifecycle biometric,Biometric prompt shown on resume,"iOS, Android",All,All
+AUTH-I006,Auth/CreateAccountFlow,Integration,should complete registration flow,Full signup flow,User creates account → OTP → Profile Setup → Inbox,All,All,All
+AUTH-I007,Auth/ForgotFlow,Integration,should recover username via phone,Recovery flow,Phone entered → OTP → Username displayed,All,All,All
+AUTH-I008,Auth/StorageIntegration,Integration,should persist auth state across app restarts,Storage persistence,"App reads stored auth, skips login",All,All,All
+EMAIL-U001,Email/InboxNotifier,Unit,should bootstrap with clean state,Verify initial state on bootstrap,P0,No,All,All
+EMAIL-U002,Email/InboxNotifier,Unit,should load first page of emails,Verify getAllEmails pagination,P0,No,All,All
+EMAIL-U003,Email/InboxNotifier,Unit,should paginate to next page,Verify pagination,P0,No,All,All
+EMAIL-U004,Email/InboxNotifier,Unit,should stop pagination when no next page,Verify pagination end,P1,No,All,All
+EMAIL-U005,Email/InboxNotifier,Unit,should handle empty inbox,Verify empty state,P0,Yes,All,All
+EMAIL-U006,Email/InboxNotifier,Unit,should mark email as read,Verify status update,P0,No,All,All
+EMAIL-U007,Email/InboxNotifier,Unit,should mark email as unread,Verify status toggle,P0,No,All,All
+EMAIL-U008,Email/InboxNotifier,Unit,should archive email with undo,Verify archive + undo buffer,P0,No,All,All
+EMAIL-U009,Email/InboxNotifier,Unit,should restore email on undo,Verify undo operation,P0,No,All,All
+EMAIL-U010,Email/InboxNotifier,Unit,should delete email (move to trash),Verify trash operation,P0,No,All,All
+EMAIL-U011,Email/InboxNotifier,Unit,should add tags to emails,Verify tag addition,P1,No,All,All
+EMAIL-U012,Email/InboxNotifier,Unit,should remove tags from emails,Verify tag removal,P1,No,All,All
+EMAIL-U013,Email/InboxNotifier,Unit,should search emails by keyword,Verify search,P1,No,All,All
+EMAIL-U014,Email/InboxNotifier,Unit,should clear search and reload,Verify search clear,P1,No,All,All
+EMAIL-U015,Email/InboxNotifier,Unit,should select email for reading pane,Verify reading pane selection,P0,No,All,All
+EMAIL-U016,Email/InboxNotifier,Unit,should toggle checkbox selection,Verify multi-select,P1,No,All,All
+EMAIL-U017,Email/InboxNotifier,Unit,should select all emails,Verify select all,P1,No,All,All
+EMAIL-U018,Email/InboxNotifier,Unit,should handle bulk mark as read,Verify bulk action,P1,No,All,All
+EMAIL-U019,Email/InboxNotifier,Unit,should handle NoInternetException,Verify offline handling,P0,Yes,All,All
+EMAIL-U020,Email/InboxNotifier,Unit,should handle API error response,Verify error handling,P0,Yes,All,All
+EMAIL-U021,Email/InboxNotifier,Unit,should refresh list on pull-to-refresh,Verify refresh,P1,No,All,All
+EMAIL-U022,Email/InboxNotifier,Unit,should filter by tag IDs,Verify tag filter,P1,No,All,All
+EMAIL-U023,Email/InboxNotifier,Unit,should toggle filter overlay,Verify UI toggle,P2,No,All,All
+EMAIL-U024,Email/InboxNotifier,Unit,should toggle tag list overlay,Verify UI toggle,P2,No,All,All
+EMAIL-U025,Email/InboxNotifier,Unit,should toggle menu options overlay,Verify UI toggle,P2,No,All,All
+EMAIL-U026,Email/InboxNotifier,Unit,should update reading pane settings,Verify preference persistence,P1,No,All,All
+EMAIL-U027,Email/DraftNotifier,Unit,should bootstrap with clean state,Verify initial state,P0,No,All,All
+EMAIL-U028,Email/DraftNotifier,Unit,should load draft list,Verify draft fetch,P0,No,All,All
+EMAIL-U029,Email/DraftNotifier,Unit,should delete selected drafts,Verify bulk delete,P0,No,All,All
+EMAIL-U030,Email/DraftNotifier,Unit,should handle empty draft list,Verify empty state,P1,Yes,All,All
+EMAIL-U031,Email/DraftNotifier,Unit,should reject free user compose,Verify subscription check,P1,No,All,All
+EMAIL-U032,Email/ArchiveNotifier,Unit,should resolve initial route for archive,Verify route-based loading,P0,No,All,All
+EMAIL-U033,Email/ArchiveNotifier,Unit,should resolve initial route for sent,Verify route-based loading,P0,No,All,All
+EMAIL-U034,Email/ArchiveNotifier,Unit,should resolve initial route for trash,Verify route-based loading,P0,No,All,All
+EMAIL-U035,Email/ArchiveNotifier,Unit,should load archive emails,Verify archive fetch,P0,No,All,All
+EMAIL-U036,Email/ArchiveNotifier,Unit,should update email status (unarchive),Verify status change,P1,No,All,All
+EMAIL-U037,Email/EmailDetailNotifier,Unit,should load email detail by ID,Verify detail fetch,P0,No,All,All
+EMAIL-U038,Email/EmailDetailNotifier,Unit,should auto-mark as read in background,Verify background read,P0,No,All,All
+EMAIL-U039,Email/EmailDetailNotifier,Unit,should mark email as unread,Verify unread toggle,P1,No,All,All
+EMAIL-U040,Email/EmailDetailNotifier,Unit,should move email to archive,Verify archive action,P1,No,All,All
+EMAIL-U041,Email/EmailDetailNotifier,Unit,should move email to trash,Verify delete action,P1,No,All,All
+EMAIL-U042,Email/EmailDetailNotifier,Unit,should add tags to email,Verify tag management,P1,No,All,All
+EMAIL-U043,Email/EmailDetailNotifier,Unit,should prepare compose params for reply,Verify reply data,P1,No,All,All
+EMAIL-U044,Email/EmailDetailNotifier,Unit,should prepare compose params for forward,Verify forward data,P1,No,All,All
+EMAIL-U045,Email/EmailDetailNotifier,Unit,should prepare print URL,Verify print URL generation,P2,No,All,All
+EMAIL-U046,Email/EmailDetailNotifier,Unit,should handle detail load failure,Verify error state,P0,Yes,All,All
+EMAIL-U047,Email/InboxRepository,Unit,should fetch emails with pagination params,Verify repository call,P0,No,All,All
+EMAIL-U048,Email/InboxRepository,Unit,should return Result.failure on API error,Verify error wrapping,P0,Yes,All,All
+EMAIL-U049,Email/InboxRepository,Unit,should return Result.failure on NoInternetException,Verify offline error,P0,Yes,All,All
+EMAIL-U050,Email/InboxRepository,Unit,should update email status,Verify status update,P0,No,All,All
+EMAIL-U051,Email/InboxRepository,Unit,should manage email tags,Verify tag operations,P1,No,All,All
+EMAIL-U052,Email/InboxRepository,Unit,should permanently delete emails,Verify permanent delete,P1,No,All,All
+EMAIL-U053,Email/InboxRepository,Unit,should restore emails from trash,Verify restore,P1,No,All,All
+EMAIL-U054,Email/DraftRepository,Unit,should fetch drafts with pagination,Verify draft fetch,P0,No,All,All
+EMAIL-U055,Email/DraftRepository,Unit,should delete drafts,Verify draft delete,P0,No,All,All
+EMAIL-U056,Email/EmailDetailRepository,Unit,should fetch email detail,Verify detail fetch,P0,No,All,All
+EMAIL-U057,Email/InboxListModel,Unit,should deserialize from valid JSON,Verify fromJson,P0,No,All,All
+EMAIL-U058,Email/InboxListModel,Unit,should handle null data field,Verify null safety,P0,Yes,All,All
+EMAIL-U059,Email/InboxListModel,Unit,should serialize to JSON,Verify toJson,P1,No,All,All
+EMAIL-U060,Email/InboxListModel,Unit,should handle email with no attachments,Verify empty arrays,P1,Yes,All,All
+EMAIL-U061,Email/InboxListModel,Unit,should handle email with no tags,Verify empty tags,P1,Yes,All,All
+EMAIL-U062,Email/SentListModel,Unit,should deserialize from valid JSON,Verify fromJson,P0,No,All,All
+EMAIL-U063,Email/SentListModel,Unit,should handle nullable receiver fields,Verify null safety,P1,Yes,All,All
+EMAIL-U064,Email/ViewEmailModel,Unit,should deserialize from valid JSON,Verify fromJson,P0,No,All,All
+EMAIL-U065,Email/ViewEmailModel,Unit,should handle email with attachments,Verify attachment parsing,P0,No,All,All
+EMAIL-U066,Email/ViewDraftModel,Unit,should deserialize from valid JSON,Verify fromJson,P0,No,All,All
+EMAIL-U067,Email/DraftListModel,Unit,should deserialize from valid JSON,Verify fromJson,P0,No,All,All
+EMAIL-U068,Email/OptIn,Unit,should trigger opt-in action for unknown sender,Verify opt-in prompt on unknown sender action,P1,No,All,All
+EMAIL-U069,Email/OptIn,Unit,should trigger opt-in via email click (swipe/hover action),Verify opt-in from email list interaction,P1,No,All,All
+EMAIL-U070,Email/OptIn,Unit,should handle opt-in on send for single recipient,Verify opt-in prompt when sending to non-contact,P0,No,All,All
+EMAIL-U071,Email/OptIn,Unit,should handle opt-in on send for multiple recipients,Verify sequential opt-in for each non-contact recipient,P0,No,All,All
+EMAIL-U072,Email/OptIn,Unit,should handle cancel during opt-in on send,Verify cancel aborts send,P1,No,All,All
+EMAIL-U073,Email/OptIn,Unit,should handle skip during opt-in on send,Verify skip proceeds without saving contact,P1,No,All,All
+EMAIL-U074,Email/OptIn,Unit,should handle skip all during opt-in on send,Verify skip all bypasses remaining opt-in prompts,P1,No,All,All
+EMAIL-U075,Email/InternalMessaging,Unit,should send internal OptMsg message,Verify internal message delivery,P0,No,All,All
+EMAIL-U076,Email/InternalMessaging,Unit,should receive internal OptMsg message,Verify internal message receipt via socket,P0,No,All,All
+EMAIL-U077,Email/ExternalMessaging,Unit,should send external email,Verify external email delivery,P0,No,All,All
+EMAIL-U078,Email/ExternalMessaging,Unit,should receive external email,Verify external email receipt,P0,No,All,All
+EMAIL-U079,Email/Attachments,Unit,should download single attachment,Verify single file download,P1,No,All,All
+EMAIL-U080,Email/Attachments,Unit,should download all attachments,Verify batch download,P1,No,All,All
+EMAIL-U081,Email/Attachments,Unit,should open attachment,Verify file open/preview,P1,No,All,All
+EMAIL-U082,Email/MoveMessage,Unit,should move email from Inbox to Archive,Verify folder move,P0,No,All,All
+EMAIL-U083,Email/MoveMessage,Unit,should move email from Inbox to Trash,Verify folder move,P0,No,All,All
+EMAIL-U084,Email/MoveMessage,Unit,should move email from Trash to Inbox,Verify restore,P0,No,All,All
+EMAIL-U085,Email/MoveMessage,Unit,should move email from Archive to Inbox,Verify restore,P1,No,All,All
+EMAIL-U086,Email/MoveMessage,Unit,should undo move action,Verify undo,P1,No,All,All
+EMAIL-U087,Email/MoveMessage,Unit,should move multiple emails between folders,Verify batch move,P1,No,All,All
+EMAIL-U088,Email/Compose/CC_BCC,Unit,should add CC recipients to compose,Verify CC field,P1,No,All,All
+EMAIL-U089,Email/Compose/CC_BCC,Unit,should add BCC recipients to compose,Verify BCC field,P1,No,All,All
+EMAIL-U090,Email/Compose/CC_BCC,Unit,should add multiple CC and BCC recipients,Verify multi-recipient,P1,No,All,All
+EMAIL-U091,Email/Compose/CC_BCC,Unit,should validate CC/BCC email formats,Verify email validation,P1,Yes,All,All
+EMAIL-U092,Email/Search,Unit,should sort search results by date,Verify sort order,P1,No,All,All
+EMAIL-U093,Email/Search,Unit,should return search results within performance threshold,Verify search performance,P1,No,All,All
+EMAIL-U094,Email/Search,Unit,should display search suggestions/autocomplete,Verify suggestions,P2,No,All,All
+EMAIL-U095,Email/Search,Unit,should dismiss suggestion list on blur,Verify dismiss,P2,No,All,All
+EMAIL-U096,Email/Compose/Paste,Unit,should format pasted text with default font style,Verify paste formatting,P1,No,All,All
+EMAIL-U097,Email/Compose/Paste,Unit,should render pasted HTML content correctly,Verify HTML paste,P1,No,All,All
+EMAIL-U098,Email/Print,Unit,should generate print URL for email,Verify print URL,P2,No,All,All
+EMAIL-U099,Email/Print,Unit,should handle print to PDF,Verify PDF print,P2,No,All,All
+EMAIL-U100,Email/Sent,Unit,should display sent email with correct recipient details,Verify sent details,P1,No,All,All
+EMAIL-U101,Email/Sent,Unit,should forward a sent email,Verify forward,P1,No,All,All
+EMAIL-U102,Email/BouncedMessage,Unit,should return bounced message for Lapsed user (internal),Verify bounce,P1,No,All,All
+EMAIL-U103,Email/BouncedMessage,Unit,should return bounced message for Inactive user (internal),Verify bounce,P1,No,All,All
+EMAIL-U104,Email/BouncedMessage,Unit,should return bounced message for Suspended user (internal),Verify bounce,P1,No,All,All
+EMAIL-U105,Email/BouncedMessage,Unit,should return bounced message for Deleted user (internal),Verify bounce,P1,No,All,All
+EMAIL-U106,Email/BouncedMessage,Unit,should return bounced message for Lapsed user (external),Verify bounce,P1,No,All,All
+EMAIL-U107,Email/BouncedMessage,Unit,should return bounced message for Inactive user (external),Verify bounce,P1,No,All,All
+EMAIL-U108,Email/BouncedMessage,Unit,should not return bounced message for Active user,Verify no bounce,P0,No,All,All
+EMAIL-U109,Email/BouncedMessage,Unit,should return bounced message for invalid email address,Verify invalid bounce,P1,Yes,All,All
+EMAIL-U110,Email/UndoAction,Unit,should restore trashed email on undo,Verify trash undo,P0,No,All,All
+EMAIL-U111,Email/UndoAction,Unit,should restore all bulk-archived emails on undo,Verify bulk archive undo,P1,No,All,All
+EMAIL-U112,Email/UndoAction,Unit,should restore all bulk-trashed emails on undo,Verify bulk trash undo,P1,No,All,All
+EMAIL-U113,Email/UndoAction,Unit,should make action permanent after undo timeout expires,Verify undo expiry,P1,Yes,All,All
+EMAIL-U114,Email/UndoAction,Unit,should undo move-to-folder and restore to original folder,Verify folder move undo,P1,No,All,All
+EMAIL-U115,Email/UndoAction,Unit,should handle rapid undo-redo correctly,Verify undo idempotency,P2,Yes,All,All
+EMAIL-U116,Email/UndoAction,Unit,should only allow single undo per action (no double-undo),Verify single undo,P1,Yes,All,All
+EMAIL-U117,Email/DefaultClient,Unit,should process valid mailto URI and store email in SecureStorage,Verify _processEmailUri stores email,P0,No,All,All
+EMAIL-U118,Email/DefaultClient,Unit,should reject invalid mailto URI and not store,Verify _processEmailUri validates email,P0,Yes,All,All
+EMAIL-U119,Email/DefaultClient,Unit,should handle empty mailto URI path,Verify _processEmailUri handles empty,P1,Yes,All,All
+EMAIL-U120,Email/DefaultClient,Unit,should handle initial deep link on app launch (AppLinks.getInitialLink),Verify _handleIncomingLinks processes initial URI,P0,No,All,All
+EMAIL-U121,Email/DefaultClient,Unit,should listen for incoming mailto URIs via AppLinks stream,Verify _handleIncomingLinks stream listener,P0,No,All,All
+EMAIL-U122,Email/DefaultClient,Unit,should ignore non-mailto URIs from AppLinks stream,Verify URI scheme filtering,P1,Yes,All,All
+EMAIL-U123,Email/DefaultClient,Unit,should retrieve initial email via Android platform channel,Verify _retrieveInitialEmail on Android,P0,No,All,All
+EMAIL-U124,Email/DefaultClient,Unit,should handle null initial email on Android,Verify _retrieveInitialEmail null case,P1,Yes,All,All
+EMAIL-U125,Email/DefaultClient,Unit,should handle Android newIntent with email,Verify newIntent method handler,P0,No,All,All
+EMAIL-U126,Email/DefaultClient,Unit,should read stored mailto and build compose URL on inbox start,Verify _handleMailToOnStart,P0,No,All,All
+EMAIL-U127,Email/DefaultClient,Unit,should skip mailto handling when storage is empty,Verify _handleMailToOnStart with no mailto,P1,Yes,All,All
+EMAIL-U128,Email/DefaultClient,Unit,should skip mailto handling when user is not authenticated,Verify _handleMailToOnStart unauthenticated,P1,Yes,All,All
+EMAIL-U129,Email/DefaultClient,Unit,should handle mailto link tapped in email body (view_inbox),Verify mailto link handler in email detail,P1,No,All,All
+EMAIL-U130,Email/DefaultClient,Unit,should handle mailto link tapped in static pages,Verify mailto handler in StaticPages,P1,No,All,All
+EMAIL-U131,Email/Draft/AutoSave,Unit,should auto-save draft after inactivity period,Verify auto-save,P1,No,All,All
+EMAIL-U132,Email/Draft/AutoSave,Unit,should handle auto-save failure on network disconnect,Verify auto-save offline,P1,Yes,All,All
+EMAIL-U133,Email/Compose/Attachments,Unit,should reject unsupported file types,Verify file type filtering,P1,Yes,All,All
+EMAIL-U134,Email/Inbox/Sync,Unit,should sync unread status across multiple devices,Verify cross-device sync,P1,No,All,All
+EMAIL-U135,Email/Compose/Keyboard,Unit,should move focus to next field on Tab key press,Verify Tab navigation,Focus moves to Subject field,P2,All,All
+EMAIL-U136,Email/Compose/Keyboard,Unit,should move focus to previous field on Shift+Tab,Verify reverse Tab navigation,Focus moves to To field,P2,All,All
+EMAIL-U137,Email/Compose/Keyboard,Unit,should Tab through all compose fields sequentially,Verify full Tab cycle,Focus moves through To → CC → BCC → Subject → Body,P2,All,All
+EMAIL-U138,Email/Compose/Keyboard,Unit,should handle Tab on last input field,Verify Tab boundary,"Focus moves to next interactive element (e.g., Send button) or stays",P2,All,All
+EMAIL-U139,Email/Trash/NonContact,Unit,should route email from non-contact sender to Trash,Verify unknown sender routing,P1,No,All,All
+EMAIL-U140,Email/Print/OfflinePrinter,Unit,should handle print failure when printer is offline,Verify offline printer error,P2,Yes,All,All
+EMAIL-U141,Email/Print/PrinterQueue,Unit,should handle print when printer queue is full,Verify queue handling,P2,Yes,All,All
+EMAIL-U142,Email/Print/CorruptedEmail,Unit,should handle print failure for corrupted email content,Verify corrupted content,P2,Yes,All,All
+EMAIL-U143,Email/Inbox/ConcurrentDeletion,Unit,should handle race condition when email is deleted from another session during read,Verify concurrent deletion,P1,Yes,All,All
+EMAIL-W001,Email/Inbox,Widget,should render inbox email list,Verify list rendering,P0,No,All,Small
+EMAIL-W002,Email/Inbox,Widget,should show skeleton loader while loading,Verify loading state,P0,No,All,All
+EMAIL-W003,Email/Inbox,Widget,should show empty state when no emails,Verify empty state,P0,Yes,All,All
+EMAIL-W004,Email/Inbox,Widget,should navigate to compose on FAB tap,Verify compose navigation,P0,No,All,Small
+EMAIL-W005,Email/Inbox,Widget,should show search bar,Verify search presence,P1,No,All,All
+EMAIL-W006,Email/Inbox,Widget,should filter emails on search,Verify search interaction,P1,No,All,All
+EMAIL-W007,Email/Inbox,Widget,should show desktop layout with reading pane,Verify desktop layout,P0,No,Web,Large
+EMAIL-W008,Email/Inbox,Widget,should show mobile layout without reading pane,Verify mobile layout,P0,No,All,Small
+EMAIL-W009,Email/Inbox,Widget,should show tablet landscape with reading pane,Verify tablet layout,P1,No,"iOS, Android",Medium
+EMAIL-W010,Email/Inbox,Widget,should show tablet portrait as mobile,Verify tablet portrait fallback,P1,No,"iOS, Android",Medium
+EMAIL-W011,Email/Inbox,Widget,should select email and show in reading pane,Verify reading pane,P0,No,Web,Large
+EMAIL-W012,Email/Inbox,Widget,should enter multi-select mode on long press,Verify selection,P1,No,All,Small
+EMAIL-W013,Email/Inbox,Widget,should show action bar with archive/delete/tag,Verify action bar,P1,No,All,All
+EMAIL-W014,Email/Inbox,Widget,should show upgrade popup for free users,Verify upgrade prompt,P1,No,All,All
+EMAIL-W015,Email/Inbox,Widget,should show filter overlay on filter tap,Verify filter UI,P1,No,All,All
+EMAIL-W016,Email/Inbox,Widget,should show notification badge,Verify badge,P2,No,All,All
+EMAIL-W017,Email/Draft,Widget,should render draft list,Verify draft rendering,P0,No,All,Small
+EMAIL-W018,Email/Draft,Widget,should navigate to compose on draft tap,Verify draft resume,P0,No,All,All
+EMAIL-W019,Email/Draft,Widget,should delete drafts on selection,Verify delete,P0,No,All,All
+EMAIL-W020,Email/Draft,Widget,should show empty state for no drafts,Verify empty,P1,Yes,All,All
+EMAIL-W021,Email/Archive,Widget,should render archive email list,Verify archive rendering,P0,No,All,Small
+EMAIL-W022,Email/Archive,Widget,should render sent email list,Verify sent rendering,P0,No,All,Small
+EMAIL-W023,Email/Archive,Widget,should render trash email list,Verify trash rendering,P0,No,All,Small
+EMAIL-W024,Email/Archive,Widget,should show restore option in trash,Verify trash action,P1,No,All,All
+EMAIL-W025,Email/Archive,Widget,should show permanent delete in trash,Verify permanent delete,P1,No,All,All
+EMAIL-W026,Email/EmailList,Widget,should render email item with sender name,Verify rendering,P0,No,All,All
+EMAIL-W027,Email/EmailList,Widget,should show unread indicator dot,Verify unread,P0,No,All,All
+EMAIL-W028,Email/EmailList,Widget,should not show dot for read emails,Verify read state,P0,No,All,All
+EMAIL-W029,Email/EmailList,Widget,should show attachment icon when attachments exist,Verify attachment indicator,P1,No,All,All
+EMAIL-W030,Email/EmailList,Widget,should show tag chips,Verify tag display,P1,No,All,All
+EMAIL-W031,Email/EmailList,Widget,should show hover actions on desktop,Verify hover,P1,No,Web,Large
+EMAIL-W032,Email/EmailList,Widget,should trigger long press selection,Verify long press,P1,No,All,Small
+EMAIL-W033,Email/EmailList,Widget,should handle community status flag,Verify community,P2,No,All,All
+EMAIL-W034,Email/DraftEmailList,Widget,should render draft item,Verify rendering,P0,No,All,All
+EMAIL-W035,Email/DraftEmailList,Widget,should show hover delete on desktop,Verify hover,P1,No,Web,Large
+EMAIL-W036,Email/SentEmailList,Widget,should render sent item with recipients,Verify rendering,P0,No,All,All
+EMAIL-W037,Email/SentEmailList,Widget,should show context-appropriate actions,Verify actions,P1,No,All,All
+EMAIL-W038,Email/CustomDismissible,Widget,should swipe left for actions,Verify swipe left,P1,No,"iOS, Android",Small
+EMAIL-W039,Email/CustomDismissible,Widget,should swipe right for opt-in,Verify swipe right,P1,No,"iOS, Android",Small
+EMAIL-W040,Email/ReadingPane,Widget,should render email content in reading pane,Verify reading pane content,P0,No,Web,Large
+EMAIL-W041,Email/ReadingPane,Widget,should show empty state when no email selected,Verify empty pane,P1,Yes,Web,Large
+EMAIL-W042,Email/ReadingPane,Widget,should toggle reading pane on and off,Verify reading pane toggle,P1,No,Web,Large
+EMAIL-W043,Email/EmailList,Widget,should toggle message between read and unread states,Verify read/unread toggle via UI action,P1,No,All,All
+EMAIL-W044,Email/Attachments,Widget,should show attachment bar with icons for each attachment,Verify attachment bar rendering,P1,No,All,All
+EMAIL-W045,Email/Attachments,Widget,should wrap attachment icons correctly when exceeding row width,Verify attachment bar wrapping,P1,Yes,All,Small
+EMAIL-W046,Email/Attachments,Widget,should show download all button when multiple attachments,Verify batch download button,P1,No,All,All
+EMAIL-W047,Email/Attachments,Widget,should trigger single attachment download on tap,Verify download action,P1,No,All,All
+EMAIL-W048,Email/Attachments,Widget,should open attachment on tap,Verify open action,P1,No,All,All
+EMAIL-W049,Email/Compose,Widget,should hide CC/BCC fields by default in compose,Verify CC/BCC hidden,P1,No,All,All
+EMAIL-W050,Email/Compose,Widget,should expand CC/BCC fields on demand,Verify CC/BCC expand,P1,No,All,All
+EMAIL-W051,Email/Compose,Widget,should collapse CC/BCC fields when empty and unfocused,Verify auto-collapse,P1,No,All,All
+EMAIL-W052,Email/Compose,Widget,should retain CC/BCC fields when populated,Verify retention,P1,No,All,All
+EMAIL-W053,Email/Compose,Widget,should hide CC/BCC in direct reply,Verify reply compose,P1,No,All,All
+EMAIL-W054,Email/Compose,Widget,should pre-fill CC on reply-all,Verify reply-all,P1,No,All,All
+EMAIL-W055,Email/MoveMessage,Widget,should show undo toast after moving email to Archive,Verify undo UI,P1,No,All,All
+EMAIL-W056,Email/MoveMessage,Widget,should show undo toast after moving email to Trash,Verify undo UI,P1,No,All,All
+EMAIL-W057,Email/Search,Widget,should show search suggestion list on input,Verify suggestions UI,P2,No,All,All
+EMAIL-W058,Email/Search,Widget,should dismiss suggestion list when search bar loses focus,Verify dismiss,P2,No,All,All
+EMAIL-W059,Email/Print,Widget,should show print option in email detail actions,Verify print button,P2,No,Web,Large
+EMAIL-W060,Email/Sent,Widget,"should display recipient To, CC, BCC details in sent email",Verify sent details,P1,No,All,All
+EMAIL-W061,Email/Sent,Widget,should show Forward button in sent email detail,Verify forward action,P1,No,All,All
+EMAIL-W062,Email/UndoAction,Widget,should restore archived email to inbox list on undo tap,Verify archive undo action,P0,No,All,All
+EMAIL-W063,Email/UndoAction,Widget,should restore trashed email to inbox list on undo tap,Verify trash undo action,P0,No,All,All
+EMAIL-W064,Email/UndoAction,Widget,should restore all bulk-archived emails on undo tap,Verify bulk archive undo,P1,No,All,All
+EMAIL-W065,Email/UndoAction,Widget,should restore all bulk-trashed emails on undo tap,Verify bulk trash undo,P1,No,All,All
+EMAIL-W066,Email/UndoAction,Widget,should auto-dismiss undo toast after timeout,Verify undo expiry UI,P1,Yes,All,All
+EMAIL-W067,Email/UndoAction,Widget,should restore moved email to original folder on undo tap,Verify move undo action,P1,No,All,All
+EMAIL-W068,Email/UndoAction,Widget,should update sidebar/drawer counts after undo,Verify count sync on undo,P1,No,All,All
+EMAIL-W069,Email/DefaultClient,Widget,should render mailto link in email body as tappable,Verify mailto rendering,P1,No,All,All
+EMAIL-W070,Email/DefaultClient,Widget,should open compose on mailto link tap in email body,Verify mailto tap,P1,No,All,All
+EMAIL-W071,Email/DefaultClient,Widget,should render mailto link in static page HTML as tappable,Verify mailto in static pages,P1,No,All,All
+EMAIL-W072,Email/DefaultClient,Widget,should open compose on mailto link tap in static page,Verify static page mailto tap,P1,No,All,All
+CONT-U001,Contact/ContactListNotifier,Unit,should initialize with empty state,Verify initial state,P0,No,All,All
+CONT-U002,Contact/ContactListNotifier,Unit,should load all contacts,Verify fetch,P0,No,All,All
+CONT-U003,Contact/ContactListNotifier,Unit,should handle empty contact list,Verify empty state,P0,Yes,All,All
+CONT-U004,Contact/ContactListNotifier,Unit,should search contacts by name,Verify search filter,P1,No,All,All
+CONT-U005,Contact/ContactListNotifier,Unit,should search contacts by company,Verify company search,P1,No,All,All
+CONT-U006,Contact/ContactListNotifier,Unit,should clear search and show all,Verify search clear,P1,No,All,All
+CONT-U007,Contact/ContactListNotifier,Unit,should select contact for reading pane,Verify selection,P1,No,All,All
+CONT-U008,Contact/ContactListNotifier,Unit,should enable reading pane for tablet landscape,Verify adaptive setting,P1,No,All,All
+CONT-U009,Contact/ContactListNotifier,Unit,should handle network error on fetch,Verify error handling,P0,Yes,All,All
+CONT-U010,Contact/AddContactNotifier,Unit,should initialize with empty form state,Verify initial state,P0,No,All,All
+CONT-U011,Contact/AddContactNotifier,Unit,should add contact successfully,Verify create,P0,No,All,All
+CONT-U012,Contact/AddContactNotifier,Unit,should handle duplicate email on add,Verify validation,P1,Yes,All,All
+CONT-U013,Contact/AddContactNotifier,Unit,should add dynamic email field,Verify dynamic form,P1,No,All,All
+CONT-U014,Contact/AddContactNotifier,Unit,should remove dynamic email field,Verify removal,P1,No,All,All
+CONT-U015,Contact/AddContactNotifier,Unit,should validate required fields,Verify validation,P0,Yes,All,All
+CONT-U016,Contact/AddContactNotifier,Unit,should validate email format,Verify email validation,P0,Yes,All,All
+CONT-U017,Contact/EditContactNotifier,Unit,should load existing contact data,Verify pre-fill,P0,No,All,All
+CONT-U018,Contact/EditContactNotifier,Unit,should update contact successfully,Verify edit,P0,No,All,All
+CONT-U019,Contact/EditContactNotifier,Unit,should handle edit API failure,Verify error,P1,Yes,All,All
+CONT-U020,Contact/ViewContactNotifier,Unit,should load contact details,Verify detail fetch,P0,No,All,All
+CONT-U021,Contact/ViewContactNotifier,Unit,should delete contact,Verify delete,P0,No,All,All
+CONT-U022,Contact/ViewContactNotifier,Unit,should add email to contact,Verify email addition,P1,No,All,All
+CONT-U023,Contact/ViewContactNotifier,Unit,should delete email from contact,Verify email removal,P1,No,All,All
+CONT-U024,Contact/ContactRepository,Unit,should fetch contacts with pagination,Verify repo,P0,No,All,All
+CONT-U025,Contact/ContactRepository,Unit,should fetch contact details,Verify repo,P0,No,All,All
+CONT-U026,Contact/ContactRepository,Unit,should delete contact,Verify repo,P0,No,All,All
+CONT-U027,Contact/ContactRepository,Unit,should add/delete email,Verify repo,P1,No,All,All
+CONT-U028,Contact/ContactRepository,Unit,should handle NoInternetException,Verify offline,P0,Yes,All,All
+CONT-U029,Contact/ContactListModel,Unit,should deserialize from valid JSON,Verify fromJson,P0,No,All,All
+CONT-U030,Contact/ContactListModel,Unit,should compute contact initials,Verify computed property,P1,No,All,All
+CONT-U031,Contact/ContactListModel,Unit,should handle null emails list,Verify null safety,P1,Yes,All,All
+CONT-U032,Contact/ContactListModel,Unit,should serialize to JSON,Verify toJson,P1,No,All,All
+CONT-U033,Contact/SearchEmailModel,Unit,should deserialize from valid JSON,Verify fromJson,P1,No,All,All
+CONT-U034,Contact/ContactEmailDetailsModel,Unit,should deserialize from valid JSON,Verify fromJson,P1,No,All,All
+CONT-U035,Contact/SettingsNotifier,Unit,should enable contact sync via toggleSyncContacts(true),Verify sync enable,P1,No,All,All
+CONT-U036,Contact/SettingsNotifier,Unit,should disable contact sync via toggleSyncContacts(false),Verify sync disable,P1,No,All,All
+CONT-U037,Contact/SettingsNotifier,Unit,should handle toggleSyncContacts API failure,Verify error handling,P1,Yes,All,All
+CONT-U038,Contact/SettingsNotifier,Unit,should handle toggleSyncContacts network error,Verify offline handling,P1,Yes,All,All
+CONT-U041,Contact/Security,Unit,should sanitize SQL injection in contact name fields,Verify SQL injection prevention,P1,Yes,All,All
+CONT-U042,Contact/Security,Unit,should sanitize XSS script in contact fields,Verify XSS prevention,P1,Yes,All,All
+CONT-U043,Contact/Validation,Unit,should reject numeric values in name fields,Verify name validation,P1,Yes,All,All
+CONT-U044,Contact/Validation,Unit,should reject special characters in name fields,Verify name character validation,P1,Yes,All,All
+CONT-U045,Contact/MultipleEmails,Unit,should prevent removing the last email from a contact,Verify last email protection,P1,Yes,All,All
+CONT-U046,Contact/DeviceSync,Unit,should re-sync contacts when a device contact is updated,Verify update sync,P1,No,All,All
+CONT-U047,Contact/DeviceSync,Unit,should re-sync contacts when a new device contact is added,Verify add sync,P1,No,All,All
+CONT-U048,Contact/DeviceSync,Unit,should re-sync contacts when a device contact is deleted,Verify delete sync,P1,No,All,All
+CONT-U039,Contact/ImportContact,Unit,should handle denied contacts permission gracefully,Verify permission denied,P1,Yes,All,All
+CONT-U040,Contact/ImportContact,Unit,should import device contacts via flutter_contacts,Verify import flow,P1,No,All,All
+CONT-W001,Contact/List,Widget,should render contact list,Verify rendering,P0,No,All,Small
+CONT-W002,Contact/List,Widget,should show empty state,Verify empty,P0,Yes,All,All
+CONT-W003,Contact/List,Widget,should navigate to add contact,Verify navigation,P0,No,All,All
+CONT-W004,Contact/List,Widget,should search contacts,Verify search,P1,No,All,All
+CONT-W005,Contact/List,Widget,should show reading pane on desktop,Verify desktop layout,P1,No,Web,Large
+CONT-W006,Contact/List,Widget,should show reading pane on tablet landscape,Verify tablet layout,P1,No,"iOS, Android",Medium
+CONT-W007,Contact/List,Widget,should show mobile layout on portrait,Verify mobile,P1,No,All,Small
+CONT-W008,Contact/List,Widget,should select contact and show in reading pane,Verify selection,P1,No,Web,Large
+CONT-W009,Contact/Add,Widget,should render add contact form,Verify rendering,P0,No,All,All
+CONT-W010,Contact/Add,Widget,should show validation errors on empty submit,Verify validation,P0,Yes,All,All
+CONT-W011,Contact/Add,Widget,should add email field dynamically,Verify dynamic form,P1,No,All,All
+CONT-W012,Contact/Add,Widget,should remove email field,Verify removal,P1,No,All,All
+CONT-W013,Contact/Add,Widget,should scroll to new email field,Verify scroll,P2,No,All,Small
+CONT-W014,Contact/Add,Widget,should save contact and pop,Verify save,P0,No,All,All
+CONT-W015,Contact/Add,Widget,should navigate back on cancel,Verify cancel,P1,No,All,All
+CONT-W016,Contact/View,Widget,should render contact details,Verify rendering,P0,No,All,All
+CONT-W017,Contact/View,Widget,should navigate to edit,Verify navigation,P0,No,All,All
+CONT-W018,Contact/View,Widget,should show delete confirmation,Verify delete dialog,P0,No,All,All
+CONT-W019,Contact/View,Widget,should delete contact on confirm,Verify delete action,P0,No,All,All
+CONT-W020,Contact/View,Widget,should show email action menu on mobile,Verify mobile menu,P1,No,iOS,Small
+CONT-W021,Contact/View,Widget,should show popup menu on desktop,Verify desktop menu,P1,No,Web,Large
+CONT-W022,Contact/View,Widget,should compose email to contact,Verify compose,P1,No,All,All
+CONT-W023,Contact/View,Widget,should render in reading pane mode,Verify reading pane,P1,No,Web,Large
+CONT-W024,Contact/Edit,Widget,should render edit form pre-filled,Verify pre-fill,P0,No,All,All
+CONT-W025,Contact/Edit,Widget,should save changes and pop,Verify edit save,P0,No,All,All
+CONT-W026,Contact/Edit,Widget,should show validation on invalid email,Verify validation,P1,Yes,All,All
+CONT-W027,Contact/Import,Widget,should render import contact screen,Verify rendering,P1,No,"iOS, Android",Small
+CONT-W028,Contact/SyncToggle,Widget,should show contact sync toggle in settings screen,Verify toggle,P1,No,"iOS, Android",All
+CONT-W029,Contact/SyncToggle,Widget,should toggle contact sync on/off,Verify toggle action,P1,No,"iOS, Android",All
+CONT-W030,Contact/Import,Widget,should show permission request dialog for device contacts access,Verify permission prompt,P1,No,"iOS, Android",Small
+CONT-W031,Contact/Import,Widget,should render import contact mobile layout,Verify mobile layout,P1,No,"iOS, Android",Small
+CONT-I001,Contact/CRUDFlow,Integration,should create and view new contact,Full add flow,"Contact created, appears in list",All,All,All
+CONT-I002,Contact/CRUDFlow,Integration,should edit existing contact,Full edit flow,"Contact updated, changes visible",All,All,All
+CONT-I003,Contact/CRUDFlow,Integration,should delete contact with confirmation,Full delete flow,"Contact deleted, removed from list",All,All,All
+CONT-I004,Contact/EmailManagement,Integration,should add email to existing contact,Email add flow,"Email added, details updated",All,All,All
+CONT-I005,Contact/EmailManagement,Integration,should remove email from contact,Email remove flow,"Email removed, details updated",All,All,All
+CONT-I006,Contact/SearchFlow,Integration,should search and select contact,Search integration,"Search filters list, selection works",All,All,All
+SET-U001,Settings/SettingsNotifier,Unit,should initialize and fetch user data,Verify init,P0,No,All,All
+SET-U002,Settings/SettingsNotifier,Unit,should toggle biometric setting,Verify biometric toggle,P1,No,All,All
+SET-U003,Settings/SettingsNotifier,Unit,should toggle notification setting,Verify notification toggle,P1,No,All,All
+SET-U004,Settings/SettingsNotifier,Unit,should toggle contact sync,Verify sync toggle,P1,No,All,All
+SET-U005,Settings/SettingsNotifier,Unit,should toggle contact sort order,Verify sort toggle,P2,No,All,All
+SET-U006,Settings/SettingsNotifier,Unit,should perform logout,Verify logout,P0,No,All,All
+SET-U007,Settings/ProfileNotifier,Unit,should fetch profile data,Verify fetch,P0,No,All,All
+SET-U008,Settings/ProfileNotifier,Unit,should enable edit mode,Verify mode toggle,P1,No,All,All
+SET-U009,Settings/ProfileNotifier,Unit,should disable edit and revert changes,Verify cancel,P1,No,All,All
+SET-U010,Settings/ProfileNotifier,Unit,should submit profile changes,Verify save,P0,No,All,All
+SET-U011,Settings/ProfileNotifier,Unit,should validate profile form,Verify validation,P0,Yes,All,All
+SET-U012,Settings/ProfileNotifier,Unit,should pick date of birth,Verify DOB picker,P1,No,All,All
+SET-U013,Settings/AccountNotifier,Unit,should load account info,Verify fetch,P0,No,All,All
+SET-U014,Settings/AccountNotifier,Unit,should show delete account dialog,Verify dialog,P0,No,All,All
+SET-U015,Settings/AccountNotifier,Unit,should delete account and logout,Verify delete,P0,No,All,All
+SET-U016,Settings/AccountNotifier,Unit,should navigate to billing details,Verify navigation,P1,No,All,All
+SET-U017,Settings/AccountAPI,Unit,should call deleteAccount endpoint,Verify API,P0,No,All,All
+SET-U018,Settings/AccountAPI,Unit,should call getProfile endpoint,Verify API,P0,No,All,All
+SET-U019,Settings/AccountAPI,Unit,should call editProfile endpoint,Verify API,P0,No,All,All
+SET-U020,Settings/SettingAPI,Unit,should call toggleNotification endpoint,Verify API,P1,No,All,All
+SET-U021,Settings/SettingAPI,Unit,should call deviceBiometric endpoint,Verify API,P1,No,All,All
+SET-U022,Settings/SettingAPI,Unit,should call logout endpoint,Verify API,P0,No,All,All
+SET-U023,Settings/ProfileModel,Unit,should deserialize from valid JSON,Verify fromJson,P0,No,All,All
+SET-U024,Settings/ProfileModel,Unit,should handle nullable fields,Verify null safety,P1,Yes,All,All
+SET-U025,Settings/ProfileModel,Unit,should serialize to JSON,Verify toJson,P1,No,All,All
+SET-U026,Settings/SettingsNotifier,Unit,should toggle Face ID setting on Face ID capable device,Verify Face ID toggle,P1,No,All,All
+SET-U027,Settings/SettingsNotifier,Unit,should toggle Touch ID setting on Touch ID capable device,Verify Touch ID toggle,P1,No,All,All
+SET-U028,Settings/SettingsNotifier,Unit,should display appropriate biometric label based on device capability,Verify label detection,P1,No,All,All
+SET-U029,Settings/ContactSort,Unit,should sort contacts by first name when toggle is ON,Verify first name sort,P1,No,All,All
+SET-U030,Settings/ContactSort,Unit,should sort contacts by last name when toggle is OFF,Verify last name sort,P1,No,All,All
+SET-U031,Settings/ContactSort,Unit,should switch from first name to last name sort on toggle change,Verify sort switch,P1,No,All,All
+SET-U032,Settings/ContactSort,Unit,should switch from last name to first name sort on toggle change,Verify reverse sort switch,P1,No,All,All
+SET-U033,Settings/ProfileNotifier,Unit,should reject future date of birth,Verify DOB future date validation,P1,Yes,All,All
+SET-W001,Settings/Main,Widget,should render settings options,Verify rendering,P0,No,All,All
+SET-W002,Settings/Main,Widget,should navigate to profile,Verify navigation,P1,No,All,All
+SET-W003,Settings/Main,Widget,should navigate to account,Verify navigation,P1,No,All,All
+SET-W004,Settings/Main,Widget,should toggle biometric switch,Verify toggle,P1,No,"iOS, Android",All
+SET-W005,Settings/Main,Widget,should toggle notification switch,Verify toggle,P1,No,All,All
+SET-W006,Settings/Main,Widget,should show logout confirmation,Verify logout,P0,No,All,All
+SET-W007,Settings/Main,Widget,should render mobile layout,Verify responsive,P1,No,All,Small
+SET-W008,Settings/Main,Widget,should render desktop layout with sidebar,Verify responsive,P1,No,Web,Large
+SET-W009,Settings/Profile,Widget,should render profile view,Verify rendering,P0,No,All,All
+SET-W010,Settings/Profile,Widget,should show edit button on mobile,Verify edit button,P1,No,All,Small
+SET-W011,Settings/Profile,Widget,should switch to edit mode,Verify mode change,P1,No,All,All
+SET-W012,Settings/Profile,Widget,should save profile changes,Verify save,P0,No,All,All
+SET-W013,Settings/Profile,Widget,should cancel edit and revert,Verify cancel,P1,No,All,All
+SET-W014,Settings/Account,Widget,should render account details,Verify rendering,P0,No,All,All
+SET-W015,Settings/Account,Widget,should show loading spinner,Verify loading,P1,No,All,All
+SET-W016,Settings/Account,Widget,should show delete account option,Verify delete button,P0,No,All,All
+SET-W017,Settings/Account,Widget,should show delete confirmation dialog,Verify dialog,P0,No,All,All
+SET-W018,Settings/Main,Widget,should show Face ID toggle on Face ID capable devices,Verify Face ID UI,P1,No,iOS,All
+SET-W019,Settings/Main,Widget,should show Touch ID toggle on Touch ID capable devices,Verify Touch ID UI,P1,No,iOS,All
+TAG-U001,Tags/TagsNotifier,Unit,should initialize and load tags,Verify init,P1,No,All,All
+TAG-U002,Tags/TagsNotifier,Unit,should add new tag,Verify creation,P1,No,All,All
+TAG-U003,Tags/TagsNotifier,Unit,should reject tag name over 20 chars,Verify validation,P1,Yes,All,All
+TAG-U004,Tags/TagsNotifier,Unit,should edit existing tag,Verify edit,P1,No,All,All
+TAG-U005,Tags/TagsNotifier,Unit,should delete tag,Verify delete,P1,No,All,All
+TAG-U006,Tags/TagsNotifier,Unit,should sync with legacy TagsProvider,Verify sync,P2,No,All,All
+TAG-U007,Tags/TagsNotifier,Unit,should refresh if user changed,Verify account switch,P2,Yes,All,All
+TAG-U008,Tags/TagsNotifier,Unit,should handle API error on add,Verify error,P1,Yes,All,All
+TAG-U009,Tags/TagsNotifier,Unit,should handle NoInternetException,Verify offline,P1,Yes,All,All
+TAG-U010,Tags/TagAPI,Unit,should call getTagsList endpoint,Verify API,P1,No,All,All
+TAG-U011,Tags/TagAPI,Unit,should call addTags endpoint,Verify API,P1,No,All,All
+TAG-U012,Tags/TagAPI,Unit,should call editTag endpoint,Verify API,P1,No,All,All
+TAG-U013,Tags/TagAPI,Unit,should call deleteTag endpoint,Verify API,P1,No,All,All
+TAG-U014,Tags/TagsListModel,Unit,should deserialize from valid JSON,Verify fromJson,P1,No,All,All
+TAG-U015,Tags/TagsListModel,Unit,should serialize to JSON,Verify toJson,P1,No,All,All
+TAG-U016,Tags/TagsListModel,Unit,should handle empty tags array,Verify empty,P1,Yes,All,All
+TAG-U017,Tags/CommunityRecommendations,Unit,should display Community Recommendations tag in email body,Verify tag display,P1,No,All,All
+TAG-U018,Tags/CommunityRecommendations,Unit,should display Community Recommendations tag in notification,Verify notification tag,P1,No,All,All
+TAG-U019,Tags/CommunityRecommendations,Unit,should not display Community Recommendations tag when admin has not set it,Verify tag absence,P1,No,All,All
+TAG-U020,Tags/CommunityRecommendations,Unit,should open email with Community Recommendations tag from notification tap,Verify notification tap,P1,No,All,All
+TAG-U021,Tags/CommunityRecommendations,Unit,should not tag email from invalid/misconfigured sender as Community Recommendations,Verify invalid sender,P2,Yes,All,All
+TAG-W001,Tags/List,Widget,should render tags list,Verify rendering,P1,No,All,All
+TAG-W002,Tags/List,Widget,should show empty state,Verify empty,P1,Yes,All,All
+TAG-W003,Tags/List,Widget,should add new tag,Verify add,P1,No,All,All
+TAG-W004,Tags/List,Widget,should edit tag name,Verify edit,P1,No,All,All
+TAG-W005,Tags/List,Widget,should delete tag with confirmation,Verify delete,P1,No,All,All
+TAG-W006,Tags/List,Widget,should render mobile layout,Verify responsive,P2,No,All,Small
+TAG-W007,Tags/List,Widget,should render desktop layout with sidebar,Verify responsive,P2,No,Web,Large
+NOTIF-U001,Notification/NotificationNotifier,Unit,should fetch first page of notifications,Verify fetch,P1,No,All,All
+NOTIF-U002,Notification/NotificationNotifier,Unit,should paginate notifications,Verify pagination,P1,No,All,All
+NOTIF-U003,Notification/NotificationNotifier,Unit,should delete notification,Verify delete,P1,No,All,All
+NOTIF-U004,Notification/NotificationNotifier,Unit,should toggle read status,Verify toggle,P1,No,All,All
+NOTIF-U005,Notification/NotificationNotifier,Unit,should handle empty notifications,Verify empty,P1,Yes,All,All
+NOTIF-U006,Notification/NotificationAPI,Unit,should call getNotification endpoint,Verify API,P1,No,All,All
+NOTIF-U007,Notification/NotificationAPI,Unit,should call notificationDelete endpoint,Verify API,P1,No,All,All
+NOTIF-U008,Notification/NotificationAPI,Unit,should call notificationRead endpoint,Verify API,P1,No,All,All
+NOTIF-U009,Notification/NotificationListModel,Unit,should deserialize from valid JSON,Verify fromJson,P1,No,All,All
+NOTIF-U010,Notification/NotificationListModel,Unit,should handle notification with null emailId,Verify null safety,P1,Yes,All,All
+NOTIF-U011,Notification/PushNotification,Unit,should display push notification for new email from contact,Verify contact push,P1,No,All,All
+NOTIF-U012,Notification/PushNotification,Unit,should display push notification for new email from non-contact,Verify non-contact push,P1,No,All,All
+NOTIF-U013,Notification/PushNotification,Unit,should navigate to email detail on push notification tap,Verify tap navigation,P1,No,All,All
+NOTIF-U014,Notification/PushNotification,Unit,should navigate to login if not authenticated on push notification tap,Verify unauthenticated tap,P1,Yes,All,All
+NOTIF-U015,Notification/AppIconBadge,Unit,should display app icon badge count on iOS,Verify iOS badge,P1,No,All,All
+NOTIF-U016,Notification/AppIconBadge,Unit,should display app icon badge count on Android,Verify Android badge,P1,No,All,All
+NOTIF-U017,Notification/AppIconBadge,Unit,should clear app icon badge when all notifications read,Verify badge clear,P1,No,All,All
+NOTIF-U018,Notification/AppIconBadge,Unit,should update badge count in real time via socket event,Verify real-time badge,P1,No,All,All
+NOTIF-U019,Notification/AppIconBadge,Unit,should persist badge count across app backgrounding,Verify badge persistence,P1,No,All,All
+NOTIF-U020,Notification/PushNotification,Unit,should display push notification for email with attachment,Verify attachment notification,P1,No,All,All
+NOTIF-U021,Notification/PushNotification,Unit,should not display push notification for already-read emails,Verify no duplicate notification,P1,Yes,All,All
+NOTIF-U022,Notification/PushNotification,Unit,should display push notification when email is replied to,Verify reply notification,P1,No,All,All
+NOTIF-U023,Notification/PushNotification,Unit,should not display push notification for emails moved to archive,Verify archived email suppression,P1,Yes,All,All
+NOTIF-U024,Notification/PushNotification,Unit,should display push notification when email is forwarded to user,Verify forwarded notification,P1,No,All,All
+NOTIF-U025,Notification/PushNotification,Unit,should navigate to Trash when tapping notification for non-contact email,Verify non-contact navigation,P1,No,All,All
+NOTIF-U026,Notification/PushNotification,Unit,should show Add Contact popup when tapping notification from unknown sender,Verify Add Contact prompt,P1,No,All,All
+NOTIF-U027,Notification/PushNotification,Unit,should revert to non-contact notification behavior when contact is removed,Verify removed contact handling,P1,Yes,All,All
+NOTIF-U028,Notification/PushNotification,Unit,should take no action if email is deleted before notification tap,Verify deleted email handling,P1,Yes,All,All
+NOTIF-U029,Notification/PushNotification,Unit,should display correct contact details in Add Contact popup from notification,Verify contact details,P1,No,All,All
+NOTIF-U030,Notification/PushNotification,Unit,should not show Add Contact popup if sender already in contacts,Verify known sender bypass,P1,No,All,All
+NOTIF-U031,Notification/PushNotification,Unit,should mark email as read after push notification click,Verify read status update,P1,No,All,All
+NOTIF-U032,Notification/AppIconBadge,Unit,should update badge count after marking email as read from email detail,Verify badge decrement on read,P1,No,All,All
+NOTIF-U033,Notification/AppIconBadge,Unit,should restore correct badge count after re-login,Verify badge on re-login,P1,No,All,All
+NOTIF-U034,Notification/AppIconBadge,Unit,should handle badge count discrepancy between server and local state,Verify badge sync,P1,Yes,All,All
+NOTIF-U035,Notification/AppIconBadge,Unit,should not display badge when iOS notification permission is disabled,Verify iOS permission disabled,P1,Yes,All,All
+NOTIF-U036,Notification/AppIconBadge,Unit,should not display badge when user is logged out,Verify logged-out state,P1,Yes,All,All
+NOTIF-U037,Notification/AppIconBadge,Unit,should not display badge when Android OS-level notification is blocked,Verify Android notification blocked,P1,Yes,All,All
+NOTIF-W001,Notification/List,Widget,should render notification list,Verify rendering,P1,No,All,All
+NOTIF-W002,Notification/List,Widget,should show empty state,Verify empty,P1,Yes,All,All
+NOTIF-W003,Notification/List,Widget,should swipe to delete,Verify swipe delete,P1,No,"iOS, Android",Small
+NOTIF-W004,Notification/List,Widget,should swipe to mark read/unread,Verify swipe toggle,P1,No,"iOS, Android",Small
+NOTIF-W005,Notification/List,Widget,should expand notification on tap,Verify expand,P1,No,All,All
+NOTIF-W006,Notification/List,Widget,should show unread indicator dot,Verify unread,P1,No,All,All
+NOTIF-W007,Notification/List,Widget,should pull to refresh,Verify refresh,P2,No,All,Small
+NOTIF-W008,Notification/List,Widget,should load more on scroll to end,Verify infinite scroll,P2,No,All,All
+NOTIF-W009,Notification/PushBanner,Widget,should display in-app push notification banner for new email,Verify in-app banner,P1,No,All,All
+NOTIF-W010,Notification/PushBanner,Widget,should navigate to email on in-app banner tap,Verify banner tap,P1,No,All,All
+NOTIF-W011,Notification/PushBanner,Widget,should auto-dismiss in-app banner after timeout,Verify auto-dismiss,P2,No,All,All
+NOTIF-W012,Notification/Badge,Widget,should display notification bell badge count in app bar,Verify bell badge,P1,No,All,All
+NOTIF-W013,Notification/Badge,Widget,should hide notification bell badge when count is zero,Verify badge hidden,P1,No,All,All
+NAV-U001,Dashboard/BottomNavNotifier,Unit,should initialize with correct default index,Verify initial state,P0,No,All,All
+NAV-U002,Dashboard/BottomNavNotifier,Unit,should set index only once on init,Verify single init,P1,Yes,All,All
+NAV-U003,Dashboard/BottomNavNotifier,Unit,should change tab index,Verify tab switch,P0,No,All,All
+NAV-U004,Dashboard/BottomNavNotifier,Unit,should show/hide nav bar,Verify visibility toggle,P1,No,All,All
+NAV-U005,Dashboard/BottomNavNotifier,Unit,should update counts from socket,Verify socket sync,P0,No,All,All
+NAV-U006,Dashboard/BottomNavState,Unit,should have correct defaults,Verify Freezed state,P0,No,All,All
+NAV-U007,Navigation/AuthNotifier,Unit,should check auth status from storage,Verify auth check,P0,No,All,All
+NAV-U008,Navigation/AuthNotifier,Unit,should return false when not authenticated,Verify unauthenticated,P0,No,All,All
+NAV-U009,Navigation/Router,Unit,should include all route paths,Verify route registration,P0,No,All,All
+NAV-U010,Navigation/Router,Unit,should redirect unauthenticated to login,Verify auth guard,P0,No,All,All
+NAV-U011,Navigation/Router,Unit,should allow authenticated access to inbox,Verify auth pass,P0,No,All,All
+NAV-U012,Navigation/AppRoutes,Unit,should define all required route constants,Verify constants,P1,No,All,All
+NAV-W001,Dashboard/BottomNav,Widget,should render bottom navigation bar,Verify rendering,P0,No,All,Small
+NAV-W002,Dashboard/BottomNav,Widget,should switch pages on tab tap,Verify tab switching,P0,No,All,Small
+NAV-W003,Dashboard/BottomNav,Widget,should show loading scaffold when loading,Verify loading,P1,No,All,All
+NAV-W004,Dashboard/BottomNav,Widget,should display correct page for each index,Verify all tabs,P0,No,All,Small
+NAV-W005,Dashboard/SideMenu,Widget,should render side menu with all items,Verify rendering,P0,No,Web,Large
+NAV-W006,Dashboard/SideMenu,Widget,should show badge counts,Verify badges,P1,No,Web,Large
+NAV-W007,Dashboard/SideMenu,Widget,should collapse to icons only,Verify collapse,P1,No,Web,Large
+NAV-W008,Dashboard/SideMenu,Widget,should toggle collapse on button,Verify toggle,P1,No,Web,Large
+NAV-W009,Dashboard/SideMenu,Widget,should highlight selected item,Verify selection,P1,No,Web,Large
+NAV-W010,Dashboard/SideMenu,Widget,should call onCompose callback,Verify compose,P0,No,Web,Large
+NAV-W011,Dashboard/Drawer,Widget,should render drawer with menu items,Verify rendering,P1,No,All,Small
+NAV-W012,Dashboard/Drawer,Widget,should show real-time count updates,Verify socket,P1,No,All,Small
+NAV-W013,Dashboard/Drawer,Widget,should close on item tap,Verify dismiss,P1,No,All,Small
+NAV-W014,Dashboard/ActionBar,Widget,should render action bar on medium screens,Verify medium layout,P1,No,All,Medium
+NAV-W015,Dashboard/ActionBar,Widget,should render action bar on large screens,Verify large layout,P1,No,Web,Large
+NAV-W016,Dashboard/SideMenu,Widget,should render collapsed menu on small screens (show less),Verify small menu,P1,No,Web,Small
+NAV-W017,Dashboard/SideMenu,Widget,should render medium menu with icons and labels,Verify medium menu,P1,No,Web,Medium
+NAV-W018,Dashboard/SideMenu,Widget,should render fully expanded menu on large screens,Verify large menu,P1,No,Web,Large
+NAV-W019,Dashboard/SideMenu,Widget,should toggle show less / show more for menu items,Verify show less toggle,P1,No,Web,Large
+NAV-W020,Dashboard/FAB,Widget,should show floating compose icon on inbox screen,Verify FAB visibility,P0,No,All,Small
+NAV-W021,Dashboard/FAB,Widget,should show floating compose icon on all main screens,Verify FAB across screens,P1,No,All,Small
+NAV-W022,Dashboard/FAB,Widget,should not show floating compose icon on Login or Onboarding screens,Verify FAB hidden,P1,No,All,All
+NAV-W023,Dashboard/FAB,Widget,should open compose screen on FAB tap,Verify FAB action,P0,No,All,Small
+NAV-W024,Dashboard/FAB,Widget,should not open multiple compose screens on rapid FAB taps,Verify debounce,P1,Yes,All,All
+NAV-W025,Dashboard/FAB,Widget,should remain visible in landscape mode,Verify landscape FAB,P1,No,"iOS, Android",Small
+NAV-W026,Dashboard/FAB,Widget,should be correctly positioned (bottom-right) across orientations,Verify FAB position,P2,No,All,All
+NAV-W027,Dashboard/FAB,Widget,should remain functional after app resumes from background,Verify FAB after resume,P1,No,"iOS, Android",All
+NAV-W028,Dashboard/LeftMenuCounts,Widget,should display correct Inbox count matching actual email count,Verify count accuracy,P1,No,All,All
+NAV-W029,Dashboard/LeftMenuCounts,Widget,should update counts dynamically when emails move between folders,Verify dynamic update,P1,No,All,All
+NAV-W030,Dashboard/LeftMenuCounts,Widget,should display correct Draft count matching actual draft count,Verify draft count accuracy,P1,No,All,All
+NAV-W031,Dashboard/LeftMenuCounts,Widget,should display correct Archive count matching actual archive count,Verify archive count accuracy,P1,No,All,All
+NAV-W032,Dashboard/LeftMenuCounts,Widget,should display correct Trash count matching actual trash count,Verify trash count accuracy,P1,No,All,All
+NAV-W033,Dashboard/LeftMenuCounts,Widget,should update Draft count when draft sent,Verify draft count on send,P1,No,All,All
+NAV-W034,Dashboard/LeftMenuCounts,Widget,should update Trash count when email moved from Trash to Inbox,Verify trash to inbox count,P1,No,All,All
+NAV-W035,Dashboard/LeftMenuCounts,Widget,should update Archive count when email moved from Archive to Inbox,Verify archive to inbox count,P1,No,All,All
+SUB-U001,Subscription/PaymentListModel,Unit,should deserialize from valid JSON,Verify fromJson,P1,No,All,All
+SUB-U002,Subscription/PaymentListModel,Unit,should handle empty payment list,Verify empty,P1,Yes,All,All
+SUB-U003,Subscription/PlanListModel,Unit,should deserialize from valid JSON,Verify fromJson,P1,No,All,All
+SUB-U004,Subscription/PlanListModel,Unit,should handle nullable stripeProductId,Verify null safety,P1,Yes,All,All
+SUB-U005,Subscription/PlanListModel,Unit,should parse features list,Verify array parsing,P1,No,All,All
+SUB-U006,Subscription/CheckOut,Unit,should use correct platform implementation,Verify platform check,P1,No,All,All
+SUB-U007,Subscription/Renewal,Unit,should process account renewal successfully,Verify renewal flow,P0,No,All,All
+SUB-U008,Subscription/Renewal,Unit,should handle renewal with updated payment method,Verify payment method change on renewal,P1,No,All,All
+SUB-U009,Subscription/Renewal,Unit,should handle failed renewal gracefully,Verify failed renewal,P0,Yes,All,All
+SUB-U010,Subscription/Upgrade,Unit,should upgrade account from free to paid plan,Verify upgrade flow,P0,No,All,All
+SUB-U011,Subscription/Downgrade,Unit,should downgrade account from paid to lower tier,Verify downgrade flow,P1,No,All,All
+SUB-U012,Subscription/Upgrade,Unit,should handle prorated billing on mid-cycle upgrade,Verify proration,P1,No,All,All
+SUB-U013,Subscription/PromoCode,Unit,should apply valid percentage-based promo code,Verify % promo,P1,No,All,All
+SUB-U014,Subscription/PromoCode,Unit,should apply valid dollar-amount promo code,Verify $ promo,P1,No,All,All
+SUB-U015,Subscription/PromoCode,Unit,should apply valid time-limited promo code before expiry,Verify time-limited promo,P1,No,All,All
+SUB-U016,Subscription/PromoCode,Unit,should reject expired promo code,Verify expired promo,P1,Yes,All,All
+SUB-U017,Subscription/PromoCode,Unit,should reject promo code exceeding usage cap,Verify usage cap,P1,Yes,All,All
+SUB-U018,Subscription/PromoCode,Unit,should reject invalid/nonexistent promo code,Verify invalid promo,P1,Yes,All,All
+SUB-U019,Subscription/PromoCode,Unit,should enforce minimum purchase requirement for promo code,Verify min purchase,P1,Yes,All,All
+SUB-U020,Subscription/PaymentMethod,Unit,should add new credit/debit card via Stripe,Verify add card,P1,No,All,All
+SUB-U021,Subscription/PaymentMethod,Unit,should delete existing payment method,Verify delete card,P1,No,All,All
+SUB-U022,Subscription/PaymentMethod,Unit,should update default payment method,Verify update default,P1,No,All,All
+SUB-U023,Subscription/PaymentMethod,Unit,should prevent deletion of last payment method on active subscription,Verify delete guard,P1,Yes,All,All
+SUB-U024,Subscription/PaymentMethod,Unit,should handle declined card on add,Verify declined card,P1,Yes,All,All
+SUB-W001,Subscription/Plans,Widget,should render plan selection cards,Verify rendering,P1,No,All,All
+SUB-W002,Subscription/Plans,Widget,should highlight annual plan with savings badge,Verify badge,P1,No,All,All
+SUB-W003,Subscription/Plans,Widget,should select plan on tap,Verify selection,P1,No,All,All
+SUB-W004,Subscription/Plans,Widget,should navigate to checkout,Verify navigation,P1,No,All,All
+SUB-W005,Subscription/Plans,Widget,should show payment history,Verify history,P1,No,All,All
+SUB-W006,Subscription/Plans,Widget,should show loading spinner,Verify loading,P2,No,All,All
+SUB-W007,Subscription/EmailPlan,Widget,should render plan card with features,Verify rendering,P1,No,All,All
+SUB-W008,Subscription/EmailPlan,Widget,should show check icons for included features,Verify icons,P2,No,All,All
+SUB-W009,Subscription/Account,Widget,should show renewal date and subscription status,Verify renewal info,P1,No,All,All
+SUB-W010,Subscription/Account,Widget,should navigate to renewal flow,Verify renewal navigation,P1,No,All,All
+SUB-W011,Subscription/Plans,Widget,should show upgrade and downgrade options relative to current plan,Verify plan comparison,P1,No,All,All
+SUB-W012,Subscription/Plans,Widget,should confirm plan change on upgrade or downgrade,Verify confirmation dialog,P1,No,All,All
+SUB-W013,Subscription/PromoCode,Widget,should render promo code input field on checkout screen,Verify promo UI,P1,No,All,All
+SUB-W014,Subscription/PromoCode,Widget,should show discount applied message and updated total,Verify discount UI,P1,No,All,All
+SUB-W015,Subscription/PromoCode,Widget,should show error message for invalid promo code,Verify promo error UI,P1,Yes,All,All
+SUB-W016,Subscription/PaymentMethod,Widget,should render list of saved payment methods,Verify payment list UI,P1,No,All,All
+SUB-W017,Subscription/PaymentMethod,Widget,should show add payment method form,Verify add card UI,P1,No,All,All
+SUB-W018,Subscription/PaymentMethod,Widget,should show delete confirmation for payment method,Verify delete confirm UI,P1,No,All,All
+SUB-W019,Subscription/PaymentMethod,Widget,should highlight default payment method,Verify default indicator,P2,No,All,All
+HELP-U001,HelpCenter/HelpCenterNotifier,Unit,should select FAQ category,Verify category selection,P2,No,All,All
+HELP-U002,HelpCenter/HelpCenterNotifier,Unit,should search FAQs,Verify search,P2,No,All,All
+HELP-U003,HelpCenter/HelpCenterNotifier,Unit,should toggle expand item,Verify toggle,P2,No,All,All
+HELP-U004,HelpCenter/HelpCenterNotifier,Unit,should collapse all items,Verify collapse all,P2,No,All,All
+HELP-U005,HelpCenter/StaticPageModel,Unit,should deserialize from valid JSON,Verify fromJson,P2,No,All,All
+HELP-U006,HelpCenter/FaqStaticPageModel,Unit,should deserialize from valid JSON,Verify fromJson,P2,No,All,All
+HELP-U007,HelpCenter/FaqStaticPageModel,Unit,should handle null fields,Verify null safety,P2,Yes,All,All
+HELP-U008,HelpCenter/VersionDisplay,Unit,should return current app version string,Verify version retrieval,P1,No,All,All
+HELP-W001,HelpCenter/Main,Widget,should render help center,Verify rendering,P2,No,All,All
+HELP-W002,HelpCenter/Main,Widget,should expand FAQ item on tap,Verify expand,P2,No,All,All
+HELP-W003,HelpCenter/Main,Widget,should render mobile layout,Verify responsive,P2,No,All,Small
+HELP-W004,HelpCenter/StaticPage,Widget,should render HTML content,Verify HTML rendering,P2,No,All,All
+HELP-W005,HelpCenter/Main,Widget,should display current app version in help center,Verify version rendering,P1,No,All,All
+HELP-W006,HelpCenter/Navigation,Widget,should navigate to Contact Us page from help center,Verify Contact Us navigation,P1,No,All,All
+HELP-W007,HelpCenter/Navigation,Widget,should navigate to FAQ page from help center,Verify FAQ navigation,P1,No,All,All
+HELP-W008,HelpCenter/Navigation,Widget,should navigate to Privacy Policy page from help center,Verify Privacy Policy navigation,P1,No,All,All
+HELP-W009,HelpCenter/Navigation,Widget,should navigate to Terms & Conditions page from help center,Verify Terms navigation,P1,No,All,All
+HELP-W010,HelpCenter/Navigation,Widget,should navigate back to help center from sub-page,Verify back navigation,P1,No,All,All
+CORE-U001,Core/Result,Unit,should create success result with data,Verify factory,P0,No,All,All
+CORE-U002,Core/Result,Unit,should create failure result with error,Verify factory,P0,No,All,All
+CORE-U003,Core/Result,Unit,should map success data,Verify map,P0,No,All,All
+CORE-U004,Core/Result,Unit,should not map failure data,Verify map skip,P0,No,All,All
+CORE-U005,Core/Result,Unit,should handle map exception,Verify map error,P0,Yes,All,All
+CORE-U006,Core/Result,Unit,should mapError on failure,Verify mapError,P1,No,All,All
+CORE-U007,Core/Result,Unit,should not mapError on success,Verify mapError skip,P1,No,All,All
+CORE-U008,Core/Result,Unit,should fold success,Verify fold,P0,No,All,All
+CORE-U009,Core/Result,Unit,should fold failure,Verify fold,P0,No,All,All
+CORE-U010,Core/Result,Unit,should handle fold with null data success,Verify edge,P0,Yes,All,All
+CORE-U011,Core/RequestResponse,Unit,should hold data and null error,Verify DTO,P0,No,All,All
+CORE-U012,Core/RequestResponse,Unit,should hold error and null data,Verify DTO,P0,No,All,All
+CORE-U013,Core/RequestError,Unit,should deserialize from JSON,Verify fromJson,P0,No,All,All
+CORE-U014,Core/RequestError,Unit,should create from singleMessage factory,Verify factory,P0,No,All,All
+CORE-U015,Core/RequestError,Unit,should handle errors array format,Verify multi-error,P1,Yes,All,All
+CORE-U016,Core/RequestError,Unit,should handle detail format,Verify format variant,P1,Yes,All,All
+CORE-U017,Core/RequestError,Unit,should handle match_format format,Verify format variant,P1,Yes,All,All
+CORE-U018,Service/ApiService,Unit,should make GET request with auth headers,Verify GET,P0,No,All,All
+CORE-U019,Service/ApiService,Unit,should make POST request with body,Verify POST,P0,No,All,All
+CORE-U020,Service/ApiService,Unit,should inject Descope refresh JWT,Verify token injection,P0,No,All,All
+CORE-U021,Service/ApiService,Unit,should handle no Descope session,Verify no session,P1,Yes,All,All
+CORE-U022,Service/ApiService,Unit,should throw NoInternetException on SocketException,Verify offline handling,P0,Yes,All,All
+CORE-U023,Service/ApiService,Unit,should throw NoInternetException on TimeoutException,Verify timeout,P0,Yes,All,All
+CORE-U024,Service/ApiService,Unit,should handle 401 status code,Verify session expiry,P0,Yes,All,All
+CORE-U025,Service/ApiService,Unit,should handle 405 status code,Verify session expiry,P0,Yes,All,All
+CORE-U026,Service/ApiService,Unit,should include platform header,Verify headers,P1,No,All,All
+CORE-U027,Service/ApiService,Unit,should include version header,Verify headers,P1,No,All,All
+CORE-U028,Service/BaseAPIService,Unit,should make request with correct method type,Verify method dispatch,P0,No,All,All
+CORE-U029,Service/BaseAPIService,Unit,should check internet before request (non-web),Verify connectivity check,P0,No,All,All
+CORE-U030,Service/BaseAPIService,Unit,should skip internet check on web,Verify web bypass,P1,No,All,All
+CORE-U031,Service/BaseAPIService,Unit,should return RequestResponse with data on success,Verify success response,P0,No,All,All
+CORE-U032,Service/BaseAPIService,Unit,should return RequestResponse with error on failure,Verify error response,P0,No,All,All
+CORE-U033,Service/RefreshableService,Unit,should inject refresh JWT header,Verify Descope header,P0,No,All,All
+CORE-U034,Service/RefreshableService,Unit,should handle missing Descope session,Verify fallback,P1,Yes,All,All
+CORE-U035,Service/StorageService,Unit,should write and read string data,Verify write/read,P0,No,All,All
+CORE-U036,Service/StorageService,Unit,should return null for missing key,Verify missing,P0,Yes,All,All
+CORE-U037,Service/StorageService,Unit,should delete data,Verify delete,P0,No,All,All
+CORE-U038,Service/StorageService,Unit,should write and read object data,Verify object storage,P0,No,All,All
+CORE-U039,Service/StorageService,Unit,should update specific object field,Verify partial update,P1,No,All,All
+CORE-U040,Service/StorageService,Unit,should clear all data,Verify logout cleanup,P0,No,All,All
+CORE-U041,Service/StorageService,Unit,should handle PlatformException -25308,Verify iOS error,P1,Yes,All,All
+CORE-U042,Service/SocketService,Unit,should initialize socket with URL and token,Verify init,P0,No,All,All
+CORE-U043,Service/SocketService,Unit,should emit event with acknowledgment,Verify emit,P1,No,All,All
+CORE-U044,Service/SocketService,Unit,should listen to events,Verify subscription,P0,No,All,All
+CORE-U045,Service/SocketService,Unit,should return stream for event,Verify stream,P1,No,All,All
+CORE-U046,Service/SocketService,Unit,should disconnect cleanly,Verify disconnect,P1,No,All,All
+CORE-U047,Service/SocketService,Unit,should attempt reconnection,Verify reconnect,P1,Yes,All,All
+CORE-U048,Service/SocketService,Unit,should update CountNotifier on unReadCount,Verify count sync,P0,No,All,All
+CORE-U049,Service/CommonService,Unit,should format date string correctly,Verify date format,P1,No,All,All
+CORE-U050,Service/CommonService,Unit,should handle null date string,Verify null safety,P1,Yes,All,All
+CORE-U051,Service/CommonService,Unit,should detect platform correctly,Verify getPlatform,P1,No,All,All
+CORE-U052,Service/CommonService,Unit,should validate email format,Verify isValidEmail,P0,No,All,All
+CORE-U053,Service/CommonService,Unit,should validate invalid emails,Verify email rejection,P0,Yes,All,All
+CORE-U054,Service/CommonService,Unit,should capitalize string,Verify capitalize,P2,No,All,All
+CORE-U055,Service/CommonService,Unit,should handle empty string capitalize,Verify edge,P2,Yes,All,All
+CORE-U056,Service/CommonService,Unit,should format file size,Verify formatFileSize,P2,No,All,All
+CORE-U057,Service/CommonService,Unit,should truncate with ellipsis,Verify truncate,P2,No,All,All
+CORE-U058,Service/CommonService,Unit,should sanitize email message,Verify sanitize,P1,No,All,All
+CORE-U059,Service/CommonService,Unit,should convert plain URL to HTML link,Verify URL detection,P2,No,All,All
+CORE-U060,Service/FormValidation,Unit,should validate required name,Verify validateName,P0,No,All,All
+CORE-U061,Service/FormValidation,Unit,should accept valid name,Verify validateName,P0,No,All,All
+CORE-U062,Service/FormValidation,Unit,should validate email format,Verify validateEmail,P0,No,All,All
+CORE-U063,Service/FormValidation,Unit,should accept valid email,Verify validateEmail,P0,No,All,All
+CORE-U064,Service/FormValidation,Unit,should validate phone number (10 digits),Verify validatePhoneNumber,P0,No,All,All
+CORE-U065,Service/FormValidation,Unit,should reject non-numeric phone,Verify phone,P0,Yes,All,All
+CORE-U066,Service/FormValidation,Unit,should accept valid phone,Verify phone,P0,No,All,All
+CORE-U067,Service/FormValidation,Unit,should validate DOB format,Verify validateDob,P1,Yes,All,All
+CORE-U068,Service/FormValidation,Unit,should reject future DOB,Verify validateDob,P1,Yes,All,All
+CORE-U069,Service/FormValidation,Unit,should validate tag name max length,Verify validateTagName,P1,Yes,All,All
+CORE-U070,Service/FormValidation,Unit,should accept valid tag name,Verify validateTagName,P1,No,All,All
+CORE-U071,Service/FormValidation,Unit,should confirm matching emails,Verify confirmEmail,P1,No,All,All
+CORE-U072,Service/FormValidation,Unit,should reject non-matching emails,Verify confirmEmail,P1,Yes,All,All
+CORE-U073,Service/NetworkService,Unit,should detect internet connectivity,Verify connectivity,P0,No,All,All
+CORE-U074,Service/NetworkService,Unit,should detect no internet,Verify offline,P0,No,All,All
+CORE-U075,Service/FilePickerService,Unit,should return file path on selection,Verify pick,P1,No,All,All
+CORE-U076,Service/FilePickerService,Unit,should return null on cancel,Verify cancel,P1,Yes,All,All
+CORE-U077,Service/NotificationService,Unit,should initialize FCM,Verify init,P1,No,All,All
+CORE-U078,Service/NotificationService,Unit,should handle foreground message,Verify foreground,P1,No,All,All
+CORE-U079,Service/NotificationService,Unit,should navigate on notification tap,Verify tap handling,P1,No,All,All
+CORE-U080,Service/NotificationService,Unit,should redirect to login if not authenticated,Verify auth check,P1,Yes,All,All
+CORE-U081,Service/Breakpoints,Unit,should detect mobile for width < 600,Verify isMobile,P0,No,All,All
+CORE-U082,Service/Breakpoints,Unit,should detect tablet for width 600-1023,Verify isTablet,P0,No,All,All
+CORE-U083,Service/Breakpoints,Unit,should detect desktop for width >= 1024,Verify isDesktop,P0,No,All,All
+CORE-U084,Service/Breakpoints,Unit,should return correct DeviceType enum,Verify getDeviceType,P0,No,All,All
+CORE-U085,Service/Breakpoints,Unit,should detect phone (shortestSide < 600),Verify isPhone,P1,No,All,All
+CORE-U086,Service/Breakpoints,Unit,should detect phone landscape,Verify isPhoneLandscape,P1,No,All,All
+CORE-U087,Service/Breakpoints,Unit,should not show reading pane when height < 500,Verify height check,P1,Yes,All,All
+CORE-U088,Service/Breakpoints,Unit,should detect native tablet portrait as mobile,Verify tablet handling,P1,No,All,All
+CORE-U089,Service/Breakpoints,Unit,should detect native tablet landscape as tablet,Verify tablet handling,P1,No,All,All
+CORE-U090,Service/DescopeApiService,Unit,should make POST with Bearer token,Verify auth header,P1,No,All,All
+CORE-U091,Service/CountNotifier,Unit,should update all counts,Verify counts,P0,No,All,All
+CORE-U092,Service/CountNotifier,Unit,should handle email sending flow,Verify triggerEmail,P1,No,All,All
+CORE-U093,Service/CountNotifier,Unit,should display add email modal for opt-in,Verify opt-in flow,P1,No,All,All
+CORE-U094,Service/GlobalVariableNotifier,Unit,should track navigation paths,Verify path tracking,P2,No,All,All
+CORE-U095,Service/GlobalVariableNotifier,Unit,should clear path list,Verify clear,P2,No,All,All
+CORE-U096,Service/UpdateNotifier,Unit,should track update dialog visibility,Verify visibility,P2,No,All,All
+CORE-U097,Service/UpdateNotifier,Unit,should track optional update dismissal,Verify dismissal,P2,No,All,All
+WID-W001,Widget/CustomTextFormField,Widget,should render with label,Verify rendering,P0,No,All,All
+WID-W002,Widget/CustomTextFormField,Widget,should accept text input,Verify input,P0,No,All,All
+WID-W003,Widget/CustomTextFormField,Widget,should show validation error,Verify validation,P0,No,All,All
+WID-W004,Widget/CustomTextFormField,Widget,should toggle password visibility,Verify password,P1,No,All,All
+WID-W005,Widget/CustomTextFormField,Widget,should strip spaces for username type,Verify space removal,P1,No,All,All
+WID-W006,Widget/SimpleTextFormField,Widget,should render with label,Verify rendering,P0,No,All,All
+WID-W007,Widget/GrayTextFormField,Widget,should render with gray background,Verify styling,P2,No,All,All
+WID-W008,Widget/ClickableText,Widget,should render text segments,Verify rendering,P1,No,All,All
+WID-W009,Widget/ClickableText,Widget,should call onTap on segment tap,Verify interaction,P1,No,All,All
+WID-W010,Widget/CustomGradientButton,Widget,should render with text,Verify rendering,P0,No,All,All
+WID-W011,Widget/CustomGradientButton,Widget,should call onPressed on tap,Verify interaction,P0,No,All,All
+WID-W012,Widget/CustomGradientButton,Widget,should render with leading icon,Verify icon,P1,No,All,All
+WID-W013,Widget/CommonWebButton,Widget,should render icon and label,Verify rendering,P1,No,Web,Large
+WID-W014,Widget/CommonWebButton,Widget,should call hover callbacks,Verify hover,P2,No,Web,Large
+WID-W015,Widget/FooterButton,Widget,should render two buttons,Verify rendering,P1,No,All,All
+WID-W016,Widget/FooterButton,Widget,should call correct callback per button,Verify callbacks,P1,No,All,All
+WID-W017,Widget/CustomPopupModal,Widget,should render dialog with title,Verify rendering,P1,No,All,All
+WID-W018,Widget/CustomPopupModal,Widget,should render with optional form field,Verify form,P1,No,All,All
+WID-W019,Widget/CustomPopupModal,Widget,should call button callbacks,Verify callbacks,P1,No,All,All
+WID-W020,Widget/PopUpModalTagList,Widget,should render tag list with checkboxes,Verify rendering,P1,No,All,All
+WID-W021,Widget/PopUpModalTagList,Widget,should pre-select initial tags,Verify pre-selection,P1,No,All,All
+WID-W022,Widget/PopUpModalTagList,Widget,should toggle tag selection,Verify toggle,P1,No,All,All
+WID-W023,Widget/PopUpModalTagList,Widget,should cancel and revert selections,Verify cancel,P1,No,All,All
+WID-W024,Widget/PopUpModalTagList,Widget,should add tag via creation form,Verify creation,P1,No,All,All
+WID-W025,Widget/CustomSearchBar,Widget,should render search input,Verify rendering,P1,No,All,All
+WID-W026,Widget/CustomSearchBar,Widget,should call onSearch on input,Verify search,P1,No,All,All
+WID-W027,Widget/CustomSearchBar,Widget,should clear on icon tap,Verify clear,P1,No,All,All
+WID-W028,Widget/DateOfBirthPicker,Widget,should render with label,Verify rendering,P1,No,All,All
+WID-W029,Widget/DateOfBirthPicker,Widget,should open date picker on icon tap,Verify picker,P1,No,All,All
+WID-W030,Widget/DateOfBirthPicker,Widget,should format selected date,Verify formatting,P1,No,All,All
+WID-W031,Widget/SkeletonLoader,Widget,should render with shimmer animation,Verify animation,P1,No,All,All
+WID-W032,Widget/SkeletonLoader,Widget,should render EmailListItemSkeleton variant,Verify variant,P2,No,All,All
+WID-W033,Widget/SkeletonLoader,Widget,should render DesktopInboxSkeletonLoader,Verify desktop variant,P2,No,Web,Large
+WID-W034,Widget/NoData,Widget,should render empty state for inbox,Verify rendering,P1,No,All,All
+WID-W035,Widget/NoData,Widget,should render empty state for contacts,Verify variant,P1,No,All,All
+WID-W036,Widget/NoData,Widget,should render custom title,Verify custom,P2,No,All,All
+WID-W037,Widget/CustomToast,Widget,should render success toast,Verify success variant,P1,No,All,All
+WID-W038,Widget/CustomToast,Widget,should render error toast,Verify error variant,P1,No,All,All
+WID-W039,Widget/CustomToast,Widget,should render undo toast,Verify undo variant,P1,No,All,All
+WID-W040,Widget/CustomToast,Widget,should call undoMethod on undo tap,Verify undo action,P1,No,All,All
+WID-W041,Widget/CustomToast,Widget,should call close on X tap,Verify close,P1,No,All,All
+WID-W042,Widget/GradientAppBar,Widget,should render app bar with gradient,Verify rendering,P0,No,All,All
+WID-W043,Widget/GradientAppBar,Widget,should show free trial banner,Verify banner,P1,No,All,All
+WID-W044,Widget/GradientAppBar,Widget,should hide banner when hideUpgradeBanner=true,Verify hide,P1,No,All,All
+WID-W045,Widget/GradientAppBar,Widget,should show compact banner on tablet,Verify responsive,P2,No,All,Medium
+WID-W046,Widget/GradientBackground,Widget,should render child with gradient,Verify rendering,P2,No,All,All
+WID-W047,Widget/AddEmailModal,Widget,should render modal with form fields,Verify rendering,P1,No,All,All
+WID-W048,Widget/AddEmailModal,Widget,should validate email in modal,Verify validation,P1,Yes,All,All
+WID-W049,Widget/AddEmailModal,Widget,should call saveFlag on success,Verify callback,P1,No,All,All
+WID-W050,Widget/AddEmailModal,Widget,should show skip button,Verify skip,P1,No,All,All
+WID-W051,Widget/AddEmailModal,Widget,should show add to existing option,Verify existing,P2,No,All,All
+WID-W052,Widget/CreditCardWidget,Widget,should render card details,Verify rendering,P2,No,All,All
+WID-W053,Widget/CreditCardWidget,Widget,should call onDelete,Verify delete,P2,No,All,All
+WID-W054,Widget/CustomSwitchListTile,Widget,should render switch with title,Verify rendering,P1,No,All,All
+WID-W055,Widget/CustomSwitchListTile,Widget,should toggle on tap,Verify toggle,P1,No,All,All
+WID-W056,Widget/DraggableDivider,Widget,should render divider line,Verify rendering,P2,No,Web,Large
+WID-W057,Widget/DraggableDivider,Widget,should resize on drag,Verify drag,P2,No,Web,Large
+WID-W058,Widget/DraggableDivider,Widget,should respect min/max constraints,Verify bounds,P2,Yes,Web,Large
+WID-W059,Widget/LogoWithSlogan,Widget,should render logo and text,Verify rendering,P2,No,All,All
+WID-W060,Widget/DashedBorder,Widget,should render dashed line,Verify custom paint,P2,No,All,All
+WID-W061,Widget/CountryPicker,Widget,should render country code,Verify rendering,P2,No,All,All
+WID-W062,Widget/UpgradePlanPopup,Widget,should render upgrade prompt,Verify rendering,P1,No,All,All
+WID-W063,Widget/UpgradePlanPopup,Widget,should navigate to plans on tap,Verify navigation,P1,No,All,All
+WID-W064,Widget/LoadContainer,Widget,should show loader when loading,Verify loading,P0,No,All,All
+WID-W065,Widget/LoadContainer,Widget,should show child when not loading,Verify normal,P0,No,All,All
+WID-W066,Widget/BottomNavAction,Widget,should render action buttons,Verify rendering,P1,No,All,Small
+WID-W067,Widget/BottomNavAction,Widget,should open tag modal on tag tap,Verify interaction,P1,No,All,Small
+WID-W068,Widget/Onboarding,Widget,should render onboarding screens,Verify rendering,P2,No,All,All
+NET-W001,Network/NoInternet,Widget,should render offline message,Verify rendering,P0,No,All,All
+NET-W002,Network/NoInternet,Widget,should show check connection button,Verify button,P0,No,All,All
+NET-W003,Network/NoInternet,Widget,should dismiss on connection restored,Verify auto-dismiss,P0,No,All,All
+NET-W004,Network/NoInternet,Widget,should check manually on button tap,Verify manual check,P1,No,All,All
+INT-I001,Auth+Inbox,Integration,should load inbox after successful login,Login to inbox flow,Login succeeds → inbox loads with emails,All,All,All
+INT-I002,Auth+Storage,Integration,should restore session from storage,App restart with session,"App skips login, shows inbox",All,All,All
+INT-I003,Inbox+Socket,Integration,should update inbox count on socket event,Real-time count update,unReadCount event → badge updates,All,All,All
+INT-I004,Inbox+Socket,Integration,should add new email on newMessage event,Real-time email arrival,newMessage event → email appears in list,All,All,All
+INT-I005,Inbox+Tags,Integration,should filter inbox by tag,Tag filtering,Select tag filter → filtered list,All,All,All
+INT-I006,Inbox+Detail,Integration,should load email detail on selection,Email viewing,Tap email → detail loaded in reading pane or screen,All,All,All
+INT-I007,Inbox+Detail+Archive,Integration,should archive email and update list,Archive flow,"Archive → removed from inbox, undo available",All,All,All
+INT-I008,Inbox+Detail+Trash,Integration,should delete email and update list,Delete flow,"Delete → moved to trash, undo toast",All,All,All
+INT-I009,Contact+Compose,Integration,should compose email from contact view,Contact to compose,Tap email → compose screen with recipient,All,All,All
+INT-I010,Settings+Auth,Integration,should logout and clear data,Logout flow,"Logout → storage cleared, socket disconnected, login screen",All,All,All
+INT-I011,Settings+Profile,Integration,should load and edit profile,Profile edit flow,Profile loads → edit → save → updated,All,All,All
+INT-I012,Settings+Account,Integration,should delete account,Account deletion,Confirm delete → API called → logged out,All,All,All
+INT-I013,Inbox+Compose+Draft,Integration,should save draft on compose cancel,Draft save flow,"Cancel compose → draft saved, appears in drafts",All,All,All
+INT-I014,Draft+Compose,Integration,should resume draft editing,Draft resume flow,Tap draft → compose with pre-filled data,All,All,All
+INT-I015,Subscription+Checkout,Integration,should complete plan selection and checkout,Purchase flow,Select plan → checkout → payment success,All,All,All
+INT-I016,Notification+Navigation,Integration,should navigate to email on notification tap,Deep notification,Tap → email detail screen,All,All,All
+INT-I017,Inbox+ReadingPane,Integration,should preserve reading pane on resize,Resize persistence,Resize window,Reading pane preserves selection,All,All
+INT-I018,Tags+Email,Integration,should create tag and assign to email,Tag workflow,Create tag → select emails → assign tag,All,All,All
+INT-I019,Auth+Biometric,Integration,should authenticate via biometric on resume,Biometric resume,App resume → biometric prompt → authenticated,"iOS, Android",All,All
+INT-I020,Inbox+OptIn,Integration,should handle opt-in flow for new sender,Opt-in workflow,Opt-in → modal → add contact → send allowed,All,All,All
+INT-I021,Network+Global,Integration,should show no internet overlay,Connectivity monitoring,"Overlay shown, actions disabled",All,All,All
+INT-I022,Network+Recovery,Integration,should resume operations on reconnect,Recovery flow,"Data refreshes, socket reconnects",All,All,All
+INT-I023,Responsive+Layout,Integration,should adapt layout correctly on window resize across breakpoints,Adaptive layout transition,Resize from large → medium → small,Layout transitions correctly at each breakpoint,All,All
+INT-I024,Responsive+State,Integration,should preserve application state during layout transitions,State persistence on resize,Resize window across breakpoints,Selected email and scroll position preserved after transition,All,All
+INT-I025,Inbox+OptIn+Send,Integration,should complete full opt-in flow during email send with multiple recipients,Multi-recipient opt-in,Tap Send,"Opt-in modal shown for each non-contact, skip/save options, email sends after",All,All
+INT-I026,Onboarding+Auth,Integration,should complete full onboarding flow on first login then skip on subsequent login,Onboarding lifecycle,Login → Complete onboarding → Logout → Login again,First login shows onboarding; second login skips directly to inbox,All,All
+INT-I027,Subscription+Account,Integration,should reflect account upgrade immediately in UI,Upgrade state propagation,Complete upgrade checkout,"Account screen, settings, and compose restrictions update immediately",All,All
+INT-I028,Subscription+Account,Integration,should reflect account downgrade at billing cycle end,Downgrade state propagation,Downgrade confirmed,Current features remain until cycle end; downgrade date shown,All,All
+INT-I029,Inbox+Archive+Undo,Integration,"should archive email, show undo toast, and restore on undo tap",Archive undo full flow,Archive → undo toast → tap Undo,Email removed from inbox → appears in archive → undo restores to inbox; counts correct at each step,All,All
+INT-I030,Inbox+Trash+Undo,Integration,"should trash email, show undo toast, and restore on undo tap",Trash undo full flow,Delete → undo toast → tap Undo,Email moved to trash → undo restores to inbox; counts correct at each step,All,All
+INT-I031,Inbox+BulkArchive+Undo,Integration,should bulk-archive emails and restore all on undo tap,Bulk archive undo flow,"Bulk archive → undo toast ""[5] emails archived"" → tap Undo","All 5 emails restored to inbox, archive count reset",All,All
+INT-I032,Inbox+MoveFolder+Undo,Integration,should move email to folder and restore to original folder on undo,Move undo flow,Move to Archive → undo toast → tap Undo,"Email restored to Sent (original folder), not Inbox",All,All
+INT-I033,Inbox+Archive+UndoTimeout,Integration,should make archive permanent when undo toast expires without tap,Undo timeout flow,Archive → undo toast → wait for timeout,"Undo toast dismisses, email remains permanently in archive, undo no longer possible",All,All
+INT-I034,DefaultClient+Compose,Integration,should process mailto deep link and open compose with recipient,Mailto-to-compose flow,mailto URI stored → inbox loads → _handleMailToOnStart reads mailto → compose opens with toEmail=user@example.com,"iOS, Android",All,All
+INT-I035,DefaultClient+Auth,Integration,should queue mailto and open compose after login completes,Mailto before auth flow,mailto stored → login screen → user logs in → inbox loads → compose opens with queued recipient,"iOS, Android",All,All
+INT-I036,DefaultClient+AndroidIntent,Integration,should handle Android SENDTO intent and open compose,Android intent flow,Intent received via platform channel → email stored → compose opens with recipient,Android,All,All
+INT-I037,DefaultClient+IncomingLink,Integration,should handle mailto URI received while app is running,Background mailto flow,URI received via stream → stored → processed on next inbox refresh or navigation,"iOS, Android",All,All
+E2E-001,Auth/FullLogin,E2E,should complete full login with OTP,Login → OTP → Inbox,User sees inbox with emails,All,All,All
+E2E-002,Auth/CreateAccount,E2E,should register new user,Signup → OTP → Profile → Inbox,"New user account created, inbox shown",All,All,All
+E2E-003,Auth/ForgotUsername,E2E,should recover username,Login → Forgot → OTP → Success,Username recovery message shown,All,All,All
+E2E-004,Email/ReadAndArchive,E2E,should read and archive email,Inbox → Email → Archive,"Email opened, marked read, archived, undo shown",All,All,All
+E2E-005,Email/SearchAndFilter,E2E,should search and filter inbox,Inbox → Search → Filter by tag,Filtered results shown,All,All,All
+E2E-006,Email/MultiSelect,E2E,should bulk delete emails,Inbox → Select → Delete,Selected emails moved to trash,All,All,All
+E2E-007,Email/ViewDraft,E2E,should resume and view draft,Drafts → Draft → Compose,Draft opened in compose with data,All,All,All
+E2E-008,Contact/FullCRUD,E2E,"should create, view, edit, delete contact",Add → View → Edit → Delete,Contact lifecycle completed,All,All,All
+E2E-009,Contact/ComposeFromContact,E2E,should compose email from contact,Contacts → View → Compose,Compose screen with pre-filled recipient,All,All,All
+E2E-010,Settings/ProfileEdit,E2E,should update profile,Settings → Profile → Edit → Save,Profile updated successfully,All,All,All
+E2E-011,Settings/Logout,E2E,should logout successfully,Settings → Logout,"Returned to login, session cleared",All,All,All
+E2E-012,Settings/DeleteAccount,E2E,should delete account,Settings → Account → Delete → Confirm,"Account deleted, returned to login",All,All,All
+E2E-013,Tags/ManageTags,E2E,should create and manage tags,Tags → Create → Edit → Delete,Tag lifecycle completed,All,All,All
+E2E-014,Tags/AssignToEmail,E2E,should assign tag to email,Inbox → Select → Tag,"Tag applied to email, visible in list",All,All,All
+E2E-015,Subscription/SelectPlan,E2E,should select and initiate plan,Plans → Select → Checkout,Checkout flow initiated,All,All,All
+E2E-016,Notification/ViewAndAct,E2E,should view and act on notification,Notifications → View → Navigate,Notification detail or linked email shown,All,All,All
+E2E-017,Navigation/TabSwitching,E2E,should navigate between all tabs,All tabs,Each tab renders correct screen,All,All,All
+E2E-018,Navigation/DeepLink,E2E,should handle mailto deep link,App launch with mailto URI,Compose screen with recipient pre-filled,All,All,All
+E2E-019,Navigation/BackNavigation,E2E,should handle back navigation correctly,Multi-screen back,Correct screen shown at each back press,All,All,All
+E2E-020,Responsive/DesktopInbox,E2E,should use desktop layout with sidebar and reading pane,Desktop full flow,Sidebar + list + reading pane layout,Web,All,All
+E2E-021,Responsive/TabletLandscape,E2E,should use tablet layout,Tablet landscape flow,List + reading pane layout,"iOS, Android",All,All
+E2E-022,Responsive/TabletPortrait,E2E,should fall back to mobile layout,Tablet portrait flow,Mobile-style full screen layout,"iOS, Android",All,All
+E2E-023,Responsive/PhoneLandscape,E2E,should keep mobile layout in phone landscape,Phone landscape,Still mobile layout (no reading pane),"iOS, Android",All,All
+E2E-024,Offline/ShowOverlay,E2E,should show no internet screen on disconnect,Offline detection,No internet overlay shown,All,All,All
+E2E-025,Offline/Reconnect,E2E,should recover on reconnect,Recovery,"Overlay dismissed, data refreshes",All,All,All
+E2E-026,Auth/BiometricOnResume,E2E,should prompt biometric on app resume,App resume,Biometric prompt shown,"iOS, Android",All,All
+E2E-027,Email/UndoArchive,E2E,should undo archive action,Archive undo,Email restored to inbox,All,All,All
+E2E-028,Email/TrashRestore,E2E,should restore email from trash,Trash restore,Email restored to inbox,All,All,All
+E2E-029,Email/PermanentDelete,E2E,should permanently delete from trash,Permanent delete,Email permanently deleted,All,All,All
+E2E-030,HelpCenter/Browse,E2E,should browse help center FAQs,Help browsing,FAQ answer visible,All,All,All
+E2E-031,Notification/SwipeActions,E2E,should swipe to delete notification,Swipe delete,Notification removed,"iOS, Android",All,All
+E2E-032,Contact/Import,E2E,should import contacts from device,Contact import,Contacts imported,"iOS, Android",All,All
+E2E-033,Onboarding/FirstLogin,E2E,should complete onboarding flow on first mobile login,First-time onboarding,"User walks through onboarding steps, watches video, arrives at inbox","iOS, Android",All,All
+E2E-034,Subscription/Renewal,E2E,should complete account renewal flow,Renewal,"Subscription renewed, new expiry date shown",All,All,All
+E2E-035,Subscription/UpgradeDowngrade,E2E,should upgrade and downgrade account plan,Plan change,Upgrade immediate; downgrade scheduled; confirmations shown,All,All,All
+E2E-036,Onboarding/WelcomeVideo,E2E,should play welcome video during onboarding,Video playback,"Video plays, can be skipped or watched to completion","iOS, Android",All,All
+E2E-037,Email/Attachments,E2E,should download and open email attachment,Attachment workflow,"File downloaded, opens in viewer/browser",All,All,All
+E2E-038,Email/OptInOnSend,E2E,should handle opt-in on send with multiple recipients,Multi-recipient opt-in,"Opt-in prompts for non-contacts, skip all or save, email sends",All,All,All
+E2E-039,Reader/SignUp,E2E,should complete reader account sign-up,Reader registration,"Reader account created, alert preferences configurable",All,All,All
+E2E-040,Email/InternalSendReceive,E2E,should send and receive internal OptMsg message,Internal messaging,Message appears in User B's inbox in real time,All,All,All
+E2E-041,Email/ExternalSendReceive,E2E,should send and receive external email,External email,External email sent successfully; inbound external email received in inbox,All,All,All
+E2E-042,Email/UndoTrash,E2E,should undo trash action and verify email restored,Trash undo,"Email removed from inbox, undo toast shown, tap Undo → email back in inbox, sidebar counts correct",All,All,All
+E2E-043,Email/UndoBulkArchive,E2E,should undo bulk archive and verify all emails restored,Bulk undo,"3 emails archived, undo toast ""[3] emails archived"", tap Undo → all 3 restored to inbox",All,All,All
+E2E-044,Email/UndoMoveFolder,E2E,should undo move-to-folder and verify email restored to original folder,Move undo,"Email moved to Archive, undo toast, tap Undo → email restored to Inbox",All,All,All
+E2E-045,Email/UndoTimeout,E2E,should verify undo becomes unavailable after toast timeout,Undo expiry,"Email archived, undo toast shown, toast auto-dismisses after timeout, email stays permanently in archive",All,All,All
+E2E-046,DefaultClient/iOSSetDefault,E2E,should set OptMsg as default email client on iOS,iOS default client,"OptMsg listed in iOS Default Mail App settings, can be selected",iOS,All,All
+E2E-047,DefaultClient/AndroidSetDefault,E2E,should set OptMsg as default email client on Android,Android default client,"OptMsg listed as email app candidate, selectable as default",Android,All,All
+E2E-048,DefaultClient/MailtoFromBrowser,E2E,should open compose when mailto link tapped in browser,Browser mailto,"OptMsg launches/foregrounds, compose opens with recipient pre-filled from mailto link","iOS, Android",All,All
+E2E-049,DefaultClient/MailtoFromOtherApp,E2E,should open compose when mailto triggered from another app,Cross-app mailto,"OptMsg launches/foregrounds, compose opens with correct recipient","iOS, Android",All,All
+E2E-050,DefaultClient/MailtoNotAuthenticated,E2E,should queue mailto and prompt login when not authenticated,Mailto unauthenticated,"Login screen shown, after login compose opens with queued recipient","iOS, Android",All,All
+E2E-051,DefaultClient/MailtoWhileRunning,E2E,should handle mailto received while app is in foreground,Foreground mailto,"OptMsg receives mailto URI, compose opens with recipient","iOS, Android",All,All
+E2E-052,DefaultClient/MailtoWithSubject,E2E,should handle mailto URI with subject parameter,Mailto with params,Compose opens with recipient AND subject pre-filled,"iOS, Android",All,All
+E2E-053,DefaultClient/VerifyIntentFilters,E2E,should appear as email app option in OS app chooser,OS integration,OptMsg appears in OS app picker/chooser dialog as email client option,"iOS, Android",All,All
+E2E-054,WelcomeScreen/QRScan,E2E,should open App Store when iOS QR code is scanned with iPhone camera,QR scan iOS,App Store link opens in Safari to OptMsg app page,iOS,All,All
+E2E-055,WelcomeScreen/QRScan,E2E,should open Play Store when Android QR code is scanned with Android camera,QR scan Android,Google Play Store opens in browser to OptMsg app page,Android,All,All
+E2E-056,WelcomeScreen/QRScan,E2E,should display URL when scanned with unsupported third-party scanner app,QR scan unsupported,QR code scanned but URL text shown instead of opening app store directly,"iOS, Android",All,All
+E2E-057,Auth/PasskeySetup,E2E,should complete first-time login and set up a passkey,First login + passkey,"User logs in successfully, passkey registered, passkey stored for future logins, confirmation shown",All,All,All
+E2E-058,Auth/PasskeyLogin,E2E,should login using a previously registered passkey,Passkey login,"User authenticated via passkey without OTP, navigates directly to inbox",All,All,All
+E2E-059,Email/CreateSaveDraft,E2E,should create a new email and save it as a draft,Draft creation,"Compose opens, draft saved with all entered fields (recipient, subject, body), appears in Drafts folder with correct content",All,All,All
+E2E-060,Account/CancelAccount,E2E,should cancel an account and verify cancellation confirmation,Account cancellation,"Account marked as canceled, cancellation confirmation shown, user informed subscription remains active until end of billing period",All,All,All
+E2E-061,Account/CanceledStillActive,E2E,should allow login for canceled account while subscription is still active,Canceled + active sub,"User can still login, access inbox, send/receive emails normally until subscription period ends",All,All,All
+E2E-062,Subscription/GracePeriod,E2E,should allow login during 7-day grace period after subscription lapse to resubscribe,Grace period access,"User can login, shown renewal/resubscribe prompt, can complete payment to renew subscription and regain full access",All,All,All
+E2E-063,Subscription/LapsedBlocked,E2E,should block login for lapsed user (day 8–30) and bounce inbound emails,Lapsed user blocked,Login blocked with message prompting subscription renewal; inbound emails to @optmsg.com address bounce back to sender with delivery failure notice,All,All,All
+E2E-072,Subscription/CheckoutDecline,E2E,should handle generic card decline during checkout,Generic card decline,"Payment fails with ""Card declined"" error, user remains on checkout, can retry with different card",All,All,All
+E2E-073,Subscription/CheckoutInsufficientFunds,E2E,should handle insufficient funds decline during checkout,Insufficient funds,"Payment fails with ""Insufficient funds"" error, appropriate message shown, can retry",All,All,All
+E2E-074,Subscription/CheckoutLostCard,E2E,should handle lost card decline during checkout,Lost card decline,"Payment fails with ""Lost card"" error, appropriate security message shown, can retry with different card",All,All,All
+E2E-075,Subscription/CheckoutStolenCard,E2E,should handle stolen card decline during checkout,Stolen card decline,"Payment fails with ""Stolen card"" error, appropriate security message shown, cannot retry with same card",All,All,All
+E2E-076,Subscription/CheckoutExpiredCard,E2E,should handle expired card decline during checkout,Expired card,"Payment fails with ""Expired card"" error, user prompted to enter valid expiration date",All,All,All
+E2E-077,Subscription/CheckoutIncorrectCVC,E2E,should handle incorrect CVC decline during checkout,Incorrect CVC,"Payment fails with ""Incorrect CVC"" error, user prompted to verify card security code",All,All,All
+E2E-078,Subscription/CheckoutProcessingError,E2E,should handle processing error during checkout,Processing error,"Payment fails with ""Processing error"" message, user advised to try again or contact support",All,All,All
+E2E-079,Subscription/CheckoutFraudBlocked,E2E,should handle Radar fraud prevention block during checkout,Fraudulent card blocked,"Payment blocked by fraud prevention, appropriate security message shown, transaction not processed",All,All,All
+E2E-080,Email/SaveDraftNoAttachments,E2E,should save draft with no attachments,Draft save (no attachments),"Draft saved with recipient, subject, body, no attachments, appears in Drafts folder",All,All,All
+E2E-081,Email/SaveDraftOneAttachment,E2E,should save draft with one attachment,Draft save (1 attachment),"Draft saved with 1 attachment, attachment visible in draft, file name and size shown",All,All,All
+E2E-082,Email/SaveDraftMultipleAttachments,E2E,should save draft with multiple attachments,Draft save (multiple),"Draft saved with 3 attachments, all attachments visible with correct file names and sizes",All,All,All
+E2E-083,Email/SendExternalNoAttachments,E2E,should send external email with no attachments,Send external (no attachments),"Email sent successfully to external address, appears in Sent folder, no attachments",All,All,All
+E2E-084,Email/SendExternalOneAttachment,E2E,should send external email with one attachment,Send external (1 attachment),"Email sent with 1 attachment, attachment uploaded to S3, appears in Sent folder with attachment indicator",All,All,All
+E2E-085,Email/SendExternalMultipleAttachments,E2E,should send external email with multiple attachments,Send external (multiple),"Email sent with 3 attachments, all attachments uploaded to S3, appears in Sent folder, attachment count shown",All,All,All
+E2E-086,Email/SendInternalNoAttachments,E2E,should send internal OptMsg with no attachments,Send internal (no attachments),"Internal message sent successfully, appears in User B inbox via socket, no attachments",All,All,All
+E2E-087,Email/SendInternalOneAttachment,E2E,should send internal OptMsg with one attachment,Send internal (1 attachment),"Internal message sent with 1 attachment, appears in User B inbox, attachment downloadable",All,All,All
+E2E-088,Email/SendInternalMultipleAttachments,E2E,should send internal OptMsg with multiple attachments,Send internal (multiple),"Internal message sent with 3 attachments, all attachments visible and downloadable by recipient",All,All,All
+ONB-U001,Onboarding/Flow,Unit,should show onboarding flow on first mobile login,Verify first-login detection,P0,No,All,All
+ONB-U002,Onboarding/Flow,Unit,should skip onboarding on subsequent logins,Verify repeat-login bypass,P0,No,All,All
+ONB-U003,Onboarding/Flow,Unit,should track onboarding completion state in storage,Verify persistence,P1,No,All,All
+ONB-U004,Onboarding/PushNotifications,Unit,should schedule day 1–10 onboarding push notifications,Verify notification scheduling,P1,No,All,All
+ONB-U005,Onboarding/PushNotifications,Unit,should deliver correct notification content per day,Verify per-day content,P1,No,All,All
+ONB-U006,Onboarding/PushNotifications,Unit,should stop onboarding notifications after day 10,Verify schedule end,P1,No,All,All
+ONB-U007,Onboarding/PushNotifications,Unit,should cancel remaining onboarding notifications if user completes early,Verify early cancellation,P1,Yes,All,All
+ONB-U008,Onboarding/WelcomeVideo,Unit,should load and play welcome video,Verify video playback,P1,No,All,All
+ONB-U009,Onboarding/WelcomeVideo,Unit,should track welcome video completion,Verify completion tracking,P2,No,All,All
+ONB-U010,Onboarding/WelcomeVideo,Unit,should allow skipping welcome video,Verify skip,P1,No,All,All
+ONB-U011,Onboarding/WelcomeScreen,Unit,should display QR code linking to App Store on iOS web,Verify iOS QR,P1,No,All,All
+ONB-U012,Onboarding/WelcomeScreen,Unit,should display QR code linking to Play Store on Android web,Verify Android QR,P1,No,All,All
+ONB-U013,Onboarding/WelcomeScreen,Unit,should display both store QR codes on desktop web,Verify desktop QR,P1,No,All,All
+ONB-U014,Onboarding/WelcomeScreen,Unit,should generate valid scannable QR code,Verify QR validity,P1,No,All,All
+ONB-U015,Onboarding/WelcomeScreen,Unit,should handle offline state on welcome screen gracefully,Verify offline welcome,P2,Yes,All,All
+ONB-U016,Onboarding/MobileScreens,Unit,"should display ""Sync Mobile Contacts"" screen with Sync Now action",Verify sync contacts screen,P1,No,All,All
+ONB-U017,Onboarding/MobileScreens,Unit,"should display ""Forward Other Email Accounts to OptMsg"" screen",Verify forward accounts screen,P1,No,All,All
+ONB-U018,Onboarding/MobileScreens,Unit,"should display ""Check Your Notification"" screen with Complete button",Verify notification check screen,P1,No,All,All
+ONB-U019,Onboarding/WelcomeScreen,Unit,should show error for malformed or invalid QR code URL,Verify invalid QR handling,P1,Yes,All,All
+ONB-U020,Onboarding/WelcomeScreen,Unit,should encode correct regional App Store URL based on device locale,Verify regional URL,P2,No,All,All
+ONB-W001,Onboarding/Screens,Widget,should render onboarding carousel with step indicators,Verify rendering,P0,No,"iOS, Android",Small
+ONB-W002,Onboarding/Screens,Widget,should navigate between onboarding steps,Verify step navigation,P0,No,"iOS, Android",Small
+ONB-W003,Onboarding/Screens,Widget,should show skip button to bypass onboarding,Verify skip UI,P1,No,"iOS, Android",Small
+ONB-W004,Onboarding/WelcomeVideo,Widget,should render welcome video player with controls,Verify video UI,P1,No,"iOS, Android",Small
+ONB-W005,Onboarding/WelcomeVideo,Widget,should pause and resume video on control tap,Verify controls,P1,No,"iOS, Android",Small
+ONB-W006,Onboarding/WelcomeScreen,Widget,should render QR code(s) with store download text,Verify QR rendering,P1,No,Web,All
+ONB-W007,Onboarding/WelcomeScreen,Widget,should render App Store and Play Store direct links below QR codes,Verify store links,P1,No,Web,All
+ONB-W008,Onboarding/WelcomeScreen,Widget,should not render QR codes on native mobile (iOS/Android),Verify QR hidden on mobile,P1,No,"iOS, Android",Small
+ONB-W009,Onboarding/MobileScreens,Widget,"should render ""Let's Complete Your Setup"" as first onboarding screen",Verify setup screen,P0,No,"iOS, Android",Small
+ONB-W010,Onboarding/MobileScreens,Widget,"should render ""Sync Mobile Contacts"" screen with active Sync Now button",Verify sync contacts UI,P1,No,"iOS, Android",Small
+ONB-W011,Onboarding/MobileScreens,Widget,"should render ""Forward Other Email Accounts"" screen with setup instructions",Verify forwarding screen UI,P1,No,"iOS, Android",Small
+ONB-W012,Onboarding/MobileScreens,Widget,"should render ""Check Your Notification"" screen with Complete button",Verify notification screen UI,P1,No,"iOS, Android",Small
+ONB-W013,Onboarding/MobileScreens,Widget,should verify all onboarding screen buttons are responsive and not disabled,Verify button responsiveness,P1,No,"iOS, Android",Small
+ONB-W014,Onboarding/WelcomeScreen,Widget,should navigate to App Store when iOS QR code is tapped,Verify iOS QR tap,P1,No,Web,All
+ONB-W015,Onboarding/WelcomeScreen,Widget,should navigate to Play Store when Android QR code is tapped,Verify Android QR tap,P1,No,Web,All
+ONB-I001,Onboarding/FullFlow,Integration,should complete full onboarding flow on first mobile login,End-to-end onboarding,Login → Onboarding steps → Welcome video → Inbox; onboardingCompleted stored,"iOS, Android",All,All
+ONB-I002,Onboarding/Notifications,Integration,should schedule and deliver onboarding push notifications,Push notification lifecycle,"Notifications scheduled, day-1 notification delivered, cancels on completion","iOS, Android",All,All
+RESP-U001,Responsive/Breakpoints,Unit,should detect mobile for width < 600,Verify mobile breakpoint,P0,No,All,All
+RESP-U002,Responsive/Breakpoints,Unit,should detect tablet for width 600-1023,Verify tablet breakpoint,P0,No,All,All
+RESP-U003,Responsive/Breakpoints,Unit,should detect desktop for width >= 1024,Verify desktop breakpoint,P0,No,All,All
+RESP-U004,Responsive/Breakpoints,Unit,should handle boundary value 600 as tablet,Verify boundary,P0,Yes,All,All
+RESP-U005,Responsive/Breakpoints,Unit,should handle boundary value 1024 as desktop,Verify boundary,P0,Yes,All,All
+RESP-U006,Responsive/BaseScreen,Unit,should return correct isMobile/isTablet/isDesktop getters,Verify computed props,P0,No,All,All
+RESP-U007,Responsive/BaseScreen,Unit,should show FAB on native mobile only,Verify shouldShowFab,P1,No,All,All
+RESP-U008,Responsive/BaseScreen,Unit,should show FAB on web mobile,Verify web mobile FAB,P1,No,All,All
+RESP-U009,Responsive/BaseScreen,Unit,should hide FAB on desktop,Verify no desktop FAB,P1,No,All,All
+RESP-U010,Responsive/BaseScreen,Unit,should return canShowReadingPane for width >= 1024,Verify reading pane logic,P0,No,All,All
+RESP-U011,Responsive/BaseScreen,Unit,should return canShowReadingPane=false for width < 1024,Verify reading pane logic,P0,No,All,All
+RESP-U012,Responsive/BaseScreenController,Unit,should safely notifyListeners when not disposed,Verify safe notify,P1,No,All,All
+RESP-U013,Responsive/BaseScreenController,Unit,should skip notifyListeners when disposed,Verify disposed check,P1,Yes,All,All
+RESP-U014,AppCache/Singleton,Unit,should store and retrieve tabName,Verify getter/setter,P1,No,All,All
+RESP-U015,AppCache/Singleton,Unit,should store and retrieve navigation names,Verify navigation tracking,P1,No,All,All
+RESP-U016,AppCache/Singleton,Unit,should store and retrieve subscription cache data,Verify subscription caching,P1,No,All,All
+RESP-U017,AppCache/Singleton,Unit,should store and retrieve isAllMailSaved flag,Verify mail save flag,P1,No,All,All
+RESP-U018,AppEnvironment/Singleton,Unit,should detect dev environment from app name,Verify dev detection,P0,No,All,All
+RESP-U019,AppEnvironment/Singleton,Unit,should detect stage environment from app name,Verify stage detection,P0,No,All,All
+RESP-U020,AppEnvironment/Singleton,Unit,should detect production environment from app name,Verify prod detection,P0,No,All,All
+RESP-U021,AppEnvironment/Singleton,Unit,should default to stage for unknown app name,Verify fallback,P0,Yes,All,All
+RESP-U022,AppEnvironment/Singleton,Unit,should cache environment after first detection,Verify caching,P1,No,All,All
+RESP-U023,AppEnvironment/getTypeForAppFlavor,Unit,should map 'dev' flavor to dev type,Verify flavor mapping,P1,No,All,All
+RESP-U024,AppEnvironment/getTypeForAppFlavor,Unit,should map 'prod' flavor to prod type,Verify flavor mapping,P1,No,All,All
+RESP-U025,AppEnvironment/getTypeForAppFlavor,Unit,should default to stage for unknown flavor,Verify fallback,P1,Yes,All,All
+RESP-U026,AdaptiveService,Unit,should delegate isMobileLayout to breakpoints,Verify delegation,P1,No,All,All
+RESP-U027,AdaptiveService,Unit,should delegate isDesktopLayout to breakpoints,Verify delegation,P1,No,All,All
+RESP-U028,AdaptiveService,Unit,should delegate canShowReadingPane,Verify delegation,P1,No,All,All
+RESP-U029,OverlayManager/ToastManager,Unit,should initialize with BuildContext,Verify initialization,P1,No,All,All
+RESP-U030,OverlayManager/ToastManager,Unit,should throw when accessing overlayState before init,Verify guard,P1,Yes,All,All
+RESP-U031,OverlayManager/ToastManager,Unit,should return null from overlayStateOrNull before init,Verify safe getter,P1,No,All,All
+RESP-U032,RegExpService,Unit,should match valid alphanumeric characters,Verify regex,P1,No,All,All
+RESP-U033,RegExpService,Unit,should reject special characters,Verify regex,P1,No,All,All
+RESP-U034,RegExpService,Unit,should match empty string,Verify regex edge,P1,Yes,All,All
+RESP-U035,RegExpService,Unit,should reject spaces,Verify regex,P1,Yes,All,All
+RESP-U036,FloatingActionButtonLocation,Unit,should calculate offset with custom Y,Verify positioning,P2,No,All,All
+RESP-U037,FloatingActionButtonLocation,Unit,should account for scaffold insets,Verify inset handling,P2,No,All,All
+RESP-U038,TagsProvider,Unit,should set tags list and notify listeners,Verify setter,P1,No,All,All
+RESP-U039,TagsProvider,Unit,should reset tags to null,Verify reset,P1,No,All,All
+RESP-W001,Responsive/LayoutBuilder,Widget,should render mobile builder for small screen,Verify mobile fallback,P0,No,All,Small
+RESP-W002,Responsive/LayoutBuilder,Widget,should render tablet builder for medium screen,Verify tablet,P0,No,All,Medium
+RESP-W003,Responsive/LayoutBuilder,Widget,should render desktop builder for large screen,Verify desktop,P0,No,All,Large
+RESP-W004,Responsive/LayoutBuilder,Widget,should fallback to tablet when desktop builder missing,Verify fallback chain,P1,Yes,All,Large
+RESP-W005,Responsive/LayoutBuilder,Widget,should fallback to mobile when tablet and desktop missing,Verify full fallback,P1,Yes,All,Large
+RESP-W006,Responsive/ResponsiveValue,Widget,should return correct value for each device type,Verify generic value,P1,No,All,All
+NAV-U013,Router/AppNavigator,Unit,should call go() on underlying router,Verify go navigation,P0,No,All,All
+NAV-U014,Router/AppNavigator,Unit,should call push() on underlying router,Verify push navigation,P0,No,All,All
+NAV-U015,Router/AppNavigator,Unit,should call replace() on underlying router,Verify replace,P1,No,All,All
+NAV-U016,Router/AppNavigator,Unit,should pop() current route,Verify pop,P0,No,All,All
+NAV-U017,Router/AppNavigator,Unit,should return canPop() correctly,Verify stack check,P1,No,All,All
+NAV-U018,Router/AppNavigator,Unit,should navigate to login via goToLogin(),Verify convenience,P0,No,All,All
+NAV-U019,Router/AppNavigator,Unit,should navigate to inbox via goToInbox(),Verify convenience,P0,No,All,All
+NAV-U020,Router/AppNavigator,Unit,should pass extras to goToCompose(),Verify extras,P1,No,All,All
+NAV-U021,Router/AppNavigator,Unit,should set authenticated and navigate,Verify auth transition,P0,No,All,All
+NAV-U022,Router/AppNavigator,Unit,should logout and navigate to login,Verify logout,P0,No,All,All
+NAV-U023,Router/RouteObserver,Unit,should save route to SharedPreferences on push,Verify persistence,P1,No,All,All
+NAV-U024,Router/RouteObserver,Unit,should track current and previous routes,Verify tracking,P1,No,All,All
+NAV-U025,Router/RouteObserver,Unit,should handle null route name,Verify null safety,P1,Yes,All,All
+NAV-U026,Router/RouteObserver,Unit,should retrieve initial route from SharedPreferences,Verify getInitialRoute,P1,No,All,All
+NAV-U027,Router/RouteObserver,Unit,should sync route with AppCache,Verify cache sync,P1,No,All,All
+NAV-W036,Router/RouteWrappers,Widget,should render mobile inbox layout on phone,Verify responsive,P0,No,"iOS, Android",Small
+NAV-W037,Router/RouteWrappers,Widget,should render desktop inbox layout on web,Verify responsive,P0,No,Web,Large
+NAV-W038,Router/RouteWrappers,Widget,should render desktop layout on tablet landscape,Verify tablet landscape,P1,No,"iOS, Android",Medium
+NAV-W039,Router/RouteWrappers,Widget,should map email type to correct page path,Verify email type mapping,P1,No,All,All
+NAV-W040,Router/RouteWrappers,Widget,should check auth in Plans wrapper,Verify auth guard,P1,Yes,All,All
+NAV-W041,Router/RouteWrappers,Widget,should render contacts wrapper for desktop,Verify responsive,P1,No,Web,Large
+NAV-W042,Router/RouteWrappers,Widget,should render settings wrapper for mobile,Verify responsive,P1,No,All,Small
+NAV-W043,Router/RouteWrappers,Widget,should render subscription wrapper for web,Verify responsive,P1,No,Web,Large
+COMPOSE-U001,Compose/FileValidation,Unit,should reject file exceeding 25MB,Verify file size limit,P0,No,All,All
+COMPOSE-U002,Compose/FileValidation,Unit,should accept file under 25MB,Verify file acceptance,P0,No,All,All
+COMPOSE-U003,Compose/FileValidation,Unit,should reject when total attachments exceed 25MB,Verify cumulative limit,P0,Yes,All,All
+COMPOSE-U004,Compose/ContentCheck,Unit,"should detect empty compose (no TO, no subject, no body)",Verify content check,P0,No,All,All
+COMPOSE-U005,Compose/ContentCheck,Unit,should detect compose with TO only,Verify partial content,P0,No,All,All
+COMPOSE-U006,Compose/ContentCheck,Unit,should detect compose with attachments only,Verify attachment content,P1,No,All,All
+COMPOSE-U007,Compose/SignedUrl,Unit,should get signed URL from API,Verify S3 flow,P0,No,All,All
+COMPOSE-U008,Compose/SignedUrl,Unit,should upload file to signed URL,Verify S3 upload,P0,No,All,All
+COMPOSE-U009,Compose/SocketThrottle,Unit,should throttle socket events within 1000ms,Verify throttle,P1,Yes,All,All
+COMPOSE-U010,Compose/SocketThrottle,Unit,should allow socket event after 1000ms,Verify throttle release,P1,No,All,All
+COMPOSE-U011,Compose/DraftHandling,Unit,should save as new draft when type is 'addDraft',Verify draft save,P1,No,All,All
+COMPOSE-U012,Compose/DraftHandling,Unit,should update existing draft when type is 'updateDraft',Verify draft update,P1,No,All,All
+COMPOSE-U013,Compose/EmailValidation,Unit,should validate all recipients before sending,Verify recipient check,P0,No,All,All
+COMPOSE-U014,Compose/EmailValidation,Unit,should handle 'Skip All' for unknown recipients,Verify skip all,P1,No,All,All
+COMPOSE-U015,ViewInbox/Detail,Unit,should fetch email detail by ID and type,Verify API fetch,P0,No,All,All
+COMPOSE-U016,ViewInbox/Detail,Unit,should handle different email types,Verify type handling,P0,No,All,All
+COMPOSE-U017,ViewInbox/Detail,Unit,should re-fetch on emailId change,Verify didUpdateWidget,P1,No,All,All
+COMPOSE-U018,ViewInbox/Detail,Unit,should track email state transitions,Verify state tracking,P1,No,All,All
+COMPOSE-U019,FileDownloader,Unit,should download file from URL,Verify download,P1,No,All,All
+COMPOSE-U020,FileDownloader,Unit,should handle download error,Verify error,P1,Yes,All,All
+COMPOSE-W001,Compose/Web,Widget,"should render compose form with TO, Subject, Body fields",Verify rendering,P0,No,Web,Large
+COMPOSE-W002,Compose/Web,Widget,should show file picker action sheet,Verify file picker,P1,No,All,All
+COMPOSE-W003,Compose/Web,Widget,should show upload progress for each attachment,Verify progress,P1,No,All,All
+COMPOSE-W004,Compose/Web,Widget,should show cancel/save/delete action sheet on back,Verify cancel flow,P0,No,All,All
+COMPOSE-W005,Compose/Web,Widget,should show add email modal for unknown recipients,Verify opt-in modal,P0,No,All,All
+COMPOSE-W006,Compose/Web,Widget,should render responsive layout for mobile,Verify responsive,P1,No,All,Small
+COMPOSE-W007,ViewInbox,Widget,should render email detail with subject and body,Verify rendering,P0,No,All,All
+COMPOSE-W008,ViewInbox,Widget,should render in reading pane mode (hideAppBar=true),Verify reading pane,P1,No,Web,Large
+COMPOSE-W009,ViewInbox,Widget,should show tag list overlay,Verify tag UI,P1,No,All,All
+COMPOSE-W010,ViewInbox,Widget,should show menu options overlay,Verify menu,P1,No,All,All
+COMPOSE-W011,FullScreenImage,Widget,should render full-screen image with loading progress,Verify viewer,P1,No,All,All
+COMPOSE-W012,FullScreenPDF,Widget,should render full-screen PDF viewer,Verify viewer,P1,No,All,All
+COMPOSE-W013,FullScreenWebView,Widget,should render WebView with JavaScript enabled,Verify viewer,P1,No,All,All
+SUBMGMT-U001,Subscription/ChangeSubscription,Unit,should load current plan and available plans,Verify data load,P1,No,All,All
+SUBMGMT-U002,Subscription/ChangeSubscription,Unit,should detect current plan from payment list,Verify plan detection,P1,No,All,All
+SUBMGMT-U003,Subscription/ChangeSubscription,Unit,should cancel membership via API,Verify cancellation,P1,No,All,All
+SUBMGMT-U004,Subscription/ChangeSubscription,Unit,should handle plan load failure,Verify error,P1,Yes,All,All
+SUBMGMT-U005,Subscription/PaymentMethod,Unit,should fetch saved payment cards,Verify card load,P1,No,All,All
+SUBMGMT-U006,Subscription/PaymentMethod,Unit,should handle addCardSuccess socket event,Verify socket,P1,No,All,All
+SUBMGMT-U007,Subscription/PaymentMethod,Unit,should handle card fetch failure,Verify error,P1,Yes,All,All
+SUBMGMT-U008,Subscription/SubscriptionDetail,Unit,should calculate remaining days correctly,Verify date math,P1,No,All,All
+SUBMGMT-U009,Subscription/SubscriptionDetail,Unit,should handle expired subscription (negative days),Verify edge case,P1,Yes,All,All
+SUBMGMT-W001,Subscription/ChangePlan,Widget,should render plan options,Verify rendering,P1,No,All,All
+SUBMGMT-W002,Subscription/ChangePlan,Widget,should show cancel confirmation dialog,Verify cancel flow,P1,No,All,All
+SUBMGMT-W003,Subscription/PaymentMethod,Widget,should render saved cards,Verify rendering,P1,No,All,All
+SUBMGMT-W004,Subscription/PaymentMethod,Widget,should show loading state,Verify loading,P2,No,All,All
+SUBMGMT-W005,Subscription/Detail,Widget,should render subscription details,Verify rendering,P1,No,All,All
+SUBMGMT-W006,Subscription/Detail,Widget,should render responsive layout,Verify responsive,P2,No,All,Small
+AUTHSUP-U001,Auth/LoginPostProcessor,Unit,should navigate to passkey page when passkey is supported,Verify navigateAfterLogin routes to addPassKey,P0,No,All,All
+AUTHSUP-U002,Auth/LoginPostProcessor,Unit,should navigate to inbox when passkey unsupported and subscription valid,Verify fallthrough navigation,P0,No,All,All
+AUTHSUP-U003,Auth/LoginPostProcessor,Unit,should navigate to plans when passkey unsupported and subscription invalid,Verify fallthrough navigation,P0,No,All,All
+AUTHSUP-U004,Auth/LoginPostProcessor,Unit,should handle DescopeException during passkey check gracefully,Verify exception catch,P0,Yes,All,All
+AUTHSUP-U005,Auth/LoginPostProcessor,Unit,should handle generic exception during passkey check gracefully,Verify catch-all,P1,Yes,All,All
+AUTHSUP-U006,Auth/OtpProfile,Unit,should load user data from secure storage,Verify init,P1,No,All,All
+AUTHSUP-U007,Auth/OtpProfile,Unit,should resend OTP via API,Verify resend,P1,No,All,All
+AUTHSUP-U008,Auth/OtpProfile,Unit,should reject OTP shorter than 6 digits,Verify validation,P1,Yes,All,All
+AUTHSUP-U009,Auth/OtpProfile,Unit,should verify OTP via API,Verify verification,P1,No,All,All
+AUTHSUP-U010,Auth/PaymentSuccess,Unit,should fetch profile data on load,Verify init,P1,No,All,All
+AUTHSUP-U011,Auth/PaymentSuccess,Unit,should allow navigation even on API failure,Verify degradation,P1,Yes,All,All
+AUTHSUP-U012,Auth/PaymentSuccess,Unit,should disable button until data ready,Verify guard,P1,No,All,All
+AUTHSUP-W001,Auth/OtpProfile,Widget,should render OTP form with phone display,Verify rendering,P1,No,All,All
+AUTHSUP-W002,Auth/OtpProfile,Widget,should render responsive layout (desktop centered),Verify responsive,P1,No,Web,Large
+AUTHSUP-W003,Auth/SuccessOtp,Widget,should render success message and login button,Verify rendering,P1,No,All,All
+AUTHSUP-W004,Auth/SuccessOtp,Widget,should prevent back navigation with PopScope,Verify PopScope,P1,No,All,All
+AUTHSUP-W005,Auth/PaymentSuccess,Widget,should render success state with continue button,Verify rendering,P1,No,Web,All
+AUTHSUP-W006,Auth/PaymentSuccess,Widget,should show app store links,Verify links,P2,No,Web,All
+WIDG-W001,Widget/CustomDismissible,Widget,should render inbox email item with slidable actions,Verify rendering,P0,No,All,All
+WIDG-W002,Widget/CustomDismissible,Widget,should show archive action for inbox emails,Verify actions,P0,No,All,All
+WIDG-W003,Widget/CustomDismissible,Widget,should hide archive action in archive folder,Verify conditional,P0,Yes,All,All
+WIDG-W004,Widget/CustomDismissible,Widget,should show different actions for sent emails,Verify sent actions,P1,No,All,All
+WIDG-W005,Widget/CustomDismissible,Widget,should toggle selection on tap in long-press mode,Verify selection,P0,No,All,All
+WIDG-W006,Widget/CustomDismissible,Widget,should use receivers[0].emailId for sent emails,Verify ID mapping,P1,Yes,All,All
+WIDG-W007,Widget/CustomDismissible,Widget,should mark as read with undo on tap,Verify markAsReadWithUndo,P1,No,All,All
+WIDG-W008,Widget/CustomDismissible,Widget,should show permanent delete confirmation for trash,Verify trash delete,P1,No,All,All
+WIDG-W009,Widget/CustomDismissible,Widget,should call moreOptions with type-dependent list,Verify options,P1,No,All,All
+WIDG-W010,Widget/CustomDismissible,Widget,should navigate to email detail on tap,Verify navigation,P0,No,All,All
+WIDG-W011,Widget/ButtonFormField,Widget,should render gradient button with text,Verify rendering,P1,No,All,All
+WIDG-W012,Widget/ButtonFormField,Widget,should render gradient button with leading icon,Verify icon,P1,No,All,All
+WIDG-W013,Widget/DraftEmailList,Widget,should render draft email item,Verify rendering,P1,No,All,All
+WIDG-W014,Widget/DraftEmailList,Widget,should use item.id for draft selection,Verify ID,P1,Yes,All,All
+WIDG-W015,Widget/SentEmailList,Widget,should render sent email item,Verify rendering,P1,No,All,All
+WIDG-W016,Widget/SentEmailList,Widget,should show moveToInbox action,Verify action,P1,No,All,All
+WIDG-W017,Widget/DrawerItem,Widget,should render with badge for inbox,Verify badge,P1,No,All,All
+WIDG-W018,Widget/DrawerItem,Widget,should render different badge style for draft,Verify draft badge,P2,No,All,All
+WIDG-W019,Widget/NotificationItem,Widget,should render with unread indicator,Verify unread,P1,No,All,All
+WIDG-W020,Widget/NotificationItem,Widget,should expand/collapse content on tap,Verify expandable,P1,No,All,All
+WIDG-W021,Widget/ProfileDobPicker,Widget,should show date picker on tap,Verify picker,P1,No,All,All
+WIDG-W022,Widget/ProfileDobPicker,Widget,should format selected date as MM/dd/yyyy,Verify format,P1,No,All,All
+WIDG-W023,Widget/PromoCodeTextField,Widget,should render with suffix text,Verify suffix,P1,No,All,All
+WIDG-W024,Widget/PromoCodeTextField,Widget,should call onSuffixTap callback,Verify callback,P1,No,All,All
+WIDG-W025,Widget/TagInputField,Widget,should validate email format on submit,Verify validation,P0,No,All,All
+WIDG-W026,Widget/TagInputField,Widget,should prevent duplicate tags,Verify dedup,P1,Yes,All,All
+WIDG-W027,Widget/TagInputField,Widget,should split on comma and space separators,Verify separators,P1,No,All,All
+WIDG-W028,Widget/GradientWebBar,Widget,should render with search bar when enabled,Verify rendering,P1,No,Web,Large
+WIDG-W029,Widget/GradientWebBar,Widget,should show notification icon when enabled,Verify notification,P1,No,Web,Large
+WIDG-W030,Widget/Print,Widget,should auto-close after 5 seconds,Verify auto-close,P2,No,All,All
+MISC-U001,Tags/TagEmailList,Unit,should fetch emails for specific tag,Verify load,P1,No,All,All
+MISC-U002,Tags/TagEmailList,Unit,should toggle email selection,Verify selection,P1,No,All,All
+MISC-U003,Tags/TagEmailList,Unit,should toggle select-all flag,Verify select all,P1,No,All,All
+MISC-U004,Tags/TagEmailList,Unit,should handle pagination,Verify paging,P1,No,All,All
+MISC-U005,Tags/TagEmailList,Unit,should handle empty tag (no emails),Verify empty,P1,Yes,All,All
+MISC-U006,WebFilePicker,Unit,should pick file with allowed extensions,Verify picker,P1,No,All,All
+MISC-U007,WebFilePicker,Unit,should handle pick cancellation,Verify cancel,P1,No,All,All
+MISC-U008,WebFilePicker,Unit,should show error toast on picker failure,Verify error,P1,Yes,All,All
+MISC-W001,Tags/TagEmailList,Widget,should render emails filtered by tag,Verify rendering,P1,No,All,All
+MISC-W002,Tags/TagEmailList,Widget,should enter long-press mode and show checkboxes,Verify long press,P1,No,All,All
+MISC-W003,Tags/TagEmailList,Widget,should show empty state for tag with no emails,Verify empty,P1,Yes,All,All
+SESS-U001,Session/ExpiryManager,Unit,should clear session and set unauthenticated on expiry,"Verify handleExpiry() calls clearSession, setAuthenticated(false), clearAllData",P0,No,All,All
+SESS-U002,Session/ExpiryManager,Unit,should show toast when showToast is true,Verify toast display,P0,No,All,All
+SESS-U003,Session/ExpiryManager,Unit,should not show toast when showToast is false,Verify default behavior,P1,No,All,All
+SESS-U004,Session/ExpiryManager,Unit,should be idempotent when called concurrently,Verify _isHandling guard,P0,Yes,All,All
+SESS-U005,Session/ExpiryManager,Unit,should reset _isHandling in finally block,Verify cleanup,P0,No,All,All
+SESS-U006,Session/ExpiryManager,Unit,should set SessionRefreshMutex.isLoggedOut to true,Verify mutex flag,P0,No,All,All
+SESS-U007,Session/RefreshMutex,Unit,should skip refresh when isLoggedOut is true,Verify early return,P0,No,All,All
+SESS-U008,Session/RefreshMutex,Unit,should skip refresh when passkeyFlowInProgress is true,Verify passkey guard,P0,No,All,All
+SESS-U009,Session/RefreshMutex,Unit,should serialize concurrent refresh calls via Completer,Verify mutex,P0,Yes,All,All
+SESS-U010,Session/RefreshMutex,Unit,should clear session if logout happened during refresh,Verify double-check,P0,Yes,All,All
+SESS-U011,Session/RefreshMutex,Unit,should rethrow on refresh failure,Verify error propagation,P0,Yes,All,All
+SESS-U012,Session/RefreshMutex,Unit,should reset _refreshCompleter in finally block,Verify cleanup,P0,No,All,All
+ANAL-U001,Analytics/AnalyticsService,Unit,should not log events when firebaseReady is false,Verify guard,P0,No,All,All
+ANAL-U002,Analytics/AnalyticsService,Unit,should log login flow events with correct parameters,Verify login analytics,P0,No,All,All
+ANAL-U003,Analytics/AnalyticsService,Unit,should log signup flow events with correct parameters,Verify signup analytics,P0,No,All,All
+ANAL-U004,Analytics/AnalyticsService,Unit,should log passkey enrollment events,Verify passkey analytics,P1,No,All,All
+ANAL-U005,Analytics/AnalyticsService,Unit,should log subscription/checkout events with correct parameters,Verify checkout analytics,P0,No,All,All
+ANAL-U006,Analytics/AnalyticsService,Unit,should set user properties correctly,Verify setUserProperty calls,P1,No,All,All
+ANAL-U007,Analytics/AnalyticsService,Unit,should truncate error strings to 100 characters,Verify _truncate utility,P1,Yes,All,All
+ANAL-U008,Analytics/AnalyticsService,Unit,should swallow exceptions from Firebase calls,Verify no exception propagation,P1,Yes,All,All
+ANAL-U009,Analytics/AnalyticsService,Unit,should distinguish web vs mobile in signup_source,Verify kIsWeb conditional,P1,No,All,All
+SEC-U001,Security/SecureUrlHelper,Unit,should strip token parameter from URL,Verify stripTokenFromUrl,P0,No,All,All
+SEC-U002,Security/SecureUrlHelper,Unit,should preserve non-token query parameters,Verify param preservation,P0,No,All,All
+SEC-U003,Security/SecureUrlHelper,Unit,should return URL unchanged when no token param present,Verify passthrough,P1,No,All,All
+SEC-U004,Security/SecureUrlHelper,Unit,should handle empty query string,Verify edge case,P1,Yes,All,All
+SEC-U005,Security/SecureUrlHelper,Unit,should return session JWT from Descope or fallback,Verify getSessionToken,P0,No,All,All
+SEC-U006,Security/StripeUrlValidator,Unit,should accept valid stripe.com HTTPS URL,Verify isValidStripeUrl,P0,No,All,All
+SEC-U007,Security/StripeUrlValidator,Unit,should accept valid API domain URL,Verify backend redirect acceptance,P0,No,All,All
+SEC-U008,Security/StripeUrlValidator,Unit,should reject non-HTTPS URL,Verify scheme check,P0,Yes,All,All
+SEC-U009,Security/StripeUrlValidator,Unit,should reject null or empty URL,Verify null/empty handling,P0,Yes,All,All
+SEC-U010,Security/StripeUrlValidator,Unit,should reject URLs from unknown domains,Verify domain check,P0,Yes,All,All
+SEC-U011,Security/SecurePrintHelper,Unit,should use web print dialog on kIsWeb,Verify web path,P1,No,All,All
+SEC-U012,Security/SecurePrintHelper,Unit,should use mobile print screen on native,Verify mobile path,P1,No,All,All
+SEC-U013,Security/SecurePrintHelper,Unit,should pass auth headers in WebView request,Verify headers,P0,No,All,All
+NAV-U028,Router/RouteExtras,Unit,should return empty map from safeExtras when extra is null,Verify null safety,P0,No,All,All
+NAV-U029,Router/RouteExtras,Unit,should return map from safeExtras when extra is valid Map,Verify passthrough,P0,No,All,All
+NAV-U030,Router/RouteExtras,Unit,should return fallback from extraString when key missing,Verify default value,P1,No,All,All
+NAV-U031,Router/RouteExtras,Unit,should return correct string from extraString when present,Verify extraction,P1,No,All,All
+NAV-U032,Router/RouteExtras,Unit,should return typed value from extraTyped or null on mismatch,Verify type-safe extraction,P1,Yes,All,All
+STOR-U001,Storage/PlatformSecureStorage,Unit,should create platform-appropriate storage instance,Verify factory,P0,No,All,All
+STOR-U002,Storage/PlatformSecureStorage,Unit,should write and read values correctly,Verify roundtrip,P0,No,All,All
+STOR-U003,Storage/PlatformSecureStorage,Unit,should delete specific key,Verify delete,P0,No,All,All
+STOR-U004,Storage/PlatformSecureStorage,Unit,should delete all stored values,Verify deleteAll,P0,No,All,All
+STOR-U005,Storage/PlatformSecureStorage,Unit,should return null for non-existent key,Verify read miss,P1,Yes,All,All
+CONN-U001,Service/Connectivity,Unit,should detect online status,Verify connectivity,P0,No,All,All
+CONN-U002,Service/Connectivity,Unit,should detect offline status,Verify no connectivity,P0,No,All,All
+CONN-U003,Service/Connectivity,Unit,should notify listeners on connectivity change,Verify stream,P1,No,All,All
+MISC-U009,Service/UpdateProvider,Unit,should track loading paths via addPath/clearPathList,Verify path management,P1,No,All,All
+MISC-U010,Service/UpdateProvider,Unit,should expose current loading state,Verify state,P1,No,All,All
+MISC-U011,Service/GlobalVariableNotifier,Unit,should manage global state variables,Verify state management,P1,No,All,All
+MISC-U012,Service/GlobalVariableNotifier,Unit,should notify listeners on state change,Verify notification,P1,No,All,All
+MISC-U013,Repository/HttpClientFactory,Unit,should create appropriate HTTP client for platform,Verify factory,P2,No,All,All
+WIDG-W031,Loading/DelayedOverlay,Widget,should not show spinner before delay elapses,Verify delayed appearance,P0,No,All,All
+WIDG-W032,Loading/DelayedOverlay,Widget,should show spinner after delay when isLoading is true,Verify spinner appears,P0,No,All,All
+WIDG-W033,Loading/DelayedOverlay,Widget,should hide spinner when isLoading becomes false before delay,Verify cancellation,P0,Yes,All,All
+WIDG-W034,Loading/DelayedOverlay,Widget,should show ModalBarrier when spinner is visible,Verify barrier,P1,No,All,All
+WIDG-W035,Loading/DelayedOverlay,Widget,should cancel timer on dispose,Verify cleanup,P1,Yes,All,All
+WIDG-W036,Loading/DelayedOverlay,Widget,should restart delay timer when isLoading toggles,Verify timer reset,P1,No,All,All
+SEC-W001,Security/SecurePrint,Widget,should auto-close mobile print after 5 seconds,Verify auto-pop,P1,No,"iOS, Android",All
+SEC-W002,Security/SecurePrint,Widget,should show close button in web print dialog,Verify UI,P1,No,Web,All
+WIDG-W037,Loading/LoaderIndicator,Widget,should render loading indicator,Verify rendering,P2,No,All,All
+INFRA-001,Env/Flavors,Infrastructure,should configure dev environment with correct base URL,Verify dev flavor,P0,No,All,All
+INFRA-002,Env/Flavors,Infrastructure,should configure staging environment with correct base URL,Verify staging flavor,P0,No,All,All
+INFRA-003,Env/Flavors,Infrastructure,should configure production environment with correct base URL,Verify prod flavor,P0,No,All,All
+INFRA-004,Env/Flavors,Infrastructure,should use correct API base URL per flavor at runtime,Verify runtime config,P0,No,All,All
+INFRA-005,Env/Flavors,Infrastructure,should use correct Firebase config per flavor,Verify Firebase flavor,P1,No,All,All
+INFRA-006,CI/CD,Infrastructure,should run unit tests in CI pipeline,Verify CI unit test stage,P0,No,All,All
+INFRA-007,CI/CD,Infrastructure,should run widget tests in CI pipeline,Verify CI widget test stage,P0,No,All,All
+INFRA-008,CI/CD,Infrastructure,should run integration tests in CI pipeline,Verify CI integration test stage,P1,No,All,All
+INFRA-009,CI/CD,Infrastructure,should build APK and IPA artifacts successfully,Verify mobile builds,P0,No,All,All
+INFRA-010,CI/CD,Infrastructure,should build web app successfully,Verify web build,P0,No,All,All
+INFRA-011,Perf/JMeter,Infrastructure,should verify API response times under load,Verify response time SLA,P1,No,All,All
+INFRA-012,Perf/JMeter,Infrastructure,should verify concurrent user capacity,Verify scalability,P1,No,All,All
+INFRA-013,Perf/JMeter,Infrastructure,should verify throughput under sustained load,Verify throughput,P1,No,All,All
+INFRA-014,DefaultClient/Android,Infrastructure,should declare mailto intent-filter with VIEW action in AndroidManifest.xml,Verify Android manifest,P0,No,All,All
+INFRA-015,DefaultClient/Android,Infrastructure,should declare mailto intent-filter with SENDTO action in AndroidManifest.xml,Verify Android SENDTO,P0,No,All,All
+INFRA-016,DefaultClient/iOS,Infrastructure,should declare mailto in CFBundleURLSchemes in Info.plist,Verify iOS URL scheme,P0,No,All,All
+INFRA-017,DefaultClient/iOS,Infrastructure,should declare mailto in LSApplicationQueriesSchemes in Info.plist,Verify iOS queries,P0,No,All,All
+INFRA-018,DefaultClient/Deps,Infrastructure,should include app_links dependency for deep link handling,Verify app_links dep,P1,No,All,All
+UST-U001,UserState/Active,Unit,should identify Active user state correctly,Verify Active state attributes,P0,No,All,All
+UST-U002,UserState/Cancelled,Unit,should identify Cancelled user state correctly,Verify Cancelled state attributes,P0,No,All,All
+UST-U003,UserState/Suspended,Unit,should identify Suspended user state correctly,Verify Suspended state attributes,P0,No,All,All
+UST-U004,UserState/GracePeriod,Unit,should identify Grace Period user state correctly,Verify Grace Period state attributes,P0,No,All,All
+UST-U005,UserState/Lapsed,Unit,should identify Lapsed user state correctly,Verify Lapsed state attributes,P0,No,All,All
+UST-U006,UserState/Inactive,Unit,should identify Inactive user state correctly,Verify Inactive state attributes,P0,No,All,All
+UST-U007,UserState/Deleted,Unit,should identify Deleted user state correctly,Verify Deleted state attributes,P0,No,All,All
+UST-U008,UserState/Transition,Unit,should transition from new customer to Active on subscription success,Verify new→Active,P0,No,All,All
+UST-U009,UserState/Transition,Unit,should transition from Active to Cancelled when user cancels subscription,Verify Active→Cancelled,P0,No,All,All
+UST-U010,UserState/Transition,Unit,should transition from Cancelled to Grace Period when subscription expires,Verify Cancelled→Grace,P0,No,All,All
+UST-U011,UserState/Transition,Unit,should transition from Active to Grace Period on payment failure,Verify Active→Grace (payment fail),P0,No,All,All
+UST-U012,UserState/Transition,Unit,should transition from Grace Period to Lapsed after 7 days without renewal,Verify Grace→Lapsed,P0,No,All,All
+UST-U013,UserState/Transition,Unit,should transition from Lapsed to Inactive after day 30 without renewal,Verify Lapsed→Inactive,P0,No,All,All
+UST-U014,UserState/Transition,Unit,should transition from Grace Period to Active on payment update,Verify Grace→Active,P0,No,All,All
+UST-U015,UserState/Transition,Unit,should transition from Lapsed to Active on payment update,Verify Lapsed→Active,P0,No,All,All
+UST-U016,UserState/Transition,Unit,should transition from Cancelled to Active on payment update,Verify Cancelled→Active,P0,No,All,All
+UST-U017,UserState/Transition,Unit,should transition from Active to Suspended via admin panel,Verify Active→Suspended,P0,No,All,All
+UST-U018,UserState/Transition,Unit,should transition from Suspended to Active via admin panel,Verify Suspended→Active,P0,No,All,All
+UST-U019,UserState/Transition,Unit,should transition to Deleted on user-initiated delete,Verify Any→Deleted (user),P0,No,All,All
+UST-U020,UserState/Transition,Unit,should transition to Deleted on admin-initiated delete,Verify Any→Deleted (admin),P0,No,All,All
+UST-U021,UserState/Transition,Unit,should transition Active to Active on auto-renewal success,Verify Active→Active (renewal),P0,No,All,All
+UST-U022,UserState/Transition,Unit,should transition Cancelled users to Cancelled when admin cancels all subscribers to a plan,Verify bulk cancel,P1,No,All,All
+UST-U023,UserState/Notification,Unit,should send SUBSCRIPTION SUCCESS notification on new customer signup,Verify new customer notification,P0,No,All,All
+UST-U024,UserState/Notification,Unit,should send SUBSCRIPTION SUCCESS push notification on new customer signup,Verify new customer push,P0,No,All,All
+UST-U025,UserState/Notification,Unit,should send SUBSCRIPTION RENEWED notification on Grace→Active transition,Verify renewal notification (Grace),P0,No,All,All
+UST-U026,UserState/Notification,Unit,should send SUBSCRIPTION RENEWED push notification on Grace→Active,Verify renewal push (Grace),P0,No,All,All
+UST-U027,UserState/Notification,Unit,should send SUBSCRIPTION RENEWED notification on Lapsed→Active transition,Verify renewal notification (Lapsed),P0,No,All,All
+UST-U028,UserState/Notification,Unit,should send SUBSCRIPTION RENEWED push notification on Lapsed→Active,Verify renewal push (Lapsed),P0,No,All,All
+UST-U029,UserState/Notification,Unit,should send SUBSCRIPTION RENEWED notification on Cancelled→Active transition,Verify renewal notification (Cancelled),P0,No,All,All
+UST-U030,UserState/Notification,Unit,should send SUBSCRIPTION RENEWED push notification on Cancelled→Active,Verify renewal push (Cancelled),P0,No,All,All
+UST-U031,UserState/Notification,Unit,should send SUBSCRIPTION RENEWED notification on auto-renewal,Verify auto-renewal notification,P1,No,All,All
+UST-U032,UserState/Notification,Unit,should send SUBSCRIPTION RENEWED push notification on auto-renewal,Verify auto-renewal push,P1,No,All,All
+UST-U033,UserState/Notification,Unit,should send SUBSCRIPTION CANCEL notification when user cancels,Verify cancel notification (user),P0,No,All,All
+UST-U034,UserState/Notification,Unit,should send SUBSCRIPTION CANCEL push notification when user cancels,Verify cancel push (user),P0,No,All,All
+UST-U035,UserState/Notification,Unit,should send SUBSCRIPTION CANCEL notification when admin cancels all plan subscribers,Verify cancel notification (admin bulk),P1,No,All,All
+UST-U036,UserState/Notification,Unit,should send SUBSCRIPTION CANCEL push notification when admin cancels all plan subscribers,Verify cancel push (admin bulk),P1,No,All,All
+UST-U037,UserState/Notification,Unit,should send SUBSCRIPTION RENEWAL WARNING notifications on approach to subscription end for Cancelled user,Verify renewal warning (Cancelled),P0,No,All,All
+UST-U038,UserState/Notification,Unit,should send SUBSCRIPTION RENEWAL WARNING push notifications on countdown days,Verify renewal warning push,P0,No,All,All
+UST-U039,UserState/Notification,Unit,should send PAYMENT FAILED notification when payment fails triggering Grace Period,Verify payment failed notification,P0,No,All,All
+UST-U040,UserState/Notification,Unit,should send PAYMENT FAILED push notification,Verify payment failed push,P0,No,All,All
+UST-U041,UserState/Notification,Unit,should send SUBSCRIPTION EXPIRED notification when subscription ends triggering Grace Period,Verify expired notification,P0,No,All,All
+UST-U042,UserState/Notification,Unit,should send SUBSCRIPTION EXPIRED push notification,Verify expired push,P0,No,All,All
+UST-U043,UserState/Notification,Unit,should send daily GRACE PERIOD notification during Grace Period,Verify daily grace notification,P0,No,All,All
+UST-U044,UserState/Notification,Unit,should send daily GRACE PERIOD push notification during Grace Period,Verify daily grace push,P0,No,All,All
+UST-U045,UserState/Notification,Unit,should NOT send notification when admin suspends user,Verify no suspend notification,P1,No,All,All
+UST-U046,UserState/Notification,Unit,should NOT send notification when admin moves Suspended to Active,Verify no unsuspend notification,P1,No,All,All
+UST-U047,UserState/Notification,Unit,should NOT send notification when Lapsed transitions to Inactive,Verify no inactive notification,P1,No,All,All
+UST-U048,UserState/Notification,Unit,should NOT send notification on user or admin delete,Verify no delete notification,P1,No,All,All
+UST-U049,UserState/Descope,Unit,should set Descope user status to Active for Active user,Verify Descope Active sync,P0,No,All,All
+UST-U050,UserState/Descope,Unit,should keep Descope user status Active for Cancelled user,Verify Descope Cancelled sync,P0,No,All,All
+UST-U051,UserState/Descope,Unit,should set Descope user status to Deactivated for Suspended user,Verify Descope Suspended sync,P0,No,All,All
+UST-U052,UserState/Descope,Unit,should force close all Descope sessions on Suspend,Verify session force-close (Suspend),P0,No,All,All
+UST-U053,UserState/Descope,Unit,should keep Descope user status Active for Grace Period user,Verify Descope Grace sync,P0,No,All,All
+UST-U054,UserState/Descope,Unit,should keep Descope user status Active for Lapsed user,Verify Descope Lapsed sync,P1,No,All,All
+UST-U055,UserState/Descope,Unit,should set Descope user status to Deactivated for Inactive user,Verify Descope Inactive sync,P0,No,All,All
+UST-U056,UserState/Descope,Unit,should force close all Descope sessions on Inactive transition,Verify session force-close (Inactive),P0,No,All,All
+UST-U057,UserState/Descope,Unit,should set Descope user status to Deactivated for Deleted user,Verify Descope Deleted sync,P0,No,All,All
+UST-U058,UserState/Descope,Unit,should force close all Descope sessions on Delete,Verify session force-close (Delete),P0,No,All,All
+UST-U059,UserState/Stripe,Unit,should have active subscription with auto-renew for Active user,Verify Stripe Active state,P0,No,All,All
+UST-U060,UserState/Stripe,Unit,should have active subscription with no renewal for Cancelled user,Verify Stripe Cancelled state,P0,No,All,All
+UST-U061,UserState/Stripe,Unit,should not change Stripe subscription on Suspend,Verify Stripe unchanged on Suspend,P0,No,All,All
+UST-U062,UserState/Stripe,Unit,should have no subscription for Grace Period user,Verify Stripe Grace state,P0,No,All,All
+UST-U063,UserState/Stripe,Unit,should have no subscription for Lapsed user,Verify Stripe Lapsed state,P0,No,All,All
+UST-U064,UserState/Stripe,Unit,should have no subscription for Inactive user,Verify Stripe Inactive state,P1,No,All,All
+UST-U065,UserState/Stripe,Unit,should have no subscription for Deleted user,Verify Stripe Deleted state,P1,No,All,All
+UST-U066,UserState/Stripe,Unit,should set user to Deleted on Stripe/CC-initiated fraud refund,Verify fraud refund → Deleted,P0,Yes,All,All
+UST-U067,UserState/Stripe,Unit,should not change user status on OptMsg-issued refund,Verify OptMsg refund → no change,P1,No,All,All
+UST-U068,UserState/Stripe,Unit,should set user to Inactive on Stripe immediate subscription cancel,Verify Stripe immediate cancel → Inactive,P0,Yes,All,All
+UST-U069,UserState/Stripe,Unit,should set user to Cancelled on Stripe end-of-term subscription cancel,Verify Stripe end-of-term cancel → Cancelled,P0,Yes,All,All
+UST-U070,UserState/Login,Unit,should allow web login for Active user,Verify Active web login,P0,No,All,All
+UST-U071,UserState/Login,Unit,should allow app login for Active user,Verify Active app login,P0,No,All,All
+UST-U072,UserState/Login,Unit,should allow web login for Cancelled user during subscription period,Verify Cancelled web login,P0,No,All,All
+UST-U073,UserState/Login,Unit,should allow app login for Cancelled user during subscription period,Verify Cancelled app login,P0,No,All,All
+UST-U074,UserState/Login,Unit,should block web login for Suspended user,Verify Suspended web login blocked,P0,No,All,All
+UST-U075,UserState/Login,Unit,should block app login for Suspended user,Verify Suspended app login blocked,P0,No,All,All
+UST-U076,UserState/Login,Unit,should allow web login for Grace Period user,Verify Grace web login,P0,No,All,All
+UST-U077,UserState/Login,Unit,should allow app login for Grace Period user,Verify Grace app login,P0,No,All,All
+UST-U078,UserState/Login,Unit,should show choose-a-plan page on web login for Lapsed user,Verify Lapsed web login,P0,No,All,All
+UST-U079,UserState/Login,Unit,should show web-redirect page on app login for Lapsed user,Verify Lapsed app login,P0,No,All,All
+UST-U080,UserState/Login,Unit,should block web login for Inactive user,Verify Inactive web login blocked,P0,No,All,All
+UST-U081,UserState/Login,Unit,should block app login for Inactive user,Verify Inactive app login blocked,P0,No,All,All
+UST-U082,UserState/Login,Unit,should block web login for Deleted user,Verify Deleted web login blocked,P0,No,All,All
+UST-U083,UserState/Login,Unit,should block app login for Deleted user,Verify Deleted app login blocked,P0,No,All,All
+UST-U084,UserState/Bounce,Unit,should NOT bounce messages for Active user,Verify Active no bounce,P0,No,All,All
+UST-U085,UserState/Bounce,Unit,should NOT bounce messages for Cancelled user during subscription period,Verify Cancelled no bounce,P0,No,All,All
+UST-U086,UserState/Bounce,Unit,should bounce messages for Suspended user with account-inactive error,Verify Suspended bounce,P0,No,All,All
+UST-U087,UserState/Bounce,Unit,should NOT bounce messages for Grace Period user,Verify Grace no bounce,P0,No,All,All
+UST-U088,UserState/Bounce,Unit,should bounce messages for Lapsed user with account-invalid error,Verify Lapsed bounce,P0,No,All,All
+UST-U089,UserState/Bounce,Unit,should bounce messages for Inactive user,Verify Inactive bounce,P0,No,All,All
+UST-U090,UserState/Bounce,Unit,should bounce messages for Deleted user,Verify Deleted bounce,P0,No,All,All
+UST-U091,UserState/Suspended,Unit,should NOT auto-delete Suspended user after 30 days,Verify no auto-delete,P0,Yes,All,All
+UST-U092,UserState/Suspended,Unit,should preserve Stripe subscription state during suspension,Verify Stripe unchanged,P0,No,All,All
+UST-U093,UserState/Suspended,Unit,should allow admin to toggle Suspended back to Active,Verify admin unsuspend,P0,No,All,All
+UST-U094,UserState/Inactive,Unit,should perform soft delete retaining messages and attachments,Verify soft delete scope,P0,No,All,All
+UST-U095,UserState/Inactive,Unit,should NOT allow user recovery of Inactive account,Verify no user recovery,P0,No,All,All
+UST-U096,UserState/Inactive,Unit,should NOT allow admin recovery of Inactive account,Verify no admin recovery,P0,No,All,All
+UST-U097,UserState/Deleted,Unit,should perform soft delete retaining messages and attachments,Verify soft delete scope,P0,No,All,All
+UST-U098,UserState/Deleted,Unit,should require confirmation popup before user-initiated delete,Verify delete confirmation,P0,No,All,All
+UST-U099,UserState/Deleted,Unit,should display acknowledgment that user data becomes inaccessible,Verify data loss warning,P0,No,All,All
+UST-U100,UserState/Deleted,Unit,should display acknowledgment that unused subscription payment is forfeited,Verify payment forfeiture warning,P0,No,All,All
+UST-U101,UserState/Deleted,Unit,should cancel Stripe subscription immediately on delete,Verify Stripe cancel on delete,P0,No,All,All
+UST-U102,UserState/Admin,Unit,should allow admin to suspend an Active user,Verify admin suspend,P0,No,All,All
+UST-U103,UserState/Admin,Unit,should allow admin to reactivate a Suspended user,Verify admin reactivate,P0,No,All,All
+UST-U104,UserState/Admin,Unit,should allow admin to delete a user,Verify admin delete,P0,No,All,All
+UST-U105,UserState/Admin,Unit,should allow admin to cancel all subscribers to a plan,Verify admin bulk cancel,P1,No,All,All
+UST-U106,UserState/Admin,Unit,should allow admin to cancel individual user subscription,Verify admin single cancel,P1,No,All,All
+UST-U107,UserState/Admin,Unit,should allow admin to issue refund (partial or full),Verify admin refund,P1,No,All,All
+UST-U108,UserState/Admin,Unit,should remove action buttons for Deleted/Inactive users in admin panel,Verify admin UI cleanup,P1,No,All,All
+UST-U109,UserState/Admin,Unit,should allow admin to toggle user role to Admin,Verify admin role toggle,P1,No,All,All
+UST-U110,UserState/RenewalWarning,Unit,should send SUBSCRIPTION RENEWAL WARNING on 5th day before subscription end,Verify 5-day warning,P0,No,All,All
+UST-U111,UserState/RenewalWarning,Unit,should send SUBSCRIPTION RENEWAL WARNING on 4th day before subscription end,Verify 4-day warning,P1,No,All,All
+UST-U112,UserState/RenewalWarning,Unit,should send SUBSCRIPTION RENEWAL WARNING on 3rd day before subscription end,Verify 3-day warning,P1,No,All,All
+UST-U113,UserState/RenewalWarning,Unit,should send SUBSCRIPTION RENEWAL WARNING on 2nd day before subscription end,Verify 2-day warning,P1,No,All,All
+UST-U114,UserState/RenewalWarning,Unit,should send SUBSCRIPTION RENEWAL WARNING on day of subscription expiration,Verify expiration day warning,P0,No,All,All
+UST-U115,UserState/GraceNotification,Unit,should send GRACE PERIOD notification on day 1 of grace period,Verify day 1 grace notification,P0,No,All,All
+UST-U116,UserState/GraceNotification,Unit,should send GRACE PERIOD notification on day 7 (final day) of grace period,Verify day 7 grace notification,P0,Yes,All,All
+UST-U117,UserState/GraceNotification,Unit,should include correct countdown in GRACE PERIOD notification message,Verify countdown accuracy,P0,No,All,All
+UST-U118,UserState/GraceNotification,Unit,should send GRACE PERIOD push notification daily,Verify daily push,P0,No,All,All
+UST-U119,UserState/GraceNotification,Unit,should stop GRACE PERIOD notifications after user renews subscription,Verify notification stop on renewal,P1,No,All,All
+E2E-064,UserState/SuspendReactivate,E2E,should suspend and reactivate a user via admin panel,Admin suspend/reactivate,Suspend blocks login; reactivate restores access; Stripe unchanged throughout,All,All,All
+E2E-065,UserState/GraceRenewal,E2E,should complete renewal during grace period and restore active status,Grace period renewal,"User can login, renewal prompt shown, payment completes, status=Active, SUBSCRIPTION RENEWED notification received",All,All,All
+E2E-066,UserState/LapsedWebLogin,E2E,should show plan selection page for Lapsed user on web login,Lapsed web login,"Web login succeeds but redirects to plan selection, inbox inaccessible until plan purchased",Web,All,All
+E2E-067,UserState/LapsedAppLogin,E2E,should show web-redirect page for Lapsed user on app login,Lapsed app login,"App shows message to login via web and update subscription, link opens browser to web app","iOS, Android",All,All
+E2E-068,UserState/DeleteWithConfirm,E2E,should delete account with confirmation popup acknowledgments,Account deletion,"Confirmation popup shown with two acknowledgments, account deleted, logged out immediately, subscription cancelled",All,All,All
+E2E-069,UserState/InactiveNoRecovery,E2E,should prevent login and recovery for Inactive user,Inactive user blocked,"Login blocked on both platforms, no recovery option presented, account permanently inaccessible",All,All,All
+E2E-070,UserState/CancelledNotifications,E2E,should receive SUBSCRIPTION CANCEL and RENEWAL WARNING notifications for cancelled user,Cancelled user notifications,"SUBSCRIPTION CANCEL notification received immediately; RENEWAL WARNING notifications received on 5th, 4th, 3rd, 2nd, and day of expiration",All,All,All
+E2E-071,UserState/PaymentFailGrace,E2E,should transition to Grace Period on payment failure with proper notifications,Payment failure flow,"PAYMENT FAILED and SUBSCRIPTION EXPIRED notifications received, daily GRACE PERIOD notifications with countdown during 7-day period",All,All,All
+UST-W001,UserState/GraceBanner,Widget,should display grace period renewal banner on login,Verify grace banner,P0,No,All,All
+UST-W002,UserState/GraceBanner,Widget,should navigate to subscription page from grace banner,Verify grace banner tap,P0,No,All,All
+UST-W003,UserState/LapsedPlanPage,Widget,should render plan selection page for Lapsed user on web,Verify lapsed plan page,P0,No,Web,All
+UST-W004,UserState/LapsedAppRedirect,Widget,should render web-redirect message for Lapsed user on app,Verify lapsed app redirect,P0,No,"iOS, Android",All
+UST-W005,UserState/LapsedAppRedirect,Widget,should open browser when web link tapped on Lapsed app redirect,Verify browser open,P0,No,"iOS, Android",All
+UST-W006,UserState/DeleteConfirmPopup,Widget,should render delete confirmation popup with two acknowledgments,Verify delete popup,P0,No,All,All
+UST-W007,UserState/DeleteConfirmPopup,Widget,should disable confirm button until both acknowledgments checked,Verify confirm guard,P0,No,All,All
+UST-W008,UserState/DeleteConfirmPopup,Widget,should enable confirm button when both acknowledgments checked,Verify confirm enabled,P0,No,All,All
+UST-W009,UserState/CancelledBanner,Widget,should display subscription expiration warning banner for Cancelled user,Verify cancel banner,P1,No,All,All
+UST-W010,UserState/SuspendedMessage,Widget,should display account suspended message on login attempt,Verify suspended message,P0,No,All,All
+NOTIF-U038,Notification/Auth,Unit,should include push notification for PASSKEY ADDED,Verify push sent,P0,No,All,All
+NOTIF-U039,Notification/Auth,Unit,should include push notification for PASSKEY REMOVED,Verify push sent,P0,No,All,All
+NOTIF-U040,Notification/Push,Unit,should initialize FCM and save device token,Verify FCM init,P0,No,All,All
+NOTIF-U041,Notification/Push,Unit,should handle Safari FCM unsupported,Verify Safari handling,P0,Yes,All,All
+NOTIF-U042,Notification/Push,Unit,should parse notification payload PATH,Verify payload parsing,P0,No,All,All
+NOTIF-U043,Notification/Push,Unit,should update badge count from notification,Verify badge update,P0,No,All,All
+NOTIF-U044,Notification/Push,Unit,should show local notification when app in foreground,Verify foreground notification,P0,No,All,All
+NOTIF-U045,Notification/Push,Unit,should handle notification tap and navigate,Verify navigation,P0,No,All,All
+NOTIF-U046,Notification/Push,Unit,should navigate to email detail for newEmailInbox,Verify email navigation,P0,No,All,All
+NOTIF-U047,Notification/Push,Unit,should navigate to inbox for newEmailCommunity,Verify community navigation,P0,No,All,All
+NOTIF-U048,Notification/Push,Unit,should navigate to notifications for other types,Verify default navigation,P0,Yes,All,All
+NOTIF-U049,Notification/Push,Unit,should redirect to login if not authenticated,Verify auth check,P0,Yes,All,All
+NOTIF-U050,Notification/Push,Unit,should request notification permissions on Android,Verify Android permissions,P0,No,All,All
+NOTIF-U051,Notification/Push,Unit,should request notification permissions on iOS,Verify iOS permissions,P0,No,All,All
+NOTIF-U052,Notification/Push,Unit,should create Android notification channel,Verify channel creation,P0,No,All,All
+NOTIF-U053,Notification/Push,Unit,should handle invalid notification payload,Verify error handling,P1,Yes,All,All
+NOTIF-U054,Notification/Push,Unit,should handle notification when app killed (iOS),Verify background handling,P0,No,All,All
+NOTIF-I001,Notification/Navigation,Integration,should navigate to email detail from newEmailInbox notification,Email notification navigation,App navigates to email detail view with emailId=789,All,All,All
+NOTIF-I002,Notification/Navigation,Integration,should navigate to inbox for newEmailCommunity notification,Community email navigation,"App navigates to inbox, community email ID stored in secure storage",All,All,All
+NOTIF-I003,Notification/Navigation,Integration,should navigate to notification list for generic notification,Generic navigation,App navigates to notifications screen,All,All,All
+NOTIF-I004,Notification/Navigation,Integration,should update notification list after marking as read,Notification state sync,"Notification isRead=true in list, unread count decremented",All,All,All
+NOTIF-I005,Notification/Navigation,Integration,should remove notification from list after delete,Notification delete sync,Notification removed from UI list,All,All,All
+NOTIF-I006,Notification/Navigation,Integration,should update badge count after reading notification,Badge sync,App badge count decremented by 1,"iOS, Android",All,All
+E2E-089,Notification/Onboarding,E2E,should receive WELCOME notification on account creation,Complete onboarding and receive welcome,WELCOME notification appears in notification list with welcome message,All,All,All
+E2E-090,Notification/Onboarding,E2E,should receive SYNCH notification after contact sync,Contact sync triggers notification,SYNCH notification appears with contact sync message,"iOS, Android",All,All
+E2E-091,Notification/Profile,E2E,should receive NAME CHANGE notification on profile update,Profile change triggers notification,NAME CHANGE notification with new name in body,All,All,All
+E2E-092,Notification/Profile,E2E,should receive MOBILE CHANGE notification on phone update,Phone change triggers notification,MOBILE CHANGE notification with new phone number,All,All,All
+E2E-093,Notification/Message,E2E,should receive NEW MESSAGE notification on incoming email,New email triggers notification,"NEW MESSAGE notification with sender and subject, tap opens email detail",All,All,All
+E2E-094,Notification/Message,E2E,should receive push notification for NEW MESSAGE,Push notification received,"Push notification shown on device, tap opens app to email detail","iOS, Android",All,All
+E2E-095,Notification/CR,E2E,should receive Community Recommendation notification,CR email triggers notification,"CR notification visible, tap navigates to email in trash",All,All,All
+E2E-096,Notification/Auth,E2E,should receive PASSKEY ADDED notification,Passkey addition triggers notification,PASSKEY ADDED notification appears,All,All,All
+E2E-097,Notification/MarkRead,E2E,should mark notification as read and update badge,Mark read flow,"Notification marked as read, unread indicator removed, badge count decremented",All,All,All
+E2E-098,Notification/Delete,E2E,should delete notification and remove from list,Delete flow,"Notification removed from list, no longer appears on refresh",All,All,All
+E2E-099,Notification/Navigation,E2E,should navigate to email from notification tap,Notification navigation,Email detail screen opens with correct email content,All,All,All
+E2E-100,Notification/BadgeUpdate,E2E,should update app badge count with notification count,Badge count sync,"Badge shows ""3"", then ""2"" after marking one read","iOS, Android",All,All
+E2E-101,Notification/Subscription,E2E,should receive SUBSCRIPTION SUCCESS notification,Subscription purchase triggers notification,SUBSCRIPTION SUCCESS notification with plan title,All,All,All
+E2E-102,Notification/Subscription,E2E,should receive SUBSCRIPTION CANCEL notification,Subscription cancellation triggers notification,SUBSCRIPTION CANCEL notification confirming cancellation,All,All,All

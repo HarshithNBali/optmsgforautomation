@@ -1,0 +1,126 @@
+plugins {
+    id "com.android.application"
+    // START: FlutterFire Configuration
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.firebase-perf'
+    id 'com.google.firebase.crashlytics'
+    // END: FlutterFire Configuration
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+if (flutterVersionCode == null) {
+    flutterVersionCode = '1'
+}
+
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
+if (flutterVersionName == null) {
+    flutterVersionName = '1.0'
+}
+
+android {
+    // ⚠️ IMPORTANT: namespace is the R class package — must match production.
+    // applicationId is overridden per flavor in productFlavors below.
+    namespace "com.optmsg.mail"
+    compileSdk 36
+    ndkVersion flutter.ndkVersion
+
+    compileOptions {
+        coreLibraryDesugaringEnabled true
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+       jvmTarget = '17'
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    defaultConfig {
+        // Default applicationId — overridden by productFlavors below.
+        // ⚠️ Always build with --flavor (dev/stage/prod). Without a flavor,
+        // this default is used and will produce a production-namespaced build.
+        applicationId "com.optmsg.mail"
+        // You can update the following values to match your application needs.
+        // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
+        minSdk 24
+        targetSdk 36
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+    }
+      signingConfigs {
+        release {
+            storeFile file(RELEASE_STORE_FILE)
+            storePassword RELEASE_STORE_PASSWORD
+            keyAlias RELEASE_KEY_ALIAS
+            keyPassword RELEASE_KEY_PASSWORD
+        }}
+    flavorDimensions "env"
+    productFlavors {
+
+        dev {
+            dimension "env"
+            applicationId "com.optmsg.dev"
+            resValue "string", "app_name", "OptMsg Dev"
+            manifestPlaceholders = [
+                    appIcon : "@mipmap/launcher_icon_dev",
+                    roundIcon : "@mipmap/launcher_icon_dev",
+                    appLinkHost : "dev.optmsg.com"
+            ]
+        }
+
+        stage {
+            dimension "env"
+            applicationId "com.optmsg.stag"
+            resValue "string", "app_name", "OptMsg-Stg"
+            manifestPlaceholders = [
+                    appIcon : "@mipmap/launcher_icon_stage",
+                    roundIcon : "@mipmap/launcher_icon_stage",
+                    appLinkHost : "staging.optmsg.com"
+            ]
+        }
+        prod {
+            dimension "env"
+            applicationId "com.optmsg.mail"
+            resValue "string", "app_name", "OptMsg"
+            manifestPlaceholders = [
+                    appIcon : "@mipmap/launcher_icon",
+                    roundIcon : "@mipmap/launcher_icon",
+                    appLinkHost : "optmsg.com"
+            ]
+        }
+    }
+
+    buildTypes {
+        release {
+            // TODO: Add your own signing config for the release build.
+            // Signing with the debug keys for now, so `flutter run --release` works.
+            signingConfig signingConfigs.release
+            crunchPngs false
+        }
+    }
+}
+
+flutter {
+    source '../..'
+}
+
+dependencies {
+    implementation 'com.google.android.play:integrity:1.3.0'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'androidx.core:core-ktx:1.10.1'
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5'
+}

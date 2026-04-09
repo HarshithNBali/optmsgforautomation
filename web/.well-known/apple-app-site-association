@@ -1,0 +1,32 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appIDs": [
+          "LDS4JAJB6D.com.optmsg.mail",
+          "LDS4JAJB6D.com.optmsg.stag",
+          "LDS4JAJB6D.com.optmsg.dev"
+        ],
+        "components": [
+          {
+            "#": "weblink",
+            "exclude": true,
+            "comment": "exclude uri's with weblink fragment"
+          },
+          {
+            "/": "/*",
+            "comment": "match all paths"
+          }
+        ]
+      }
+    ]
+  },
+  "webcredentials": {
+    "apps": [
+      "LDS4JAJB6D.com.optmsg.mail",
+      "LDS4JAJB6D.com.optmsg.stag",
+      "LDS4JAJB6D.com.optmsg.dev"
+    ]
+  }
+}

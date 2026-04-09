@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <base href="/">
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <!-- L-09: Content-Security-Policy.
+       Stripe checkout and the Descope API require their domains.
+       'unsafe-inline' is needed for Flutter web's generated JS.
+       Tighten script-src when Flutter supports nonce-based CSP (tracked upstream). -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self';
+                 script-src 'self' 'unsafe-inline' 'unsafe-eval' https://code.jquery.com https://www.gstatic.com https://www.googletagmanager.com https://www.youtube.com https://s.ytimg.com;
+                 style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+                 img-src 'self' data: blob: https:;
+                 font-src 'self' data: https://fonts.gstatic.com;
+                 connect-src 'self' https://api.optmsg.com https://staging-api.optmsg.com https://dev-api.optmsg.com https://api.descope.com https://checkout.stripe.com wss://api.optmsg.com wss://staging-api.optmsg.com wss://dev-api.optmsg.com https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://firebaseinstallations.googleapis.com https://firebase.googleapis.com https://firebaselogging-pa.googleapis.com https://region1.google-analytics.com https://fcmregistrations.googleapis.com https://fonts.gstatic.com https://www.gstatic.com https://attachment.optmsg.com https://staging-attachment.optmsg.com https://dev-attachment.optmsg.com https://contact.optmsg.com https://staging-contact.optmsg.com https://dev-contact.optmsg.com https://optmsg-app.s3.amazonaws.com https://optmsg-app-staging.s3.amazonaws.com https://optmsg-app-dev.s3.amazonaws.com;
+                 frame-src 'self' blob: data: http://localhost:3000 https://checkout.stripe.com https://js.stripe.com https://www.youtube.com https://www.youtube-nocookie.com https://api.optmsg.com https://staging-api.optmsg.com https://dev-api.optmsg.com https://attachment.optmsg.com https://staging-attachment.optmsg.com https://dev-attachment.optmsg.com;
+                 object-src 'none';
+                 base-uri 'self';
+                 form-action 'self';">
+  <meta name="description" content="OptMsg App is cross platform mobile application which is developing in flutter framework, this application for public users. There are three application like iOS, Android & Web application. Basically, this is an email communication provider service like user can send, receive the emails to their account. It has search implemented with a loader that shows up before the data has been rendered.">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="OptMsg">
+  <link rel="apple-touch-icon" href="assets/assets/icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png">
+  <title>OptMsg</title>
+  <link rel="manifest" href="manifest.json">
+
+  <!-- firebase-config.js is required by the Firebase Messaging service worker.
+       FlutterFire Analytics v12.x initialises GA4/gtag internally — no manual
+       gtag.js loading needed here. -->
+  <script src="firebase-config.js"></script>
+
+  <!-- ✅ jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+          integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+          crossorigin="anonymous"></script>
+
+  <!-- ✅ PATCH: Fix hasClass() error for native DOM elements -->
+  <script>
+    if (!Element.prototype.hasClass) {
+      Element.prototype.hasClass = function(className) {
+        return this.classList.contains(className);
+      };
+    }
+  </script>
+
+
+  <style id="splash-screen-style">
+    html {
+      height: 100vh;
+      width: 100vw;
+    }
+
+    #splash {
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--Blue-Gradient, linear-gradient(12deg, #2748C3 -1.07%, #121E57 58.41%));
+    }
+
+    body {
+      margin: 0;
+      min-height: 100%;
+      background-size: 100% 100%;
+    }
+
+    .center {
+      margin: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+    }
+
+    .contain {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .stretch {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .cover {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .bottom {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      -ms-transform: translate(-50%, 0);
+      transform: translate(-50%, 0);
+    }
+
+    .bottomLeft {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
+
+    .bottomRight {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    }
+  </style>
+  <script>
+    // Prevent browser default Shift+Click behavior (text selection)
+    // so Flutter receives the pointer event for multi-select.
+    document.addEventListener('mousedown', function(e) {
+      if (e.shiftKey) {
+        e.preventDefault();
+      }
+    });
+    document.addEventListener('selectstart', function(e) {
+      if (window._flutterShiftHeld) {
+        e.preventDefault();
+      }
+    });
+  </script>
+</head>
+
+<body>
+<div id="splash"></div>
+
+
+
+<!-- Firebase Service Worker Registration -->
+<script defer>
+  window.addEventListener('load', function () {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/firebase-messaging-sw.js').catch(function () {});
+    }
+  });
+</script>
+<script src="flutter_bootstrap.js" defer></script>
+
+</body>
+</html>

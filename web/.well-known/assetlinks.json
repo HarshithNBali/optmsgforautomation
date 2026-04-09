@@ -1,0 +1,31 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.optmsg.mail",
+      "sha256_cert_fingerprints": [
+        "F4:2F:75:B0:BA:60:5C:3A:FE:4A:1A:70:52:25:CC:1D:FF:5D:C9:36:97:04:FB:A5:C9:E8:A4:54:6A:75:26:F1"
+      ]
+    }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.optmsg.stag",
+      "sha256_cert_fingerprints": [
+        "F4:2F:75:B0:BA:60:5C:3A:FE:4A:1A:70:52:25:CC:1D:FF:5D:C9:36:97:04:FB:A5:C9:E8:A4:54:6A:75:26:F1",
+        "49:6B:10:60:A8:2A:4F:2A:9E:9A:AD:6B:64:48:14:5E:D3:F8:19:9C:49:1F:FC:25:33:13:AF:69:91:B6:2D:F4",
+        "ED:5F:E5:74:4B:7E:2A:A9:AF:1D:91:A4:5E:C9:07:62:45:33:5B:35:91:78:8A:64:FD:1B:A0:80:2F:10:AA:A3",
+        "9D:1B:5A:CC:5A:BC:09:64:72:4C:E5:71:E0:A8:B6:FE:A4:E9:3D:70:B4:55:43:51:B4:F7:22:34:0E:F4:EA:62"
+      ]
+    }
+  }
+]

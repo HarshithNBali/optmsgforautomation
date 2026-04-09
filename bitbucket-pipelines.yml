@@ -1,0 +1,665 @@
+image: ghcr.io/cirruslabs/flutter:latest
+# image: ghcr.io/cirruslabs/flutter:3.32.0
+# image: instrumentisto/flutter:3.32.0
+
+clone:
+  depth: full # SonarQube Cloud scanner needs the full history to assign issues properly
+
+definitions:
+  caches:
+    gradle: ~/.gradle/caches
+    pub-cache: ~/.pub-cache
+  steps:
+
+    ##
+    ## GET ENVIRONMENT CONFIGURATION FILES
+    ##
+
+    # Get Staging Config Files
+    - step: &download-app-config-file-stg
+          name: Download App Config Dart File for Staging
+          image: amazon/aws-cli
+          script:
+            # Configure AWS credentials
+            - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID_STAGE
+            - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY_STAGE
+            - aws configure set default.region $AWS_DEFAULT_REGION
+            # Download the config file from S3 abc
+            - aws s3 ls s3://$S3_CONFIG_BUCKET_STAGE/app_env/stag/
+            - aws s3 cp s3://$S3_CONFIG_BUCKET_STAGE/app_env/stag/app_config.dart . || echo "app_config.dart is missing"
+            - aws s3 cp s3://$S3_CONFIG_BUCKET_STAGE/app_env/stag/firebase_options.dart . || echo "firebase_options.dart is missing"
+            - aws s3 cp s3://$S3_CONFIG_BUCKET_STAGE/app_env/stag/services-playstore.json . || echo "services-playstore.json is missing"
+            - aws s3 cp s3://$S3_CONFIG_BUCKET_STAGE/app_env/stag/firebase.json . || echo "firebase.json is missing"
+            - aws s3 cp s3://$S3_CONFIG_BUCKET_STAGE/app_env/stag/firebase-config.js . || echo "firebase-config.js is missing"
+          artifacts:
+            - app_config.dart
+            - firebase_options.dart
+            - services-playstore.json
+            - firebase.json
+            - firebase-config.js
+    
+    # Get Production Config Files
+    - step: &download-app-config-file-prd
+          name: Download App Config Dart File for Production
+          image: amazon/aws-cli
+          script:
+            - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID_PROD
+            - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY_PROD
+            - aws configure set default.region $AWS_DEFAULT_REGION
+            - echo "Starting S3 Download..."
+            - aws s3 ls s3://$S3_CONFIG_BUCKET_PROD/app_env/prod/
+            - aws s3 cp s3://$S3_CONFIG_BUCKET_PROD/app_env/prod/app_config.dart . || echo "app_config.dart is missing"
+            - aws s3 cp s3://$S3_CONFIG_BUCKET_PROD/app_env/prod/firebase_options.dart . || echo "firebase_options.dart is missing"
+            - aws s3 cp s3://$S3_CONFIG_BUCKET_PROD/app_env/prod/services-playstore.json . || echo "services-playstore.json is missing"
+            - aws s3 cp s3://$S3_CONFIG_BUCKET_PROD/app_env/prod/firebase.json . || echo "firebase.json is missing"
+            - aws s3 cp s3://$S3_CONFIG_BUCKET_PROD/app_env/prod/firebase-config.js . || echo "firebase-config.js is missing"
+          artifacts:
+            - app_config.dart
+            - firebase_options.dart
+            - services-playstore.json
+            - firebase.json
+            - firebase-config.js
+    
+    ##
+    ## CODE BUILD, TEST, SECURITY AND QUALITY STEPS
+    ##
+
+    # Flutter Code Build & Run Test Scripts
+    # Generate test-only config stubs (the real ones are gitignored and fetched from S3 for builds)
+    - step: &generate-test-config
+        name: Generate Test Config Stubs
+        script:
+          - |
+            cat > app_config.dart <<'DART'
+            const String env = 'stage';
+            const String baseUrl = "https://staging-api.optmsg.com";
+            const String webAppUrl = "https://staging.optmsg.com";
+            const String contactUrl = "https://staging-contact.optmsg.com";
+            const Map<String, dynamic> appInfo = {"name": "OptMsg"};
+            const String s3BaseUrl = "https://staging-attachment.optmsg.com/";
+            const String bucketFolder = "email/";
+            const String defaultBaseUrl = "$baseUrl/api/";
+            const String contactBaseUrl = "$contactUrl/api/";
+            const String socketUrl = baseUrl;
+            const String descopeApiBaseUrl = "https://api.descope.com/";
+            const String projectId = "P2sGChBrHhLT2ISUptlvqdAeCVY3";
+            const String webAppSignUp = "$webAppUrl/signup";
+            const String webApp = "$webAppUrl/";
+            const String printUrl = "$baseUrl/api/email/mail?mailId=";
+            const String emailExtension = "@staging.optmsg.com";
+            const bool useNativeCompose = bool.fromEnvironment('USE_NATIVE_COMPOSE', defaultValue: false);
+            const int _defaultMaxRecipientsPerEmail = 100;
+            const int _defaultMaxDailySends = 250;
+            class SendLimits {
+              static int maxRecipientsPerEmail = _defaultMaxRecipientsPerEmail;
+              static int maxDailySends = _defaultMaxDailySends;
+              static void updateFromServer(Map<String, dynamic>? settings) {
+                if (settings == null) return;
+                if (settings['maxRecipientsPerEmail'] is int) {
+                  maxRecipientsPerEmail = settings['maxRecipientsPerEmail'] as int;
+                }
+                if (settings['maxDailySendsPerUser'] is int) {
+                  maxDailySends = settings['maxDailySendsPerUser'] as int;
+                }
+              }
+            }
+            int get maxRecipientsPerEmail => SendLimits.maxRecipientsPerEmail;
+            int get maxDailySends => SendLimits.maxDailySends;
+            const int itemCount = 50;
+            String newNotification = 'no';
+            const List<String> kOfficeIpAddresses = [];
+            const String playStoreUrl = 'https://play.google.com/store/apps/details?id=';
+            const String appStoreUrl = 'https://apps.apple.com/us/app/optmsg/id6742815057';
+            const String hibpApiKey = '';
+            DART
+          - |
+            cat > firebase_options.dart <<'DART'
+            import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
+            class DefaultFirebaseOptions {
+              static FirebaseOptions get currentPlatform {
+                return const FirebaseOptions(
+                  apiKey: 'test-key',
+                  appId: '1:0:web:0',
+                  messagingSenderId: '0',
+                  projectId: 'optmsg-test',
+                );
+              }
+            }
+            DART
+        artifacts:
+          - app_config.dart
+          - firebase_options.dart
+
+    - step: &flutter-analyze
+        name: Flutter Analyze
+        script:
+          - mv app_config.dart lib/constant/
+          - mv firebase_options.dart lib/
+          - flutter pub get
+          - flutter analyze
+
+    - step: &flutter-test
+        name: Flutter Test
+        script:
+          - mv app_config.dart lib/constant/
+          - mv firebase_options.dart lib/
+          - flutter pub get
+          - flutter test
+    
+    - step: &flutter-test-gate
+        name: "Tests & Coverage Gate"
+        caches:
+          - flutter
+        script:
+          - flutter pub get
+
+          # Run full test suite with coverage
+          - flutter test --coverage --reporter expanded
+
+          # Install lcov for coverage analysis
+          - apt-get update -qq && apt-get install -y -qq lcov bc > /dev/null 2>&1
+
+          # Filter out generated code from coverage
+          - |
+            lcov --remove coverage/lcov.info \
+              '*.g.dart' '*.freezed.dart' '*.gr.dart' '*.gen.dart' \
+              '*.mocks.dart' '**/generated/**' '**/main.dart' \
+              '**/firebase_options.dart' '**/l10n/**' \
+              -o coverage/lcov_filtered.info --quiet 2>/dev/null || \
+              cp coverage/lcov.info coverage/lcov_filtered.info
+
+          # Display coverage summary
+          - lcov --summary coverage/lcov_filtered.info
+
+          # Enforce minimum coverage thresholds
+          - |
+            LINE_COV=$(lcov --summary coverage/lcov_filtered.info 2>&1 | grep "lines" | grep -oP '[\d.]+%' | head -1 | tr -d '%')
+            echo "Line coverage: ${LINE_COV}%"
+            MIN_COVERAGE=90
+            if (( $(echo "$LINE_COV < $MIN_COVERAGE" | bc -l) )); then
+              echo "❌ FAILED: Coverage ${LINE_COV}% is below minimum ${MIN_COVERAGE}%"
+              exit 1
+            else
+              echo "✅ PASSED: Coverage ${LINE_COV}% meets minimum ${MIN_COVERAGE}%"
+            fi
+        artifacts:
+          - coverage/**
+
+    - step: &test-e2e-flutter
+        name: "E2E / Integration Tests"
+        caches:
+          - flutter
+        script:
+          - flutter pub get
+          # E2E tests run separately — they're slower and may need different setup
+          - flutter test integration_test/ --reporter expanded || true
+          # Note: integration_test/ may require a running emulator or device.
+          # For CI, you may need to use a headless emulator or skip these
+          # and run them in a dedicated E2E pipeline step with emulator support.
+
+    # SonarQube Code Scan
+    - step: &sonarqube-scanner
+        name: SonarQube Scan
+        image: sonarsource/sonar-scanner-cli
+        script:
+          - |
+            if [ -n "$BITBUCKET_PR_ID" ]; then
+              SONAR_BRANCH_ARGS="-Dsonar.pullrequest.key=$BITBUCKET_PR_ID \
+                -Dsonar.pullrequest.branch=$BITBUCKET_BRANCH \
+                -Dsonar.pullrequest.base=$BITBUCKET_PR_DESTINATION_BRANCH"
+            else
+              SONAR_BRANCH_ARGS="-Dsonar.branch.name=$BITBUCKET_BRANCH"
+            fi
+            sonar-scanner \
+              -Dsonar.host.url=https://sonarcloud.io \
+              -Dsonar.token=$SONAR_TOKEN \
+              -Dsonar.projectKey=optmsg_app \
+              -Dsonar.organization=optmsg \
+              $SONAR_BRANCH_ARGS \
+              -Dsonar.exclusions=build/**,test/**,ios/**,android/** \
+              -Dsonar.c.file.suffixes=- \
+              -Dsonar.cpp.file.suffixes=- \
+              -Dsonar.objc.file.suffixes=-
+    
+    # SonarQube Code Quality Gate Check 
+    - step: &sonar-quality-gate
+        name: SonarQube Quality Gate
+        script:
+          - apt-get update && apt-get install -y jq
+          - |
+            if [ -n "$BITBUCKET_PR_ID" ]; then
+              SONAR_FILTER="pullRequest=$BITBUCKET_PR_ID"
+            else
+              SONAR_FILTER="branch=$BITBUCKET_BRANCH"
+            fi
+          # Download SonarCloud issues report
+          - echo "Downloading SonarCloud issues report..."
+          - curl -u "$SONAR_TOKEN:" "https://sonarcloud.io/api/issues/search?componentKeys=optmsg_app&${SONAR_FILTER}&ps=500" -o sonar-report.json
+          # Convert to CSV
+          - jq -r '.issues[] | [.severity,.type,.component,.line,.message] | @csv' sonar-report.json > sonar-report.csv
+          - |
+            GATE_STATUS=$(curl -s -u "$SONAR_TOKEN:" "https://sonarcloud.io/api/qualitygates/project_status?projectKey=optmsg_app&${SONAR_FILTER}" | jq -r .projectStatus.status)
+            if [ "$GATE_STATUS" != "OK" ]; then
+              echo "Quality Gate failed: $GATE_STATUS"
+              exit 1
+            else
+              echo "Quality Gate passed: $GATE_STATUS"
+            fi
+        artifacts:
+        - sonar-report.json
+        - sonar-report.csv
+    
+    # Snyk Open-source Dependancy Scan
+    - step: &snyk-open-source-scan
+        name: Snyk Open-Source Dependency Scan
+        script:
+          - pipe: snyk/snyk-scan:1.0.0
+            variables:
+              SNYK_TOKEN: $SNYK_TOKEN
+              LANGUAGE: "node"
+              DEBUG: "true"
+              ORGANIZATION: "8b61c6ee-bb93-4963-97db-8d28a28e75fa"
+              PROJECT_FOLDER: "."
+              DONT_BREAK_BUILD: "false"
+              SEVERITY_THRESHOLD: "medium"
+              MONITOR: "true"
+              CODE_INSIGHTS_RESULTS: "true"
+              TARGET_REFERENCE: $BITBUCKET_BRANCH
+              EXTRA_ARGS: "test --all-projects --severity-threshold=medium --exclude=build,dist,.dart_tool,Pods"
+    
+    # Snyk Code Scan
+    - step: &snyk-code-scan
+        name: Snyk Code Scan
+        script:
+          - pipe: snyk/snyk-scan:1.0.0
+            variables:
+              SNYK_TOKEN: $SNYK_TOKEN
+              LANGUAGE: "node"
+              DEBUG: "true"
+              ORGANIZATION: "8b61c6ee-bb93-4963-97db-8d28a28e75fa"
+              PROJECT_FOLDER: "."
+              DONT_BREAK_BUILD: "false"
+              CODE_INSIGHTS_RESULTS: "true"
+              TARGET_REFERENCE: $BITBUCKET_BRANCH
+              EXTRA_ARGS: "code test --all-projects --severity-threshold=medium --exclude=build,dist,.dart_tool,Pods"
+    
+    ##
+    ## BUILD AND DEPLOY WEB APPLICATION
+    ##
+
+    # Build Flutter Staging Web App
+    - step: &build-flutter-web-app-stg
+        name: Build Staging Web App
+        script:
+          - mv app_config.dart lib/constant
+          - mv firebase_options.dart lib/
+          - flutter pub get 
+          - flutter build web --release --dart-define=ENV=stage --dart-define=USE_NATIVE_COMPOSE=true
+        artifacts:
+          - build/**
+    
+    # Build Flutter Production Web App
+    - step: &build-flutter-web-app-prd
+        name: Build Production Web App
+        script:
+          - mv app_config.dart lib/constant
+          - mv firebase_options.dart lib/
+          - flutter pub get 
+          - flutter build web --release --dart-define=ENV=prod
+        artifacts:
+          - build/**
+
+    # Staging Environment Deploy Web App to AWS-Staging
+    - step: &deploy-stg
+        name: Deploy Web App to AWS-Staging
+        deployment: Staging
+        image: amazon/aws-cli
+        script:
+          # Configure AWS credentials
+          - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+          - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+          - aws configure set default.region $AWS_DEFAULT_REGION
+          # Set date format for zip file
+          - export TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+          # Create temp directory and copy required files
+          - mkdir -p temp_deploy
+          - cp -r build/web temp_deploy/
+          - cp -r aws_deploy/stag/* temp_deploy/
+          - cd temp_deploy
+          # Create deployment archive
+          - yum install -y zip
+          - chmod +x scripts/*.sh
+          - zip -r deployment-${TIMESTAMP}.zip .
+          # Upload to S3
+          - aws s3 cp deployment-${TIMESTAMP}.zip s3://$S3_BUCKET/webapp/deployment-${TIMESTAMP}.zip
+          # Create Code Deploy deployment
+          - |
+            aws deploy create-deployment \
+              --application-name $CODEDEPLOY_APP_NAME \
+              --deployment-group-name $CODEDEPLOY_DEPLOYMENT_GROUP \
+              --s3-location bucket=$S3_BUCKET,key=webapp/deployment-${TIMESTAMP}.zip,bundleType=zip \
+              --region $AWS_DEFAULT_REGION \
+              --description "Deployment from Bitbucket Pipelines - ${TIMESTAMP}"
+
+    # Production Environment Deploy Web App to AWS-Prod
+    - step: &deploy-prd
+        name: Deployment to Prod Environment
+        deployment: Production
+        trigger: manual
+        image: amazon/aws-cli
+        script:
+          # Configure AWS credentials
+          - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+          - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+          - aws configure set default.region $AWS_DEFAULT_REGION
+          # Set date format for zip file
+          - export TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+          # Create temp directory and copy required files
+          - mkdir -p temp_deploy
+          - cp -r build/web temp_deploy/
+          - cp -r aws_deploy/prod/* temp_deploy/
+          - cd temp_deploy
+          # Create deployment archive
+          - yum install -y zip
+          - chmod +x scripts/*.sh
+          - zip -r deployment-${TIMESTAMP}.zip .
+          # Upload to S3
+          - aws s3 cp deployment-${TIMESTAMP}.zip s3://$S3_BUCKET/webapp/deployment-${TIMESTAMP}.zip
+          # Create Code Deploy deployment
+          - |
+            aws deploy create-deployment \
+              --application-name $CODEDEPLOY_APP_NAME \
+              --deployment-group-name $CODEDEPLOY_DEPLOYMENT_GROUP \
+              --s3-location bucket=$S3_BUCKET,key=webapp/deployment-${TIMESTAMP}.zip,bundleType=zip \
+              --region $AWS_DEFAULT_REGION \
+              --description "Deployment from Bitbucket Pipelines - ${TIMESTAMP}"
+
+    ##
+    ## BUILD AND DEPLOY IOS APPLICATION - handled in codemagic.yaml
+    ## 
+
+    # Build and Deploy Staging iOS Application by codemagic.yaml
+    - step: &trigger-codemagic-ios-build-deploy-stg
+        name: Trigger Codemagic iOS Build and Deploy - Staging
+        script:
+          - |
+            # Validate files exist before encoding
+            if [ ! -f "app_config.dart" ]; then
+              echo "ERROR: app_config.dart not found. Did S3 download step run?"
+              exit 1
+            fi
+            if [ ! -f "firebase_options.dart" ]; then
+              echo "ERROR: firebase_options.dart not found. Did S3 download step run?"
+              exit 1
+            fi
+
+            # Base64 encode the files fetched from S3
+            APP_CONFIG_B64=$(base64 -w 0 app_config.dart)
+            FIREBASE_B64=$(base64 -w 0 firebase_options.dart)
+
+            # Check GoogleService-Info.plist if exists
+            if [ -f "GoogleService-Info.plist" ]; then
+              GOOGLE_PLIST_B64=$(base64 -w 0 GoogleService-Info.plist)
+            else
+              GOOGLE_PLIST_B64=""
+            fi
+
+            echo "Triggering Codemagic STAGING build with config files..."
+
+            RESPONSE=$(curl -s -w "\n%{http_code}" -X POST "https://api.codemagic.io/builds" \
+              -H "x-auth-token: $CODEMAGIC_API_TOKEN" \
+              -H "Content-Type: application/json" \
+              -d '{
+                "appId": "'"$CODEMAGIC_APP_ID"'",
+                "workflowId": "ios-release-stag",
+                "branch": "'"$BITBUCKET_BRANCH"'",
+                "environment": {
+                  "variables": {
+                    "APP_CONFIG_B64": "'"$APP_CONFIG_B64"'",
+                    "FIREBASE_OPTIONS_B64": "'"$FIREBASE_B64"'",
+                    "GOOGLE_PLIST_B64": "'"$GOOGLE_PLIST_B64"'"
+                  }
+                }
+              }')
+
+            HTTP_CODE=$(echo "$RESPONSE" | tail -1)
+            BODY=$(echo "$RESPONSE" | sed '$d')
+            echo "$BODY"
+
+            if [ "$HTTP_CODE" -lt 200 ] || [ "$HTTP_CODE" -ge 300 ]; then
+              echo "ERROR: Codemagic API returned HTTP $HTTP_CODE"
+              exit 1
+            fi
+            echo " Codemagic STAGING build triggered successfully"
+    # Build and Deploy Production iOS Application by codemagic.yaml
+    - step: &trigger-codemagic-ios-build-deploy-prd
+        name: Trigger Codemagic iOS Build and Deploy - Production
+        script:
+          - |
+            # Validate files exist before encoding
+            if [ ! -f "app_config.dart" ]; then
+              echo "ERROR: app_config.dart not found. Did S3 download step run?"
+              exit 1
+            fi
+            if [ ! -f "firebase_options.dart" ]; then
+              echo "ERROR: firebase_options.dart not found. Did S3 download step run?"
+              exit 1
+            fi
+
+            # Base64 encode the files fetched from S3
+            APP_CONFIG_B64=$(base64 -w 0 app_config.dart)
+            FIREBASE_B64=$(base64 -w 0 firebase_options.dart)
+
+            # Check GoogleService-Info.plist if exists
+            if [ -f "GoogleService-Info.plist" ]; then
+              GOOGLE_PLIST_B64=$(base64 -w 0 GoogleService-Info.plist)
+            else
+              GOOGLE_PLIST_B64=""
+            fi
+
+            echo "Triggering Codemagic PRODUCTION build with config files..."
+
+            RESPONSE=$(curl -s -w "\n%{http_code}" -X POST "https://api.codemagic.io/builds" \
+              -H "x-auth-token: $CODEMAGIC_API_TOKEN" \
+              -H "Content-Type: application/json" \
+              -d '{
+                "appId": "'"$CODEMAGIC_APP_ID"'",
+                "workflowId": "ios-release-prod",
+                "branch": "'"$BITBUCKET_BRANCH"'",
+                "environment": {
+                  "variables": {
+                    "APP_CONFIG_B64": "'"$APP_CONFIG_B64"'",
+                    "FIREBASE_OPTIONS_B64": "'"$FIREBASE_B64"'",
+                    "GOOGLE_PLIST_B64": "'"$GOOGLE_PLIST_B64"'"
+                  }
+                }
+              }')
+
+            HTTP_CODE=$(echo "$RESPONSE" | tail -1)
+            BODY=$(echo "$RESPONSE" | sed '$d')
+            echo "$BODY"
+
+            if [ "$HTTP_CODE" -lt 200 ] || [ "$HTTP_CODE" -ge 300 ]; then
+              echo "ERROR: Codemagic API returned HTTP $HTTP_CODE"
+              exit 1
+            fi
+            echo " Codemagic PRODUCTION build triggered successfully"
+
+    ##
+    ## BUILD AND DEPLOY ANDROID APPLICATION
+    ## 
+
+    # Staging Environment Build Android App Bundle
+    - step: &build-android-bundle-stg
+        name: Build Android App Bundle - Staging
+        size: 2x
+        caches:
+          - gradle
+          - pub-cache
+        script:
+          - if [ -f app_config.dart ]; then mv app_config.dart lib/constant; fi
+          - if [ -f firebase_options.dart ]; then mv firebase_options.dart lib/; fi
+          - mkdir -p android/key
+          # Robust Keystore Decoding using Python to handle whitespace issues
+          - python3 -c "import base64, os; data = os.environ.get('KEYSTORE_BASE64', '').strip(); open('android/key/optmsg.jks', 'wb').write(base64.b64decode(data))"
+          - |
+            cat > android/key.properties <<EOF
+            storePassword=$KEYSTORE_PASSWORD
+            keyPassword=$KEY_PASSWORD
+            keyAlias=$KEY_ALIAS
+            storeFile=../key/optmsg.jks
+            EOF
+          - flutter pub get
+          - export GRADLE_OPTS="-Xmx3g -Dorg.gradle.daemon=false"
+          - flutter build appbundle --release --flavor stage --dart-define=USE_NATIVE_COMPOSE=true --build-number=$BITBUCKET_BUILD_NUMBER --no-pub
+          - echo "===== CHECK AAB ====="
+          - ls -la build/app/outputs/bundle/stageRelease/
+        artifacts:
+          - build/app/outputs/bundle/stageRelease/app-stage-release.aab
+    
+    # Production Environment Build Android App Bundle
+    - step: &build-android-bundle-prd
+        name: Build Android App Bundle - Production
+        size: 2x
+        caches:
+          - gradle
+          - pub-cache
+        script:
+          - if [ -f app_config.dart ]; then mv app_config.dart lib/constant; fi
+          - if [ -f firebase_options.dart ]; then mv firebase_options.dart lib/; fi
+          - mkdir -p android/key
+          # Robust Keystore Decoding using Python to handle production env variables
+          - python3 -c "import base64, os; data = os.environ.get('KEYSTORE_BASE64_PROD', os.environ.get('KEYSTORE_BASE64', '')).strip(); open('android/key/optmsg.jks', 'wb').write(base64.b64decode(data))"
+          - |
+            cat > android/key.properties <<EOF
+            storePassword=${KEYSTORE_PASSWORD_PROD:-$KEYSTORE_PASSWORD}
+            keyPassword=${KEY_PASSWORD_PROD:-$KEY_PASSWORD}
+            keyAlias=${KEY_ALIAS_PROD:-$KEY_ALIAS}
+            storeFile=../key/optmsg.jks
+            EOF
+          - flutter pub get
+          - export GRADLE_OPTS="-Xmx3g -Dorg.gradle.daemon=false"
+          - flutter build appbundle --release --flavor prod --build-number=$BITBUCKET_BUILD_NUMBER --no-pub
+          - echo "===== CHECK AAB ====="
+          - ls -la build/app/outputs/bundle/prodRelease/
+        artifacts:
+          - build/app/outputs/bundle/prodRelease/app-prod-release.aab
+
+    # Staging Environment Deploy Android App Bundle to Google Play Store
+    - step: &upload-play-store-stg
+        name: Upload Android App Bundle to Play Store - Staging
+        caches:
+          - gradle
+        script:
+          - gem install fastlane --no-document
+          - export PATH="$HOME/.gem/ruby/$(ruby -e 'print RUBY_VERSION')/bin:$PATH"
+          - if [ ! -f "services-playstore.json" ]; then echo "services-playstore.json missing from artifacts"; exit 1; fi
+          - AAB_PATH="build/app/outputs/bundle/stageRelease/app-stage-release.aab"
+          - fastlane supply --aab $AAB_PATH --package_name com.optmsg.stag --track internal --json_key services-playstore.json --release_status draft
+
+    # Production Environment Deploy Android App Bundle to Google Play Store 
+    - step: &upload-play-store-prd
+        name: Upload Android App Bundle to Play Store - Production
+        caches:
+          - gradle
+        script:
+          - gem install fastlane --no-document
+          - export PATH="$HOME/.gem/ruby/$(ruby -e 'print RUBY_VERSION')/bin:$PATH"
+          - if [ ! -f "services-playstore.json" ]; then echo "services-playstore.json missing from artifacts"; exit 1; fi
+          - AAB_PATH="build/app/outputs/bundle/prodRelease/app-prod-release.aab"
+          - fastlane supply --aab $AAB_PATH --package_name com.optmsg.mail --track production --json_key services-playstore.json --release_status draft
+    
+    
+pipelines:
+  branches:
+
+    # develop:
+    #   - step: *generate-test-config
+    #   - step: *flutter-analyze
+    #   - step: *flutter-test
+    #   - step: *sonarqube-scanner
+    #   - step: *sonar-quality-gate
+    #   - step: *synk-scan
+    # stage:
+    #   - step: *generate-test-config
+    #   - step: *flutter-analyze
+    #   - step: *flutter-test
+    #   - step: *sonarqube-scanner
+    #   - step: *sonar-quality-gate
+    #   - step: *synk-scan
+    # main:
+    #   - step: *generate-test-config
+    #   - step: *flutter-analyze
+    #   - step: *flutter-test
+    #   - step: *sonarqube-scanner
+    #   - step: *sonar-quality-gate
+    #   - step: *synk-scan
+    #   - step: *download-app-config-file-stag
+    #   - step: *build-flutter-web-app-staging
+    #   - step: *deploy-stag
+    #   - step: *download-app-config-file-prod
+    #   - step: *build-flutter-web-app-production
+    #   - step: *deploy-prod
+
+    optmsgApp-v1.0.7.v2.compose-test:
+      - step: *download-app-config-file-stg
+      - step: *generate-test-config
+      - parallel:
+          - step: *flutter-analyze
+          - step: *flutter-test
+      - step: *sonarqube-scanner
+      - step: *sonar-quality-gate
+      #- step: *snyk-open-source-scan
+      #- step: *snyk-code-scan
+
+      # # STAGING DEPLOYMENT (Automatic)
+      # # Build & Deploy to Web App to AWS-Staging
+      - step: *build-flutter-web-app-stg
+      - step: *deploy-stg
+
+      # #Build & Deploy iOS App to Apple App Store (TestFlight)
+      - step: *trigger-codemagic-ios-build-deploy-stg
+
+      #Build & Deploy Android App to Play Store
+      - step: *build-android-bundle-stg
+      - step: *upload-play-store-stg
+
+      
+
+      # PRODUCTION DEPLOYMENT (Manual trigger in Bitbucket UI for individual steps)
+      # - step: *download-app-config-file-prod
+      
+      # Build & Deploy to Web App to AWS-Production
+      # - step: *build-flutter-web-app
+      # - step: *deploy-prod
+
+      # Build & Deploy iOS App to Apple App Store - Production
+      # - step: *trigger-codemagic-ios-build-deploy-prod
+      
+      # Build & Deploy Android App to Play Store - Production
+      # - step: *build-android-bundle-production
+      # - step: *upload-play-store-production
+    
+     
+
+    # codeMagic:
+    #     - step: *download-app-config-file-stag
+    #     - step: *build-flutter-ios-app-staging
+    #     - step: *upload-testflight
+
+    # 'devops/pipeline_optimization':
+    #   - step: *download-app-config-file-prod
+    #   - step: *build-android-bundle-production
+    #   - step: *upload-play-store-production
+
+
+  pull-requests:
+    "**":
+      - step: *generate-test-config
+      - parallel:
+          - step: *flutter-analyze
+          - step: *flutter-test
+          #- step: *flutter-test-gate
+      - step: *sonarqube-scanner
+      # - step: *sonar-quality-gate
+      # - step: *snyk-scan

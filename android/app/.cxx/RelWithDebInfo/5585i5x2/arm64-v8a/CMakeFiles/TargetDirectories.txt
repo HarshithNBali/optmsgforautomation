@@ -1,0 +1,2 @@
+/Users/iphone/Developer/Projects/optmsg-app/android/app/.cxx/RelWithDebInfo/5585i5x2/arm64-v8a/CMakeFiles/rebuild_cache.dir
+/Users/iphone/Developer/Projects/optmsg-app/android/app/.cxx/RelWithDebInfo/5585i5x2/arm64-v8a/CMakeFiles/edit_cache.dir

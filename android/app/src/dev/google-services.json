@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "182061089630",
+    "project_id": "optmsg-dev",
+    "storage_bucket": "optmsg-dev.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:182061089630:android:9acecf6b773b5a9ae745cf",
+        "android_client_info": {
+          "package_name": "com.optmsg.dev"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1nGQj-2AVrbzbSNgDRRZgKZ7J-mLeu_s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

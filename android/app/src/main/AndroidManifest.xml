@@ -1,0 +1,133 @@
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Core -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
+    <!-- H-PLAT-02: Removed orphaned FOREGROUND_SERVICE + FOREGROUND_SERVICE_DATA_SYNC
+         permissions. No <service> element or plugin uses foreground services. On API 34+,
+         declaring FOREGROUND_SERVICE_DATA_SYNC without a matching
+         <service android:foregroundServiceType="dataSync"> crashes the app. -->
+
+    <!-- Notifications (API 33+) -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+
+    <!-- Biometric -->
+    <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
+
+    <!-- Contacts -->
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+
+    <!-- Storage — legacy (API ≤32 only) -->
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32"/>
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28"/>
+
+    <!-- Force-remove broad media permissions that open_filex (and any other
+         plugin) injects via its own AndroidManifest.xml. The app uses SAF
+         pickers (file_picker / open_filex URI intent) which need no broad
+         storage grants. tools:node="remove" wins over any plugin manifest
+         entry during the Gradle manifest merge step.
+         Required for Google Play Photo & Video Permissions policy compliance. -->
+    <uses-permission
+        android:name="android.permission.READ_MEDIA_IMAGES"
+        tools:node="remove"/>
+    <uses-permission
+        android:name="android.permission.READ_MEDIA_VIDEO"
+        tools:node="remove"/>
+    <uses-permission
+        android:name="android.permission.READ_MEDIA_AUDIO"
+        tools:node="remove"/>
+
+    <!-- Remove Google Ad ID (not used) -->
+    <uses-permission
+        android:name="com.google.android.gms.permission.AD_ID"
+        tools:node="remove"/>
+
+    <!-- Samsung badge -->
+    <uses-permission android:name="com.sec.android.provider.badge.permission.READ"/>
+    <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE"/>
+
+    <application
+        android:label="@string/app_name"
+        android:name="${applicationName}"
+        android:icon="${appIcon}"
+        android:roundIcon="${roundIcon}"
+        android:allowBackup="false"
+        android:fullBackupContent="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:usesCleartextTraffic="false">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:theme="@style/LaunchTheme"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustResize"
+            android:enableOnBackInvokedCallback="true">
+
+            <meta-data
+                android:name="io.flutter.embedding.android.NormalTheme"
+                android:resource="@style/NormalTheme"/>
+
+            <meta-data
+                android:name="firebase_messaging_auto_init_enabled"
+                android:value="false"/>
+            <meta-data
+                android:name="firebase_analytics_collection_enabled"
+                android:value="true"/>
+            <meta-data
+                android:name="google_analytics_automatic_screen_reporting_enabled"
+                android:value="false"/>
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="flutter_deeplinking_enabled"
+                android:value="true"/>
+
+            <!-- Verified app links — Android verifies ALL https hosts when
+                 autoVerify is present on ANY filter, so only declare the
+                 domain that serves assetlinks.json. -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data
+                    android:scheme="https"
+                    android:host="${appLinkHost}"/>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.SENDTO"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="mailto"/>
+            </intent-filter>
+
+        </activity>
+
+        <meta-data
+            android:name="flutterEmbedding"
+            android:value="2"/>
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="high_importance_channel"/>
+
+    </application>
+</manifest>
