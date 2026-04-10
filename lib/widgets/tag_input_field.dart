@@ -10,6 +10,7 @@ class TagInputField extends StatefulWidget {
   final String prefixText;
   final IconData? icon;
   final VoidCallback? onPressed;
+  final String? testId;
 
   const TagInputField(
       {super.key,
@@ -17,7 +18,8 @@ class TagInputField extends StatefulWidget {
       required this.tagController,
       required this.prefixText,
       this.icon,
-      this.onPressed});
+      this.onPressed,
+      this.testId});
 
   @override
   State<TagInputField> createState() => _TagInputFieldState();
@@ -89,6 +91,7 @@ class _TagInputFieldState extends State<TagInputField> {
               },
               inputFieldBuilder: (context, inputFieldValues) {
                 return TextField(
+                  key: widget.testId != null ? Key(widget.testId!) : null,
                   onTap: () {
                     widget.tagController.getFocusNode?.requestFocus();
                   },
@@ -157,6 +160,7 @@ class _TagInputFieldState extends State<TagInputField> {
                           )
                         : null,
                     suffixIcon: IconButton(
+                      key: widget.testId != null ? Key('${widget.testId}_action') : null,
                       icon: Icon(widget.icon),
                       onPressed: widget.onPressed,
                     ), // Icon at the end

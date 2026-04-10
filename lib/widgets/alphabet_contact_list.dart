@@ -143,6 +143,7 @@ class _AlphabetContactListState extends State<AlphabetContactList> {
                 children: _letters.map((letter) {
                   final isActive = letter == _activeLetter;
                   return GestureDetector(
+                    key: Key('alphabet_sidebar_letter_$letter'),
                     onTap: () => _scrollToLetter(letter),
                     behavior: HitTestBehavior.opaque,
                     child: Padding(

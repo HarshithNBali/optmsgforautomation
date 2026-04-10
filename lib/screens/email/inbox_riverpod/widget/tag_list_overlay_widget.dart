@@ -128,6 +128,7 @@ class TagListOverlayWidget extends ConsumerWidget {
                                 index < tags.length;
                                 index++) ...[
                               InkWell(
+                                key: Key('tag_list_item_web_${tags[index].id}'),
                                 onTap: () => handleTagTap(tags[index].id),
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
@@ -204,6 +205,7 @@ class TagListOverlayWidget extends ConsumerWidget {
                         children: [
                           for (int i = 0; i < tags.length; i++)
                             MyDrawerItem(
+                              testId: 'tag_list_item_${tags[i].id}',
                               title: tags[i].tag,
                               svgIcon: svgTags,
                               showRightIcon: false,

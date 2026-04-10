@@ -33,13 +33,14 @@ class HelpCenterMobileLayout extends ConsumerWidget {
                 child: Column(
                   children: [
                     for (int i = 0; i < items.length; i++) ...[
-                      MyDrawerItem(
-                        title: items[i].title,
-                        svgIcon: items[i].icon,
-                        showIndicator: false,
-                        showChevron: true,
-                        onTap: () => context.push(items[i].route),
-                      ),
+                        MyDrawerItem(
+                          testId: items[i].testId,
+                          title: items[i].title,
+                          svgIcon: items[i].icon,
+                          showIndicator: false,
+                          showChevron: true,
+                          onTap: () => context.push(items[i].route),
+                        ),
                       if (i != items.length - 1)
                         Divider(
                           color: context.colors.outlineVariant,
@@ -66,21 +67,25 @@ class HelpCenterMobileLayout extends ConsumerWidget {
         title: contactUs,
         icon: svgContactUs,
         route: AppRoutes.staticPagePath('contact_us', 'help'),
+        testId: 'help_contact_us_tile',
       ),
       const _HelpCenterItem(
         title: faq,
         icon: svgFaq,
         route: AppRoutes.faq,
+        testId: 'help_faq_tile',
       ),
       _HelpCenterItem(
         title: privacyPolicy,
         icon: svgPrivacyPolicy,
         route: AppRoutes.staticPagePath('privacy_policy', 'help'),
+        testId: 'help_privacy_policy_tile',
       ),
       _HelpCenterItem(
         title: termsAndConditions,
         icon: svgTermsAndCondition,
         route: AppRoutes.staticPagePath('terms_conditions', 'help'),
+        testId: 'help_terms_conditions_tile',
       ),
     ];
   }
@@ -92,11 +97,13 @@ class _HelpCenterItem {
   final String title;
   final String icon;
   final String route;
+  final String testId;
 
   const _HelpCenterItem({
     required this.title,
     required this.icon,
     required this.route,
+    required this.testId,
   });
 }
 

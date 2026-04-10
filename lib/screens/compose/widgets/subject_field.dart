@@ -11,7 +11,10 @@ class SubjectField extends StatelessWidget {
     super.key,
     required this.controller,
     this.onChanged,
+    this.testId,
   });
+
+  final String? testId;
 
   static const _noBorder = OutlineInputBorder(
     borderSide: BorderSide.none,
@@ -40,6 +43,7 @@ class SubjectField extends StatelessWidget {
             const SizedBox(width: 8),
             Expanded(
               child: TextField(
+              key: testId != null ? Key(testId!) : null,
               controller: controller,
               style: AppTypography.emailAddress(context),
               decoration: const InputDecoration(

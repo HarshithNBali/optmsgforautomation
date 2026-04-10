@@ -62,6 +62,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     });
 
     return Scaffold(
+      key: const Key('login_screen'),
       resizeToAvoidBottomInset: false,
       body: LoaderContainer(
         child: ResponsiveLayoutBuilder(

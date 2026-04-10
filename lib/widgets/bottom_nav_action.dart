@@ -24,7 +24,9 @@ class BottomNavAction extends StatefulWidget {
       this.gotoPage,
       this.emailType,
       this.page,
-      this.getAllEmails});
+      this.getAllEmails,
+      this.testId});
+  final String? testId;
   @override
   State<BottomNavAction> createState() => _BottomNavActionState();
 }
@@ -37,11 +39,17 @@ class _BottomNavActionState extends State<BottomNavAction> {
   List<BottomNavigationBarItem> _buildNavItems(BuildContext context) {
     final items = [
       BottomNavigationBarItem(
-          icon: SvgPicture.asset(svgArchive), label: 'Archive'),
-      BottomNavigationBarItem(icon: SvgPicture.asset(svgTags), label: 'Tag'),
+          icon: SvgPicture.asset(svgArchive,
+              key: widget.testId != null ? Key('${widget.testId}_archive') : null),
+          label: 'Archive'),
+      BottomNavigationBarItem(
+          icon: SvgPicture.asset(svgTags,
+              key: widget.testId != null ? Key('${widget.testId}_tags') : null),
+          label: 'Tag'),
       BottomNavigationBarItem(
           icon: SvgPicture.asset(
             svgDelete,
+            key: widget.testId != null ? Key('${widget.testId}_trash') : null,
             colorFilter: ColorFilter.mode(
                 Theme.of(context).colorScheme.onSurface, BlendMode.srcIn),
           ),

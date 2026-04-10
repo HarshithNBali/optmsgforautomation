@@ -43,6 +43,7 @@ class LoginFormWidget extends StatelessWidget {
           _buildUserNameField(context),
           SizedBox(height: spacing),
           CustomGradientButton(
+            testId: 'login_login_button',
             onPressed: isLoading ? null : onLogin,
             text: login,
             textStyle: AuthStyles.authButtonText(context),
@@ -63,6 +64,7 @@ class LoginFormWidget extends StatelessWidget {
       children: [
         Expanded(
           child: CustomTextFormField(
+            testId: 'login_username_input',
             inputAction: TextInputAction.done,
             inputFormatter: FilteringTextInputFormatter.allow(usernamePattern),
             controller: userNameController,
@@ -98,6 +100,7 @@ class LoginFormWidget extends StatelessWidget {
         onEnter: (_) => onHoverChanged?.call(true),
         onExit: (_) => onHoverChanged?.call(false),
         child: GestureDetector(
+          key: const Key('login_forgot_username_link'),
           onTap: onForgot,
           behavior: HitTestBehavior.opaque,
           child: Padding(
@@ -116,6 +119,7 @@ class LoginFormWidget extends StatelessWidget {
     }
 
     return GestureDetector(
+      key: const Key('login_forgot_username_link'),
       onTap: onForgot,
       behavior: HitTestBehavior.opaque,
       child: Padding(

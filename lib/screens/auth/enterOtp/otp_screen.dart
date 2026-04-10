@@ -82,6 +82,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
     });
 
     return Scaffold(
+      key: const Key('otp_screen'),
       resizeToAvoidBottomInset: false,
       body: LoaderContainer(
         child: ResponsiveLayoutBuilder(

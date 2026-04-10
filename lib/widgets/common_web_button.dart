@@ -8,9 +8,6 @@ class CommonWebButton extends StatelessWidget {
   final VoidCallback onPressed;
   final String? iconAsset;
   final IconData? iconData;
-  final String label;
-  final VoidCallback? onHoverStart;
-  final VoidCallback? onHoverEnd;
   final EdgeInsetsGeometry padding;
   final double iconSize;
   final double spacing;
@@ -18,6 +15,7 @@ class CommonWebButton extends StatelessWidget {
   final Color backgroundColor;
   final BorderRadius borderRadius;
   final Color iconColor;
+  final String? testId;
 
   const CommonWebButton({
     super.key,
@@ -34,6 +32,7 @@ class CommonWebButton extends StatelessWidget {
     this.backgroundColor = AppStyles.clickableTextColor,
     this.borderRadius = const BorderRadius.all(Radius.circular(6)),
     this.iconColor = Colors.white,
+    this.testId,
   }) : assert(iconAsset != null || iconData != null,
             'Either iconAsset or iconData must be provided.');
 
@@ -53,6 +52,7 @@ class CommonWebButton extends StatelessWidget {
           );
 
     final button = ElevatedButton(
+      key: testId != null ? Key(testId!) : null,
       style: ButtonStyle(
         backgroundColor: WidgetStateProperty.all<Color>(backgroundColor),
         shape: WidgetStateProperty.all<RoundedRectangleBorder>(

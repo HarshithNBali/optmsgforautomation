@@ -15,6 +15,7 @@ class CustomPopupModal extends StatelessWidget {
   final String textButton1;
   final String textButton2;
   final SimpleTextFormField? formField1;
+  final String? testId;
 
   const CustomPopupModal({
     super.key,
@@ -26,6 +27,7 @@ class CustomPopupModal extends StatelessWidget {
     required this.textButton1,
     required this.textButton2,
     this.formField1,
+    this.testId,
   });
 
   @override
@@ -38,6 +40,7 @@ class CustomPopupModal extends StatelessWidget {
   ///
   Widget build(BuildContext context) {
     return Dialog(
+      key: testId != null ? Key(testId!) : null,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppStyles.radiusXXL),
       ),
@@ -110,6 +113,7 @@ class CustomPopupModal extends StatelessWidget {
               // Include the provided TextFormField
               SizedBox(height: AppBreakpoints.screenHeight(context) * 0.03),
               FooterButton(
+                  testId: testId != null ? '${testId}_footer' : null,
                   button1Color: context.colors.surface,
                   button1TextColor: context.colors.onSurface,
                   button1BorderColor: context.colors.outlineVariant,

@@ -91,6 +91,7 @@ class _ContactListriverpodState extends ConsumerState<ContactListriverpod>
             children: [
               const SizedBox(width: 5),
               IconButton(
+                key: const Key('contacts_back_selection_button'),
                 onPressed: () => notifier.clearMultiSelection(),
                 icon: SvgPicture.asset(
                   svgLeftArrow,
@@ -102,6 +103,7 @@ class _ContactListriverpodState extends ConsumerState<ContactListriverpod>
                 ),
               ),
               IconButton(
+                key: const Key('contacts_all_contacts_button'),
                 icon: state.allContactsFlag
                     ? const Icon(Icons.check_box)
                     : state.selectedContactIds.isNotEmpty
@@ -127,6 +129,7 @@ class _ContactListriverpodState extends ConsumerState<ContactListriverpod>
           ),
           selectionActions: [
             IconButton(
+              key: const Key('contacts_delete_selected_button'),
               icon: SvgPicture.asset(
                 svgDelete,
                 height: 20,
@@ -164,11 +167,13 @@ class _ContactListriverpodState extends ConsumerState<ContactListriverpod>
       children: [
         if (state.contactTypeFilter == 'all')
           IconButton(
+            key: const Key('contacts_filter_button'),
             icon: SvgPicture.asset(svgFilter),
             onPressed: () => notifier.toggleFilter(),
           ),
         if (state.contactTypeFilter == 'person')
           IconButton(
+            key: const Key('contacts_clear_person_filter_button'),
             icon: SvgPicture.asset(
               svgContactTypeUser,
               colorFilter: ColorFilter.mode(
@@ -182,6 +187,7 @@ class _ContactListriverpodState extends ConsumerState<ContactListriverpod>
           ),
         if (state.contactTypeFilter == 'company')
           IconButton(
+            key: const Key('contacts_clear_company_filter_button'),
             icon: SvgPicture.asset(
               svgContactTypeOffice,
               colorFilter: ColorFilter.mode(
@@ -287,6 +293,7 @@ class _ContactListriverpodState extends ConsumerState<ContactListriverpod>
         state.readingPaneEnabled == true);
 
     return ColoredBox(
+      key: const Key('contacts_screen'),
       color: Theme.of(context).colorScheme.surface,
       child: SafeArea(
         top: false,
@@ -312,6 +319,7 @@ class _ContactListriverpodState extends ConsumerState<ContactListriverpod>
                     _clearSearch,
                   ),
                   StandardFab(
+                    testId: 'contacts_add_fab',
                     iconAsset: svgAddIcon,
                     onPressed: _onAddContact,
                     heroTag: 'contactsAddFab',

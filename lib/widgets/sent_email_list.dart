@@ -41,6 +41,7 @@ class SentEmailList extends StatefulWidget {
   final VoidCallback? onMoveToInbox;
   final bool? hasAnySelection;
   final int? selectedEmailId;
+  final String? testId;
   const SentEmailList({
     super.key,
     this.userId,
@@ -67,6 +68,7 @@ class SentEmailList extends StatefulWidget {
     this.onMoveToInbox,
     this.hasAnySelection,
     this.selectedEmailId,
+    this.testId,
   });
 
   @override
@@ -147,6 +149,7 @@ class _SentEmailListState extends State<SentEmailList> {
         }
       },
       child: InkWell(
+        key: widget.testId != null ? Key(widget.testId!) : null,
         onTap: widget.onTap,
         onLongPress: widget.onLongPress,
         child: Container(
@@ -179,6 +182,7 @@ class _SentEmailListState extends State<SentEmailList> {
                     width: AppStyles.checkboxSize(context),
                     height: AppStyles.checkboxSize(context),
                     child: InkWell(
+                      key: widget.testId != null ? Key('${widget.testId}_checkbox') : null,
                       borderRadius: BorderRadius.circular(AppStyles.radiusXL),
                       onTap: widget.radioOnTap,
                       child: Center(
@@ -280,6 +284,7 @@ class _SentEmailListState extends State<SentEmailList> {
                                 Tooltip(
                                   message: inbox,
                                   child: InkWell(
+                                    key: widget.testId != null ? Key('${widget.testId}_inbox_move') : null,
                                     onTap: widget.onMoveToInbox,
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(
@@ -300,6 +305,7 @@ class _SentEmailListState extends State<SentEmailList> {
                                 Tooltip(
                                   message: archive,
                                   child: InkWell(
+                                    key: widget.testId != null ? Key('${widget.testId}_archive') : null,
                                     onTap: widget.onArchive,
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(
@@ -320,6 +326,7 @@ class _SentEmailListState extends State<SentEmailList> {
                                     ? 'Permanently Delete'
                                     : 'Move to Trash',
                                 child: InkWell(
+                                  key: widget.testId != null ? Key('${widget.testId}_delete') : null,
                                   onTap: widget.onDelete,
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
@@ -338,6 +345,7 @@ class _SentEmailListState extends State<SentEmailList> {
                               Tooltip(
                                 message: optIn,
                                 child: InkWell(
+                                  key: widget.testId != null ? Key('${widget.testId}_optin') : null,
                                   onTap: widget.onOptIn,
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(

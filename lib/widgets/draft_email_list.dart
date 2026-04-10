@@ -34,6 +34,7 @@ class DraftEmailList extends StatefulWidget {
   final VoidCallback? onOptIn;
   final bool? hasAnySelection;
   final int? selectedEmailId;
+  final String? testId;
   const DraftEmailList({
     super.key,
     this.userId,
@@ -58,6 +59,7 @@ class DraftEmailList extends StatefulWidget {
     this.onOptIn,
     this.hasAnySelection,
     this.selectedEmailId,
+    this.testId,
   });
 
   @override
@@ -120,6 +122,7 @@ class _DraftEmailListState extends State<DraftEmailList> {
         }
       },
       child: InkWell(
+        key: widget.testId != null ? Key(widget.testId!) : null,
         onTap: widget.onTap,
         onLongPress: widget.onLongPress,
         child: Container(
@@ -145,6 +148,7 @@ class _DraftEmailListState extends State<DraftEmailList> {
                     width: AppStyles.checkboxSize(context),
                     height: AppStyles.checkboxSize(context),
                     child: InkWell(
+                      key: widget.testId != null ? Key('${widget.testId}_checkbox') : null,
                       borderRadius: BorderRadius.circular(AppStyles.radiusXL),
                       onTap: widget.radioOnTap,
                       child: Center(

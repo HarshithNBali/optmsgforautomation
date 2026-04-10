@@ -26,6 +26,7 @@ class RecipientField extends StatefulWidget {
 
   /// Total recipients across all fields (To + Cc + Bcc) for limit checking.
   final int totalRecipientCount;
+  final String? testId;
 
   const RecipientField({
     super.key,
@@ -35,6 +36,7 @@ class RecipientField extends StatefulWidget {
     this.startExpanded = false,
     this.focusNode,
     this.totalRecipientCount = 0,
+    this.testId,
   });
 
   @override
@@ -348,6 +350,7 @@ class _RecipientFieldState extends State<RecipientField> {
 
   Widget _buildCollapsed(BuildContext context) {
     return GestureDetector(
+      key: widget.testId != null ? Key('${widget.testId}_collapsed') : null,
       onTap: () => setState(() => _isExpanded = true),
       child: Container(
         constraints: const BoxConstraints(minHeight: 44),
@@ -471,6 +474,7 @@ class _RecipientFieldState extends State<RecipientField> {
                       focusNode: FocusNode(skipTraversal: true),
                       onKeyEvent: _handleKeyEvent,
                       child: TextField(
+                        key: widget.testId != null ? Key('${widget.testId}_input') : null,
                         controller: _textController,
                         focusNode: _focusNode,
                         style: AppTypography.emailAddress(context),
@@ -606,6 +610,7 @@ class _RecipientFieldState extends State<RecipientField> {
           if (!compact) ...[
             const SizedBox(width: 4),
             InkWell(
+              key: widget.testId != null ? Key('${widget.testId}_remove_$index') : null,
               onTap: () => _removeRecipient(index),
               child: Icon(Icons.cancel, size: 14, color: iconColor),
             ),

@@ -29,14 +29,17 @@ class AppNavigationBar extends StatelessWidget {
       onDestinationSelected: (index) => _navigate(context, index),
       destinations: [
         NavigationDestination(
+          key: const Key('nav_inbox_tab'),
           icon: _icon(svgInbox, isSelected: hasMatch && selectedIndex == 0, cs: cs),
           label: 'Inbox',
         ),
         NavigationDestination(
+          key: const Key('nav_trash_tab'),
           icon: _icon(svgTrash1, isSelected: hasMatch && selectedIndex == 1, cs: cs),
           label: 'Trash',
         ),
         NavigationDestination(
+          key: const Key('nav_contacts_tab'),
           icon: _icon(svgRoundUser, isSelected: hasMatch && selectedIndex == 2, cs: cs),
           label: 'Contacts',
         ),

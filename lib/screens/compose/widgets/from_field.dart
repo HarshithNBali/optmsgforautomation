@@ -11,7 +11,10 @@ class FromField extends StatelessWidget {
     super.key,
     required this.fromName,
     required this.fromEmail,
+    this.testId,
   });
+
+  final String? testId;
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +38,7 @@ class FromField extends StatelessWidget {
           Expanded(
             child: Text(
               display,
+              key: testId != null ? Key(testId!) : null,
               style: AppTypography.emailAddress(context),
               overflow: TextOverflow.ellipsis,
             ),

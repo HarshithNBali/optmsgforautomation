@@ -90,6 +90,7 @@ class OtpDesktopLayout extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             TextButton.icon(
+              key: const Key('otp_back_button'),
               onPressed: onBack,
               icon: SvgPicture.asset(svgArrowBack, height: 30, width: 32),
               label: Text(back, style: AuthStyles.inputText(context)),

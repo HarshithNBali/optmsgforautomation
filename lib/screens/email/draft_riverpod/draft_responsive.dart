@@ -231,9 +231,11 @@ class DraftResponsiveState extends ConsumerState<DraftResponsive>
     return PopScope(
       canPop: CommonService().getPlatform() == 'ios' ? false : true,
       child: Stack(
+        key: const Key('drafts_screen'),
         children: [
           _buildBody(state, notifier),
           StandardFab(
+            testId: 'drafts_compose_fab',
             iconAsset: svgComposeIcon,
             onPressed: () {
               notifier.gotoCompose();

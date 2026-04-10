@@ -125,6 +125,7 @@ class OtpMobileLayout extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(AppStyles.space16),
       child: TextButton.icon(
+        key: const Key('otp_back_button'),
         onPressed: onBack,
         icon: SvgPicture.asset(svgArrowBack, height: 30),
         label: Text(back, style: AuthStyles.inputText(context)),

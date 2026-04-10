@@ -40,6 +40,7 @@ class HelpCenterTabletLayout extends ConsumerWidget {
                   children: [
                     for (int i = 0; i < items.length; i++) ...[
                       MyDrawerItem(
+                        testId: items[i].testId,
                         title: items[i].title,
                         svgIcon: items[i].icon,
                         showIndicator: false,
@@ -67,11 +68,13 @@ class HelpCenterTabletLayout extends ConsumerWidget {
         icon: svgContactUs,
         onTap: () =>
             context.push(AppRoutes.staticPagePath('contact_us','help')),
+        testId: 'help_contact_us_tile',
       ),
       _HelpItem(
         title: faq,
         icon: svgFaq,
         onTap: () => context.push(AppRoutes.faq),
+        testId: 'help_faq_tile',
       ),
       _HelpItem(
         title: privacyPolicy,
@@ -79,6 +82,7 @@ class HelpCenterTabletLayout extends ConsumerWidget {
         onTap: () => context.push(
           AppRoutes.staticPagePath('privacy_policy','help'),
         ),
+        testId: 'help_privacy_policy_tile',
       ),
       _HelpItem(
         title: termsAndConditions,
@@ -86,6 +90,7 @@ class HelpCenterTabletLayout extends ConsumerWidget {
         onTap: () => context.push(
           AppRoutes.staticPagePath('terms_conditions','help'),
         ),
+        testId: 'help_terms_conditions_tile',
       ),
     ];
   }
@@ -99,11 +104,13 @@ class _HelpItem {
   final String title;
   final String icon;
   final VoidCallback onTap;
+  final String testId;
 
   const _HelpItem({
     required this.title,
     required this.icon,
     required this.onTap,
+    required this.testId,
   });
 }
 

@@ -41,6 +41,7 @@ class _CreateAccountScreenState extends ConsumerState<CreateAccountScreen> {
     final isLoading = ref.watch(authProvider.select((s) => s.isLoading));
 
     return Scaffold(
+      key: const Key('signup_screen'),
       resizeToAvoidBottomInset: true,
       body: ResponsiveLayoutBuilder(
         mobile: (ctx, deviceType, width) => CreateAccountMobileLayout(

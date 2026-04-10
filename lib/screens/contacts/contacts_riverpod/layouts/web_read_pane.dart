@@ -288,6 +288,7 @@ Widget webReadPane(
                                               .selectedContactIds
                                               .contains(contact.id);
                                           return ContactListRow(
+                                            testId: 'contact_list_row_${contact.id}',
                                             contact: contact,
                                             isSelected: isSelected,
                                             isMultiSelected: isMultiSelected,
@@ -523,6 +524,7 @@ class _AddButtonState extends State<_AddButton> {
           : context.appColors.accentButton,
       borderRadius: const BorderRadius.all(Radius.circular(8.0)),
       iconColor: context.colors.onPrimary,
+      testId: 'contacts_add_button',
     );
   }
 }

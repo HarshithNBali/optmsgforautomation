@@ -22,6 +22,7 @@ class ContactListRow extends StatefulWidget {
     this.isMultiSelected = false,
     this.showCheckbox = false,
     this.sortByLastName = false,
+    this.testId,
   });
 
   final Contacts contact;
@@ -39,6 +40,9 @@ class ContactListRow extends StatefulWidget {
 
   /// Whether to bold the last name (true) or first name (false).
   final bool sortByLastName;
+
+  /// Optional test identifier for automation
+  final String? testId;
 
   @override
   State<ContactListRow> createState() => _ContactListRowState();
@@ -73,6 +77,7 @@ class _ContactListRowState extends State<ContactListRow> {
         onEnter: (_) => _setHover(true, isNotMobile),
         onExit: (_) => _setHover(false, isNotMobile),
         child: InkWell(
+          key: widget.testId != null ? Key(widget.testId!) : null,
           onTap: widget.onTap,
           onLongPress: widget.onLongPress,
           child: Container(
@@ -158,6 +163,7 @@ class _ContactListRowState extends State<ContactListRow> {
       height: cbSize,
       child: Center(
         child: Icon(
+          key: widget.testId != null ? Key('${widget.testId}_checkbox') : null,
           widget.isMultiSelected ? Icons.check_box : Icons.check_box_outline_blank,
           color: Theme.of(context).colorScheme.primary,
           size: iconSize,

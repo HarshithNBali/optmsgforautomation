@@ -41,6 +41,7 @@ class SettingsMobileLayout extends ConsumerWidget {
                 child: Column(
                   children: [
                     MyDrawerItem(
+                      testId: 'settings_profile_item',
                       title: profile,
                       svgIcon: svgUser,
                       showIndicator: false,
@@ -59,6 +60,7 @@ class SettingsMobileLayout extends ConsumerWidget {
                       height: 1,
                     ),
                     MyDrawerItem(
+                      testId: 'settings_account_item',
                       title: account,
                       svgIcon: svgUserSettings,
                       showIndicator: false,
@@ -73,6 +75,7 @@ class SettingsMobileLayout extends ConsumerWidget {
                       height: 1,
                     ),
                     CustomSwitchListTile(
+                      testId: 'settings_notification_switch',
                       title: manageNotification,
                       value: state.isNotificationSelected,
                       onChanged: notifier.toggleNotification,
@@ -91,6 +94,7 @@ class SettingsMobileLayout extends ConsumerWidget {
                         height: 1,
                       ),
                       CustomSwitchListTile(
+                        testId: 'settings_biometric_switch',
                         title: manageBiometric,
                         value: state.isBiometricSelected,
                         onChanged: notifier.toggleBiometric,
@@ -103,6 +107,7 @@ class SettingsMobileLayout extends ConsumerWidget {
                       height: 1,
                     ),
                     CustomSwitchListTile(
+                      testId: 'settings_sort_switch',
                       title: sortContact,
                       value: !state.lastNameSorted,
                       onChanged: notifier.toggleSort,
@@ -114,6 +119,7 @@ class SettingsMobileLayout extends ConsumerWidget {
                       height: 1,
                     ),
                     CustomSwitchListTile(
+                      testId: 'settings_readingpane_switch',
                       title: readingPaneText,
                       value: state.readingPaneEnabled,
                       onChanged: notifier.toggleReadingPane,
@@ -130,6 +136,7 @@ class SettingsMobileLayout extends ConsumerWidget {
                         height: 1,
                       ),
                       CustomSwitchListTile(
+                        testId: 'settings_synccontact_switch',
                         title: importContactDevice,
                         value: state.syncContact,
                         onChanged: notifier.toggleSyncContacts,
@@ -159,6 +166,7 @@ class SettingsMobileLayout extends ConsumerWidget {
                 context: context,
                 useRootNavigator: true,
                 builder: (dialogContext) => CustomPopupModal(
+                  testId: 'settings_logout',
                   icon: svgLogOut,
                   title: logOut,
                   subtitle: logOutText,
@@ -175,6 +183,7 @@ class SettingsMobileLayout extends ConsumerWidget {
               );
             },
             child: Row(
+              key: const Key('settings_logout_button'),
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SvgPicture.asset(
@@ -223,6 +232,7 @@ class _ThemeModeSelector extends StatelessWidget {
               Text(darkModeText, style: AppTypography.drawerTitle(context)),
               const Spacer(),
               SegmentedButton<String>(
+                key: const Key('settings_theme_selector'),
                 segments: const [
                   ButtonSegment(value: 'light', icon: Icon(Icons.light_mode, size: 18)),
                   ButtonSegment(value: 'system', icon: Icon(Icons.settings_brightness, size: 18)),

@@ -136,6 +136,7 @@ class LoginDesktopLayout extends StatelessWidget {
                         ),
                       ),
                       ClickableText(
+                        key: const Key('login_register_link'),
                         firstText: noAccount,
                         firstTextColor: AuthStyles.textSecondary,
                         secondText: " Create Account",

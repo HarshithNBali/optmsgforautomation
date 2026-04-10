@@ -9,6 +9,7 @@ class CustomSearchBar extends StatefulWidget {
   final TextEditingController? controller;
   final FocusNode? focusNode;
   final bool isLightBackground;
+  final String? testId;
 
   const CustomSearchBar({
     super.key,
@@ -16,6 +17,7 @@ class CustomSearchBar extends StatefulWidget {
     this.controller,
     this.focusNode,
     this.isLightBackground = false,
+    this.testId,
   });
 
   @override
@@ -70,6 +72,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
         children: [
           Expanded(
             child: TextField(
+              key: widget.testId != null ? Key(widget.testId!) : null,
               focusNode: widget.focusNode,
               controller: widget.controller,
               cursorColor: textColor,
@@ -99,6 +102,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
           SizedBox(width: AppBreakpoints.screenWidth(context) * 0.008),
           // Search/Close icon on the right
           InkWell(
+              key: widget.testId != null ? Key('${widget.testId}_action') : null,
               onTap: () {
                 widget.controller?.clear();
                 widget.onSearch?.call('');

@@ -9,8 +9,9 @@ import 'package:optmsg/common/responsive/breakpoints.dart';
 
 class LogoWithSlogan extends StatelessWidget {
   final TextStyle? sloganStyle;
+  final String? testId;
 
-  const LogoWithSlogan({super.key, this.sloganStyle});
+  const LogoWithSlogan({super.key, this.sloganStyle, this.testId});
 
   @override
 
@@ -26,6 +27,7 @@ class LogoWithSlogan extends StatelessWidget {
     final spacing = (screenHeight * 0.005).clamp(4.0, 8.0);
 
     return GestureDetector(
+      key: testId != null ? Key(testId!) : null,
       onTap: () {
         context.go(AppRoutes.login);
       },

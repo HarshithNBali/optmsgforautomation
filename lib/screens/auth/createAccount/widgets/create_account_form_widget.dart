@@ -65,12 +65,14 @@ class CreateAccountFormWidget extends StatelessWidget {
           _buildConditionCheckbox(context),
           SizedBox(height: gap * 1.5),
           CustomGradientButton(
+            testId: 'signup_submit_button',
             onPressed: isLoading ? null : onSubmit,
             text: 'Get Started',
             textStyle: AuthStyles.authButtonText(context),
           ),
           SizedBox(height: gap * 1.5),
           ClickableText(
+            key: const Key('signup_login_link'),
             firstText: haveAccount,
             firstTextColor: AuthStyles.textPrimary,
             secondText: ' $login',
@@ -87,6 +89,7 @@ class CreateAccountFormWidget extends StatelessWidget {
       children: [
         Expanded(
           child: CustomTextFormField(
+            testId: 'signup_username_input',
             inputAction: TextInputAction.next,
             onChange: onUserNameChanged,
             inputFormatter: FilteringTextInputFormatter.allow(
@@ -128,6 +131,7 @@ class CreateAccountFormWidget extends StatelessWidget {
         SizedBox(width: screenWidth * 0.005),
         Expanded(
           child: CustomTextFormField(
+            testId: 'signup_phone_input',
             inputAction: TextInputAction.done,
             inputFormatter: FilteringTextInputFormatter.allow(
               RegExp(r'^[0-9]+$'),
@@ -152,6 +156,7 @@ class CreateAccountFormWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Checkbox(
+          key: const Key('signup_terms_checkbox'),
           value: acceptTerms,
           onChanged: onAcceptTermsChanged,
           side: BorderSide(color: AuthStyles.textPrimary.withValues(alpha: 0.5), width: 1),
@@ -161,6 +166,7 @@ class CreateAccountFormWidget extends StatelessWidget {
         const SizedBox(width: 20),
         Expanded(
           child: ClickableText(
+            key: const Key('signup_privacy_terms_links'),
             firstText: 'I have read and agree to the OptMsg',
             firstTextColor: AuthStyles.textPrimary,
             secondText: " Privacy Policy",
@@ -184,6 +190,7 @@ class CreateAccountFormWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Checkbox(
+          key: const Key('signup_sms_checkbox'),
           value: acceptCondition,
           onChanged: onAcceptConditionChanged,
           side: BorderSide(color: AuthStyles.textPrimary.withValues(alpha: 0.5), width: 1),

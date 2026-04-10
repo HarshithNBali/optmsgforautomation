@@ -23,6 +23,7 @@ class HelpCenterriverpod extends ConsumerWidget {
     });
 
     return ColoredBox(
+      key: const Key('help_center_screen'),
       color: Theme.of(context).colorScheme.surface,
       child: SafeArea(
         top: false,

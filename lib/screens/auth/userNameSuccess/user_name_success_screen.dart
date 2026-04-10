@@ -13,6 +13,7 @@ class UserNameSuccessScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
+      key: const Key('username_success_screen'),
       body: ResponsiveLayoutBuilder(
         mobile: (ctx, deviceType, width) => SuccessMobileLayout(
           onBackToLogin: () => _navigateToLogin(context),

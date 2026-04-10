@@ -21,6 +21,7 @@ class StandardFab extends StatelessWidget {
   final VoidCallback onPressed;
   final String heroTag;
   final bool visible;
+  final String? testId;
 
   const StandardFab({
     super.key,
@@ -28,6 +29,7 @@ class StandardFab extends StatelessWidget {
     required this.onPressed,
     required this.heroTag,
     this.visible = true,
+    this.testId,
   });
 
   /// Builds just the visual button — no positioning.
@@ -37,8 +39,13 @@ class StandardFab extends StatelessWidget {
   static Widget button({
     required String iconAsset,
     required VoidCallback onPressed,
+    String? testId,
   }) {
-    return _FabButton(iconAsset: iconAsset, onPressed: onPressed);
+    return _FabButton(
+      iconAsset: iconAsset, 
+      onPressed: onPressed, 
+      testId: testId,
+    );
   }
 
   /// Toast height (~48px) + gap (12px) to push FAB above a visible toast.
@@ -61,7 +68,11 @@ class StandardFab extends StatelessWidget {
           child: child!,
         );
       },
-      child: _FabButton(iconAsset: iconAsset, onPressed: onPressed),
+      child: _FabButton(
+        iconAsset: iconAsset, 
+        onPressed: onPressed, 
+        testId: testId,
+      ),
     );
   }
 }
@@ -69,8 +80,13 @@ class StandardFab extends StatelessWidget {
 class _FabButton extends StatelessWidget {
   final String iconAsset;
   final VoidCallback onPressed;
+  final String? testId;
 
-  const _FabButton({required this.iconAsset, required this.onPressed});
+  const _FabButton({
+    required this.iconAsset, 
+    required this.onPressed, 
+    this.testId,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +96,7 @@ class _FabButton extends StatelessWidget {
     final button = Material(
       color: Colors.transparent,
       child: InkWell(
+        key: testId != null ? Key(testId!) : null,
         onTap: onPressed,
         borderRadius: BorderRadius.circular(AppStyles.fabRadius),
         child: Container(

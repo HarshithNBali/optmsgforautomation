@@ -86,6 +86,7 @@ class _AddPassKeyState extends ConsumerState<AddPassKey> {
     });
 
     return Scaffold(
+      key: const Key('add_passkey_screen'),
       resizeToAvoidBottomInset: false,
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
@@ -172,6 +173,7 @@ class _AddPassKeyState extends ConsumerState<AddPassKey> {
                                       return Opacity(
                                         opacity: isDisabled ? 0.5 : 1.0,
                                         child: CustomGradientButton(
+                                          testId: 'add_passkey_submit_button',
                                           onPressed: () async {
                                             if (isDisabled) return;
                                             final success = await ref
@@ -191,6 +193,7 @@ class _AddPassKeyState extends ConsumerState<AddPassKey> {
                                   ),
                                   const SizedBox(height: AppStyles.space8),
                                   CustomGradientButton(
+                                    testId: 'add_passkey_skip_button',
                                     onPressed: () {
                                       ref.read(passkeyProvider.notifier).skip();
                                       _handleNavigation(false);

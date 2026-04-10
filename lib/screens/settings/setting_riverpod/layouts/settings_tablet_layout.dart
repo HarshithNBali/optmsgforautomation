@@ -56,6 +56,7 @@ class _SettingsList extends ConsumerWidget {
 
     final switchItems = <_SettingsSwitchItem>[
       _SettingsSwitchItem(
+        testId: 'settings_notification_switch',
         title: manageNotification,
         value: state.isNotificationSelected,
         onChanged: notifier.toggleNotification,
@@ -65,6 +66,7 @@ class _SettingsList extends ConsumerWidget {
         ),
       ),
       _SettingsSwitchItem(
+        testId: 'settings_biometric_switch',
         title: manageBiometric,
         value: state.isBiometricSelected,
         onChanged: notifier.toggleBiometric,
@@ -72,12 +74,14 @@ class _SettingsList extends ConsumerWidget {
         visible: !_isWeb,
       ),
       _SettingsSwitchItem(
+        testId: 'settings_sort_switch',
         title: sortContact,
         value: !state.lastNameSorted,
         onChanged: notifier.toggleSort,
         icon: Icon(Icons.contacts, size: 24, color: context.colors.onSurface),
       ),
       _SettingsSwitchItem(
+        testId: 'settings_readingpane_switch',
         title: readingPaneText,
         value: state.readingPaneEnabled,
         onChanged: notifier.toggleReadingPane,
@@ -88,6 +92,7 @@ class _SettingsList extends ConsumerWidget {
         ),
       ),
       _SettingsSwitchItem(
+        testId: 'settings_synccontact_switch',
         title: importContactDevice,
         value: state.syncContact,
         onChanged: notifier.toggleSyncContacts,
@@ -106,6 +111,7 @@ class _SettingsList extends ConsumerWidget {
         child: Column(
           children: [
             _DrawerAction(
+              testId: 'settings_profile_item',
               title: profile,
               icon: svgUser,
               onTap: () {
@@ -116,6 +122,7 @@ class _SettingsList extends ConsumerWidget {
             ),
             SettingsTabletLayout._divider,
             _DrawerAction(
+              testId: 'settings_account_item',
               title: account,
               icon: svgUserSettings,
               onTap: () => context.go(AppRoutes.account),
@@ -137,6 +144,7 @@ class _SettingsList extends ConsumerWidget {
       children: [
         SettingsTabletLayout._divider,
         _SwitchItem(
+          testId: item.testId,
           title: item.title,
           value: item.value,
           onChanged: item.onChanged,
@@ -153,6 +161,7 @@ class _SettingsSwitchItem {
   final ValueChanged<bool> onChanged;
   final Widget icon;
   final bool visible;
+  final String? testId;
 
   const _SettingsSwitchItem({
     required this.title,
@@ -160,6 +169,7 @@ class _SettingsSwitchItem {
     required this.onChanged,
     required this.icon,
     this.visible = true,
+    this.testId,
   });
 }
 
@@ -217,16 +227,19 @@ class _DrawerAction extends StatelessWidget {
   final String title;
   final String icon;
   final VoidCallback onTap;
+  final String? testId;
 
   const _DrawerAction({
     required this.title,
     required this.icon,
     required this.onTap,
+    this.testId,
   });
 
   @override
   Widget build(BuildContext context) {
     return MyDrawerItem(
+      testId: testId,
       title: title,
       svgIcon: icon,
       showIndicator: false,
@@ -241,17 +254,20 @@ class _SwitchItem extends StatelessWidget {
   final bool value;
   final ValueChanged<bool> onChanged;
   final Widget icon;
+  final String? testId;
 
   const _SwitchItem({
     required this.title,
     required this.value,
     required this.onChanged,
     required this.icon,
+    this.testId,
   });
 
   @override
   Widget build(BuildContext context) {
     return CustomSwitchListTile(
+      testId: testId,
       title: title,
       value: value,
       onChanged: onChanged,
@@ -275,6 +291,7 @@ class _LogoutButton extends ConsumerWidget {
             context: context,
             useRootNavigator: true,
             builder: (dialogContext) => CustomPopupModal(
+              testId: 'settings_logout',
               icon: svgLogOut,
               title: logOut,
               subtitle: logOutText,
@@ -293,6 +310,7 @@ class _LogoutButton extends ConsumerWidget {
           );
         },
         child: Row(
+          key: const Key('settings_logout_button'),
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SvgPicture.asset(

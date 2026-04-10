@@ -18,6 +18,7 @@ class MyDrawerItem extends StatefulWidget {
   final bool isActive;
   final bool showIndicator;
   final bool showChevron;
+  final String? testId;
   const MyDrawerItem({
     super.key,
     required this.title,
@@ -33,6 +34,7 @@ class MyDrawerItem extends StatefulWidget {
     this.isActive = false,
     this.showIndicator = true,
     this.showChevron = false,
+    this.testId,
   });
 
   @override
@@ -80,6 +82,7 @@ class _MyDrawerItemState extends State<MyDrawerItem> {
 
   Widget build(BuildContext context) {
     return Semantics(
+      key: widget.testId != null ? Key(widget.testId!) : null,
       label: title,
       button: true,
       selected: isActive,

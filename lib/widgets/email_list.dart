@@ -37,6 +37,7 @@ class EmailList extends StatefulWidget {
   final VoidCallback? onOptIn;
   final bool? hasAnySelection;
   final int? selectedEmailId;
+  final String? testId;
 
   const EmailList({
     super.key,
@@ -62,6 +63,7 @@ class EmailList extends StatefulWidget {
     this.onOptIn,
     this.hasAnySelection,
     this.selectedEmailId,
+    this.testId,
   });
 
   @override
@@ -90,6 +92,7 @@ class _EmailListState extends State<EmailList> {
       onEnter: (_) => _setHover(true, isNotMobile),
       onExit: (_) => _setHover(false, isNotMobile),
       child: InkWell(
+        key: widget.testId != null ? Key(widget.testId!) : null,
         onTap: widget.onTap,
         onLongPress: widget.onLongPress,
         child: Container(
@@ -146,6 +149,7 @@ class _EmailListState extends State<EmailList> {
         width: cbSize,
         height: cbSize,
         child: InkWell(
+          key: widget.testId != null ? Key('${widget.testId}_checkbox') : null,
           borderRadius: BorderRadius.circular(AppStyles.radiusXL),
           onTap: widget.radioOnTap,
           child: Center(
@@ -239,20 +243,36 @@ class _EmailListState extends State<EmailList> {
     return Row(
       children: [
         if (widget.onArchive != null)
-          _hoverIcon(archive, svgArchive, widget.onArchive!),
+          _hoverIcon(
+            archive,
+            svgArchive,
+            widget.onArchive!,
+            key: widget.testId != null ? Key('${widget.testId}_archive') : null,
+          ),
         if (widget.onDelete != null)
-          _hoverIcon('Move to Trash', svgDelete, widget.onDelete!),
+          _hoverIcon(
+            'Move to Trash',
+            svgDelete,
+            widget.onDelete!,
+            key: widget.testId != null ? Key('${widget.testId}_delete') : null,
+          ),
         if (widget.onOptIn != null)
-          _hoverIcon(optIn, svgOptin, widget.onOptIn!),
+          _hoverIcon(
+            optIn,
+            svgOptin,
+            widget.onOptIn!,
+            key: widget.testId != null ? Key('${widget.testId}_optin') : null,
+          ),
         const SizedBox(width: 8),
       ],
     );
   }
 
-  Widget _hoverIcon(String tooltip, String asset, VoidCallback onTap) {
+  Widget _hoverIcon(String tooltip, String asset, VoidCallback onTap, {Key? key}) {
     return Tooltip(
       message: tooltip,
       child: InkWell(
+        key: key,
         onTap: onTap,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 6),

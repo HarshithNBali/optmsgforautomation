@@ -442,9 +442,11 @@ class ArchiveResponsiveState extends ConsumerState<ArchiveResponsive>
     return PopScope(
       canPop: false,
       child: Stack(
+        key: Key('${_screenKeyPrefix()}_screen'),
         children: [
           _buildBody(state, notifier),
           StandardFab(
+            testId: '${_screenKeyPrefix()}_compose_fab',
             iconAsset: svgComposeIcon,
             onPressed: () => notifier.gotoCompose(),
             heroTag: 'archiveResponsive',
@@ -454,6 +456,18 @@ class ArchiveResponsiveState extends ConsumerState<ArchiveResponsive>
         ],
       ),
     );
+  }
+
+  String _screenKeyPrefix() {
+    switch (widget.parentRoute) {
+      case AppRoutes.trash:
+        return 'trash';
+      case AppRoutes.sent:
+        return 'sent';
+      case AppRoutes.archive:
+      default:
+        return 'archive';
+    }
   }
 
   void _handleSelectAllEmails(ArchiveState state, ArchiveNotifier notifier) {

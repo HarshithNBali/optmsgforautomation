@@ -40,6 +40,7 @@ class SetupProfileFormWidget extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           CustomTextFormField(
+            testId: 'setup_profile_firstname_input',
             textCapitalization: TextCapitalization.sentences,
             inputAction: TextInputAction.next,
             controller: firstNameController,
@@ -55,6 +56,7 @@ class SetupProfileFormWidget extends StatelessWidget {
           ),
           SizedBox(height: gap),
           CustomTextFormField(
+            testId: 'setup_profile_lastname_input',
             textCapitalization: TextCapitalization.sentences,
             inputAction: TextInputAction.next,
             controller: lastNameController,
@@ -70,6 +72,7 @@ class SetupProfileFormWidget extends StatelessWidget {
           ),
           SizedBox(height: gap),
           DateOfBirthPicker(
+            testId: 'setup_profile_dob_input',
             readOnly: readOnly ?? false,
             controller: dobController,
             labelText: dob,
@@ -77,12 +80,14 @@ class SetupProfileFormWidget extends StatelessWidget {
           ),
           SizedBox(height: gap),
           CustomGradientButton(
+            testId: 'setup_profile_submit_button',
             onPressed: onSubmit,
             text: signUp,
             textStyle: AuthStyles.authButtonText(context),
           ),
           SizedBox(height: gap * 2),
           ClickableText(
+            key: const Key('setup_profile_login_link'),
             firstText: haveAccount,
             firstTextColor: AuthStyles.textPrimary,
             secondText: ' $login',

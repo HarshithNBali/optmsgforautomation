@@ -20,6 +20,7 @@ class PromoCodeTextField extends StatefulWidget {
   final bool isEnabled;
   final VoidCallback? onSuffixTap;
   final FocusNode? focusNode;
+  final String? testId;
 
   const PromoCodeTextField({
     super.key,
@@ -38,6 +39,7 @@ class PromoCodeTextField extends StatefulWidget {
     this.isEnabled = true,
     this.onSuffixTap,
     this.focusNode,
+    this.testId,
   });
 
   @override
@@ -55,6 +57,7 @@ class _PromoCodeTextFieldState extends State<PromoCodeTextField> {
         border: Border.all(color: context.appColors.formFieldBorder, width: 0.5),
       ),
       child: TextFormField(
+        key: widget.testId != null ? Key(widget.testId!) : null,
         enabled: widget.isEnabled,
         focusNode: widget.focusNode,
         textInputAction: widget.inputAction,
@@ -85,6 +88,7 @@ class _PromoCodeTextFieldState extends State<PromoCodeTextField> {
               ? MouseRegion(
                   cursor: SystemMouseCursors.click,
                   child: GestureDetector(
+                    key: widget.testId != null ? Key('${widget.testId}_suffix') : null,
                     behavior: HitTestBehavior.opaque,
                     onTap: widget.onSuffixTap,
                     child: Center(

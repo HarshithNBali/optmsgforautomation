@@ -169,6 +169,7 @@ class _ViewEmailState extends ConsumerState<ViewEmail> {
         customActions: showActions
             ? [
                 IconButton(
+                  key: const Key('view_email_optin_button'),
                   tooltip: 'Opt-in sender',
                   icon: SvgPicture.asset(svgOptin),
                   onPressed: emailData != null
@@ -182,6 +183,7 @@ class _ViewEmailState extends ConsumerState<ViewEmail> {
                       : null,
                 ),
                 IconButton(
+                  key: const Key('view_email_delete_button'),
                   tooltip: 'Delete',
                   icon: SvgPicture.asset(svgDelete, height: 20, width: 20),
                   onPressed: () {
@@ -192,6 +194,7 @@ class _ViewEmailState extends ConsumerState<ViewEmail> {
                   },
                 ),
                 IconButton(
+                  key: const Key('view_email_more_button'),
                   tooltip: 'More options',
                   icon: const Icon(Icons.more_horiz),
                   onPressed: () {
@@ -370,6 +373,7 @@ class _ViewEmailState extends ConsumerState<ViewEmail> {
     );
 
     return IconButton(
+      key: Key('view_email_action_${asset.split('/').last.split('.').first}'),
       onPressed: onPressed,
       tooltip: tooltip,
       splashRadius: 22,
@@ -790,6 +794,7 @@ class _ViewEmailState extends ConsumerState<ViewEmail> {
                                 ),
                               ),
                               child: InkWell(
+                                key: const Key('view_email_expand_toggle'),
                                 onTap: () {
                                   setState(() {
                                     _expandedView = !_expandedView;
@@ -844,6 +849,7 @@ class _ViewEmailState extends ConsumerState<ViewEmail> {
                                             ),
                                             const SizedBox(width: 8),
                                             InkWell(
+                                              key: const Key('view_email_expand_toggle_icon'),
                                               onTap: () {
                                                 setState(() {
                                                   _expandedView =

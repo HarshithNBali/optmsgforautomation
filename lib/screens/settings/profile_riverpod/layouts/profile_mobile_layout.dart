@@ -29,6 +29,7 @@ class ProfileMobileLayout extends ConsumerWidget {
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton.icon(
+                    key: const Key('profile_edit_button'),
                     onPressed: notifier.enableEdit,
                     icon: const Icon(Icons.edit, size: 18),
                     label: const Text(editProfile),
@@ -41,6 +42,7 @@ class ProfileMobileLayout extends ConsumerWidget {
                 controller: notifier.firstNameCtrl,
                 validator: notifier.validator.validateFirstName,
                 applyBorder: state.isEdit,
+                testId: 'profile_firstname_input',
               ),
 
               const SizedBox(height: 20),
@@ -52,6 +54,7 @@ class ProfileMobileLayout extends ConsumerWidget {
                 controller: notifier.lastNameCtrl,
                 validator: notifier.validator.validateLastName,
                 applyBorder: state.isEdit,
+                testId: 'profile_lastname_input',
               ),
 
               const SizedBox(height: 20),
@@ -63,6 +66,7 @@ class ProfileMobileLayout extends ConsumerWidget {
                 controller: notifier.dobCtrl,
                 validator: notifier.validator.validateDob,
                 applyBorder: state.isEdit,
+                testId: 'profile_dob_input',
               ),
 
               if (!state.isEdit) ...[
@@ -96,6 +100,7 @@ class ProfileMobileLayout extends ConsumerWidget {
                     FilteringTextInputFormatter.digitsOnly,
                 validator: notifier.validator.validatePhoneNumber,
                 applyBorder: state.isEdit,
+                testId: 'profile_phone_input',
               ),
 
               SizedBox(
@@ -104,6 +109,7 @@ class ProfileMobileLayout extends ConsumerWidget {
 
               if (state.isEdit)
                 CustomGradientButton(
+                  testId: 'profile_update_button',
                   text: 'Update Profile',
                   onPressed: () => notifier.submitProfile(),
                 ),

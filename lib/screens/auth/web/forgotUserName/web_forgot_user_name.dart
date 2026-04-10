@@ -60,6 +60,7 @@ class _WebForgotUserNameState extends ConsumerState<WebForgotUserName> {
   /// pages by clicking on the corresponding [ClickableText]s in the sign up form.
   Widget build(BuildContext context) {
     return Scaffold(
+      key: const Key('forgot_username_screen'),
       resizeToAvoidBottomInset: false,
       body: WebBackground(
           child: Column(
@@ -81,6 +82,7 @@ class _WebForgotUserNameState extends ConsumerState<WebForgotUserName> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       InkWell(
+                        key: const Key('forgot_username_back_button'),
                         onTap: () {
                           context.pop();
                         },
@@ -139,6 +141,7 @@ class _WebForgotUserNameState extends ConsumerState<WebForgotUserName> {
                                           const SizedBox(width: AppStyles.space8),
                                           Expanded(
                                             child: CustomTextFormField(
+                                              testId: 'forgot_username_phone_input',
                                               inputAction: TextInputAction.done,
                                               inputFormatter:
                                                   FilteringTextInputFormatter
@@ -160,6 +163,7 @@ class _WebForgotUserNameState extends ConsumerState<WebForgotUserName> {
                                       ),
                                       const SizedBox(height: AppStyles.space8),
                                       CustomGradientButton(
+                                        testId: 'forgot_username_submit_button',
                                         onPressed: onPressed,
                                         text: submit,
                                         textStyle: AuthStyles.authButtonText(context),

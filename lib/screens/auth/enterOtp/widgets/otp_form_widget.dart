@@ -71,6 +71,7 @@ class OtpFormWidget extends StatelessWidget {
           _buildPinInput(context, isMobile, screenWidth, isLandscape),
           SizedBox(height: spacing * 1.5),
           ClickableText(
+            key: const Key('otp_resend_link'),
             firstText: notReceived,
             firstTextColor: AuthStyles.textSecondary,
             secondText: resendCooldownSeconds > 0
@@ -83,6 +84,7 @@ class OtpFormWidget extends StatelessWidget {
           ),
           SizedBox(height: spacing * 2),
           CustomGradientButton(
+            testId: 'otp_submit_button',
             text: submit,
             onPressed: isLoading ? null : onSubmit,
             textStyle: AuthStyles.authButtonText(context),
@@ -121,6 +123,7 @@ class OtpFormWidget extends StatelessWidget {
     final fontSize = isLandscape && isMobile ? 16.0 : 18.0;
 
     return Pinput(
+      key: const Key('otp_code_input'),
       controller: otpController,
       length: 6,
       focusNode: focusNode,

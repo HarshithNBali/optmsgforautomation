@@ -19,6 +19,7 @@ class ProfileDobPicker extends StatelessWidget {
   final TextInputFormatter? inputFormatter;
   final String? currentDate;
   final bool applyBorder;
+  final String? testId;
 
   const ProfileDobPicker({
     super.key,
@@ -34,6 +35,7 @@ class ProfileDobPicker extends StatelessWidget {
     this.validator,
     this.currentDate,
     this.applyBorder = false,
+    this.testId,
   });
 
   @override
@@ -86,6 +88,7 @@ class ProfileDobPicker extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   TextFormField(
+                    key: testId != null ? Key(testId!) : null,
                     enabled: editable,
                     readOnly:
                         editable, // Make read-only when editable so calendar icon works
@@ -142,6 +145,7 @@ class ProfileDobPicker extends StatelessWidget {
                       ),
                       suffixIcon: editable
                           ? InkWell(
+                              key: testId != null ? Key('${testId}_calendar') : null,
                               onTap: () async {
                                 DateTime initialDate = DateTime.now();
                                 if (currentDate != null &&

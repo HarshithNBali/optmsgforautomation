@@ -15,6 +15,7 @@ class FooterButton extends StatelessWidget {
   final VoidCallback onPressedButton2;
   final String textButton1;
   final String textButton2;
+  final String? testId;
 
   const FooterButton({
     super.key,
@@ -31,6 +32,7 @@ class FooterButton extends StatelessWidget {
     required this.onPressedButton2,
     required this.textButton1,
     required this.textButton2,
+    this.testId,
   });
 
   @override
@@ -57,6 +59,7 @@ class FooterButton extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Flexible(
+          key: testId != null ? Key('${testId}_button1') : null,
           child: MouseRegion(
             cursor: SystemMouseCursors.click,
             child: GestureDetector(
@@ -80,6 +83,7 @@ class FooterButton extends StatelessWidget {
         ),
         SizedBox(width: spaceBetweenButtons), // Add space between buttons
         Flexible(
+          key: testId != null ? Key('${testId}_button2') : null,
           child: MouseRegion(
             cursor: SystemMouseCursors.click,
             child: GestureDetector(

@@ -720,6 +720,7 @@ class _CustomDismissibleState extends ConsumerState<CustomDismissible> {
                       motion: const DrawerMotion(),
                       children: [
                         CustomSlidableAction(
+                            key: Key('slidable_action_optin_$index'),
                             autoClose: true,
                             onPressed: (context) {
                               // Perform archive action
@@ -739,6 +740,7 @@ class _CustomDismissibleState extends ConsumerState<CustomDismissible> {
                 children: [
                   if (widget.rightActions[0] != '')
                     CustomSlidableAction(
+                        key: Key('slidable_action_right0_$index'),
                         autoClose: true,
                         flex: 3,
                         padding: const EdgeInsets.all(0),
@@ -750,6 +752,7 @@ class _CustomDismissibleState extends ConsumerState<CustomDismissible> {
                         child: getSlideView(widget.rightActions[0], item)),
                   if (widget.rightActions[1] != '')
                     CustomSlidableAction(
+                        key: Key('slidable_action_right1_$index'),
                         autoClose: true,
                         flex: 4,
                         padding: const EdgeInsets.all(0),
@@ -764,6 +767,7 @@ class _CustomDismissibleState extends ConsumerState<CustomDismissible> {
                             widget.rightActions[1].toString(), item)),
                   if (widget.rightActions[2] != '')
                     CustomSlidableAction(
+                        key: Key('slidable_action_right2_$index'),
                         autoClose: true,
                         flex: 3,
                         padding: const EdgeInsets.all(0),
@@ -791,6 +795,7 @@ class _CustomDismissibleState extends ConsumerState<CustomDismissible> {
                         title: 'title',
                         svgIcon: svgIcon,
                         item: item,
+                        testId: 'inbox_list_item_$index',
                         selectedEmailId: widget.selectedEmailId,
                         onTap: () {
                           final bool isMobile =
@@ -869,6 +874,7 @@ class _CustomDismissibleState extends ConsumerState<CustomDismissible> {
                             title: 'title',
                             svgIcon: svgIcon,
                             item: item,
+                            testId: '${widget.emailType}_list_item_$index',
                             selectedEmailId: widget.selectedEmailId,
                             onTap: () {
                               final bool isMobile =
@@ -958,6 +964,7 @@ class _CustomDismissibleState extends ConsumerState<CustomDismissible> {
                       title: 'title',
                       svgIcon: svgIcon,
                       item: item,
+                      testId: 'draft_list_item_$index',
                       selectedEmailId: widget.selectedEmailId,
                       onTap: () {
                         final bool isMobile =

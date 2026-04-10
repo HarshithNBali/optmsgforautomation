@@ -163,6 +163,7 @@ class CreateAccountMobileLayout extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(AppStyles.space16),
       child: TextButton.icon(
+        key: const Key('signup_back_button'),
         onPressed: onBack,
         icon: SvgPicture.asset(svgArrowBack, height: 30, width: 32),
         label: Text(back, style: AuthStyles.inputText(context)),

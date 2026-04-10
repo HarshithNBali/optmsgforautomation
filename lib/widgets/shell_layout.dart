@@ -479,6 +479,7 @@ class _ShellLayoutState extends ConsumerState<ShellLayout> {
         child: isCollapsed
             ? Center(
                 child: IconButton(
+                  key: const Key('shell_hamburger_button'),
                   icon: const Icon(Icons.menu),
                   onPressed: toggleSideMenuExpanded,
                 ),
@@ -487,6 +488,7 @@ class _ShellLayoutState extends ConsumerState<ShellLayout> {
                 children: [
                   const SizedBox(width: 12),
                   IconButton(
+                    key: const Key('shell_hamburger_button'),
                     icon: const Icon(Icons.menu),
                     onPressed: toggleSideMenuExpanded,
                   ),
@@ -508,6 +510,7 @@ class _ShellLayoutState extends ConsumerState<ShellLayout> {
       leading = Padding(
         padding: const EdgeInsets.only(left: AppStyles.space4),
         child: IconButton(
+          key: const Key('shell_back_button'),
           icon: SvgPicture.asset(
             svgArrowBack,
             colorFilter: ColorFilter.mode(fgColor, BlendMode.srcIn),
@@ -518,7 +521,10 @@ class _ShellLayoutState extends ConsumerState<ShellLayout> {
     } else {
       leading = Padding(
         padding: const EdgeInsets.only(left: AppStyles.space4),
-        child: IconButton(icon: const Icon(Icons.menu), onPressed: openDrawer),
+        child: IconButton(
+            key: const Key('shell_hamburger_button'),
+            icon: const Icon(Icons.menu),
+            onPressed: openDrawer),
       );
     }
 
@@ -541,6 +547,7 @@ class _ShellLayoutState extends ConsumerState<ShellLayout> {
       title = Row(
         children: [
           IconButton(
+            key: const Key('shell_back_button'),
             icon: SvgPicture.asset(
               svgArrowBack,
               colorFilter: ColorFilter.mode(fgColor, BlendMode.srcIn),
@@ -577,6 +584,7 @@ class _ShellLayoutState extends ConsumerState<ShellLayout> {
           ),
         if (config.showSearch && isMobile)
           IconButton(
+            key: const Key('shell_mobile_search_toggle'),
             icon: SvgPicture.asset(
               _mobileSearchOpen ? svgClose : svgSearch,
               colorFilter: ColorFilter.mode(fgColor, BlendMode.srcIn),
@@ -654,6 +662,7 @@ class _ShellLayoutState extends ConsumerState<ShellLayout> {
         Theme.of(context).appBarTheme.foregroundColor ??
         Theme.of(context).colorScheme.onSurface;
     return IconButton(
+      key: const Key('shell_notification_button'),
       icon: SvgPicture.asset(
         hasNew ? svgNotification : svgNoNotifications,
         colorFilter: hasNew ? null : ColorFilter.mode(fgColor, BlendMode.srcIn),
@@ -664,6 +673,7 @@ class _ShellLayoutState extends ConsumerState<ShellLayout> {
 
   Widget _buildUpgradeBanner(BuildContext context, bool isMobile) {
     return TextButton(
+      key: const Key('shell_upgrade_button'),
       onPressed: () => context.push(AppRoutes.changeSubscription),
       style: TextButton.styleFrom(
         foregroundColor: context.colors.onPrimary,

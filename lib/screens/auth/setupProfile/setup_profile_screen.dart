@@ -77,6 +77,7 @@ class _SetupProfileScreenState extends ConsumerState<SetupProfileScreen> {
     final isReadOnly =
         ref.watch(authProvider.select((s) => s.isReadOnly));
     return Scaffold(
+      key: const Key('setup_profile_screen'),
       resizeToAvoidBottomInset: true,
       body: ResponsiveLayoutBuilder(
         mobile: (ctx, deviceType, width) => SetupProfileMobileLayout(

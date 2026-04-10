@@ -145,19 +145,19 @@ class _ComposeScreenState extends ConsumerState<ComposeScreen>
           customActions: isMobile
               ? [
                   IconButton(
+                    key: const Key('compose_mobile_discard_button'),
                     icon: const Icon(Icons.delete_outline),
                     onPressed: _handleDiscard,
-                    tooltip: 'Discard',
                   ),
                   IconButton(
+                    key: const Key('compose_mobile_attach_button'),
                     icon: const Icon(Icons.attach_file),
                     onPressed: _handleAttach,
-                    tooltip: 'Attach file',
                   ),
                   IconButton(
+                    key: const Key('compose_mobile_send_button'),
                     icon: const Icon(Icons.send),
                     onPressed: _handleSend,
-                    tooltip: 'Send',
                   ),
                 ]
               : null,
@@ -420,6 +420,7 @@ class _ComposeScreenState extends ConsumerState<ComposeScreen>
         if (!didPop) _handleBack();
       },
       child: Scaffold(
+        key: const Key('compose_screen'),
         resizeToAvoidBottomInset: true,
         body: SafeArea(
           child: Column(
@@ -454,11 +455,16 @@ class _ComposeScreenState extends ConsumerState<ComposeScreen>
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        FromField(fromName: state.fromName, fromEmail: state.fromEmail),
+        FromField(
+          testId: 'compose_from_field',
+          fromName: state.fromName,
+          fromEmail: state.fromEmail,
+        ),
         Row(
           children: [
             Expanded(
               child: RecipientField(
+                testId: 'compose_to_field',
                 label: 'To',
                 recipients: state.toRecipients,
                 onChanged: ref
@@ -483,6 +489,7 @@ class _ComposeScreenState extends ConsumerState<ComposeScreen>
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     RecipientField(
+                      testId: 'compose_cc_field',
                       label: 'Cc',
                       recipients: state.ccRecipients,
                       onChanged: ref
@@ -491,6 +498,7 @@ class _ComposeScreenState extends ConsumerState<ComposeScreen>
                       totalRecipientCount: totalRecipients,
                     ),
                     RecipientField(
+                      testId: 'compose_bcc_field',
                       label: 'Bcc',
                       recipients: state.bccRecipients,
                       onChanged: ref
@@ -503,6 +511,7 @@ class _ComposeScreenState extends ConsumerState<ComposeScreen>
               : const SizedBox.shrink(),
         ),
         SubjectField(
+          testId: 'compose_subject_field',
           controller: _subjectController,
           onChanged: ref
               .read(composeProvider(widget.params).notifier)
@@ -636,6 +645,7 @@ class _ComposeScreenState extends ConsumerState<ComposeScreen>
         children: [
           // Send button (matches existing CommonWebButton style)
           ElevatedButton.icon(
+            key: const Key('compose_desktop_send_button'),
             onPressed: state.canSend && !state.isSending ? _handleSend : null,
             style: ElevatedButton.styleFrom(
               backgroundColor: state.isSending
@@ -667,6 +677,7 @@ class _ComposeScreenState extends ConsumerState<ComposeScreen>
           const SizedBox(width: 16),
           // Discard
           TextButton.icon(
+            key: const Key('compose_desktop_discard_button'),
             onPressed: _handleDiscard,
             icon: Icon(
               Icons.delete_outline,
@@ -683,6 +694,7 @@ class _ComposeScreenState extends ConsumerState<ComposeScreen>
           const SizedBox(width: 8),
           // Attachment
           TextButton.icon(
+            key: const Key('compose_desktop_attach_button'),
             onPressed: _handleAttach,
             icon: Icon(
               Icons.attach_file_rounded,

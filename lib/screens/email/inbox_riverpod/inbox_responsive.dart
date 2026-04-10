@@ -676,6 +676,7 @@ class InboxResponsiveState extends ConsumerState<InboxResponsive>
       children: [
         if (s.emailType == 'inbox' && !s.tagFilter)
           IconButton(
+            key: const Key('inbox_filter_button'),
             icon: SvgPicture.asset(svgFilter),
             onPressed: () {
               n.toggleFilter();
@@ -683,6 +684,7 @@ class InboxResponsiveState extends ConsumerState<InboxResponsive>
           ),
         if (s.emailType == 'unread')
           IconButton(
+            key: const Key('inbox_clear_unread_filter_button'),
             icon: SvgPicture.asset(
               svgUnread,
               colorFilter: ColorFilter.mode(
@@ -698,6 +700,7 @@ class InboxResponsiveState extends ConsumerState<InboxResponsive>
           ),
         if (s.tagFilter)
           IconButton(
+            key: const Key('inbox_clear_tag_filter_button'),
             icon: SvgPicture.asset(
               svgTags,
               colorFilter: ColorFilter.mode(
@@ -721,6 +724,7 @@ class InboxResponsiveState extends ConsumerState<InboxResponsive>
       children: [
         const SizedBox(width: 5),
         IconButton(
+          key: const Key('inbox_back_selection_button'),
           onPressed: () {
             _onLongPress(null, null);
           },
@@ -734,6 +738,7 @@ class InboxResponsiveState extends ConsumerState<InboxResponsive>
           ),
         ),
         IconButton(
+          key: const Key('inbox_select_all_button'),
           icon: s.allEmailIdsFlag
               ? const Icon(Icons.check_box)
               : s.selectedEmailIds.isNotEmpty
@@ -759,6 +764,7 @@ class InboxResponsiveState extends ConsumerState<InboxResponsive>
   List<Widget> _buildSelectionActionsWidgets() {
     return [
       IconButton(
+        key: const Key('inbox_opt_in_selected_button'),
         icon: SvgPicture.asset(
           svgOptin,
           height: 24,
@@ -772,6 +778,7 @@ class InboxResponsiveState extends ConsumerState<InboxResponsive>
         },
       ),
       IconButton(
+        key: const Key('inbox_delete_selected_button'),
         onPressed: () {
           n.handleDelete();
         },
@@ -782,6 +789,7 @@ class InboxResponsiveState extends ConsumerState<InboxResponsive>
         ),
       ),
       IconButton(
+        key: const Key('inbox_archive_selected_button'),
         onPressed: () {
           n.handleArchive();
         },
@@ -797,6 +805,7 @@ class InboxResponsiveState extends ConsumerState<InboxResponsive>
         ),
       ),
       IconButton(
+        key: const Key('inbox_more_selected_button'),
         onPressed: () {
           n.toggleMenuOptions();
         },
@@ -844,6 +853,7 @@ class InboxResponsiveState extends ConsumerState<InboxResponsive>
         }
       },
       child: Stack(
+        key: const Key('inbox_screen'),
         children: [
           _buildBody(
             tagsList,
@@ -853,6 +863,7 @@ class InboxResponsiveState extends ConsumerState<InboxResponsive>
             hasReadingPaneSelection,
           ),
           StandardFab(
+            testId: 'inbox_compose_fab',
             iconAsset: svgComposeIcon,
             onPressed: _gotoCompose,
             heroTag: 'InboxResponsive',

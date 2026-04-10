@@ -19,6 +19,7 @@ class WebMenuItems extends StatefulWidget {
   final List<Widget> subItems;
   final bool? draft;
   final bool isCollapsed;
+  final String? testId;
 
   const WebMenuItems({
     super.key,
@@ -35,6 +36,7 @@ class WebMenuItems extends StatefulWidget {
     this.subItems = const [],
     this.draft = false,
     this.isCollapsed = false,
+    this.testId,
   });
 
   @override
@@ -65,6 +67,7 @@ class _WebMenuItemsState extends State<WebMenuItems> {
           borderRadius: BorderRadius.circular(AppStyles.radiusS),
         ),
         child: Semantics(
+          key: widget.testId != null ? Key(widget.testId!) : null,
           label: widget.title,
           button: true,
           selected: widget.isSelected,

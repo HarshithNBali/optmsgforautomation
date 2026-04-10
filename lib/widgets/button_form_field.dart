@@ -10,6 +10,7 @@ class CustomGradientButton extends StatelessWidget {
   final bool isLoading;
   final TextStyle? textStyle;
 
+  final String? testId;
   const CustomGradientButton({
     super.key,
     required this.text,
@@ -17,6 +18,7 @@ class CustomGradientButton extends StatelessWidget {
     this.leadingIcon,
     this.isLoading = false,
     this.textStyle,
+    this.testId,
   });
 
   @override
@@ -42,6 +44,7 @@ class CustomGradientButton extends StatelessWidget {
             gradient: context.appColors.accentGradient,
           ),
           child: ElevatedButton(
+            key: testId != null ? Key(testId!) : null,
             onPressed: onPressed,
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.transparent,
@@ -101,10 +104,13 @@ class CustomButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
 
+  final String? testId;
+
   const CustomButton({
     super.key,
     required this.text,
     required this.onPressed,
+    this.testId,
   });
 
   @override
@@ -130,6 +136,7 @@ class CustomButton extends StatelessWidget {
             gradient: context.appColors.disabledGradient,
           ),
           child: ElevatedButton(
+            key: testId != null ? Key(testId!) : null,
             onPressed: onPressed,
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.transparent,

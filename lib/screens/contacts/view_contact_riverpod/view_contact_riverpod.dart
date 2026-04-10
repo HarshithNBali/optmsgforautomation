@@ -74,6 +74,7 @@ class _ViewContactriverpodState extends ConsumerState<ViewContactriverpod> {
         customActions: showActions
             ? [
                 IconButton(
+                  key: const Key('view_contact_edit_button'),
                   icon: SvgPicture.asset(svgEditForm, height: 20, width: 20),
                   onPressed: state.loadingContactDetails
                       ? null
@@ -105,6 +106,7 @@ class _ViewContactriverpodState extends ConsumerState<ViewContactriverpod> {
                         },
                 ),
                 IconButton(
+                  key: const Key('view_contact_delete_button'),
                   icon: SvgPicture.asset(svgDelete, height: 20, width: 20),
                   onPressed: _handleDeleteContact,
                 ),

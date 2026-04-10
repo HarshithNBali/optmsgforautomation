@@ -10,12 +10,15 @@ class DateOfBirthPicker extends StatelessWidget {
   final FormFieldValidator<String> validator;
   final bool? readOnly;
 
+  final String? testId;
+
   const DateOfBirthPicker(
       {super.key,
       required this.controller,
       required this.labelText,
       required this.validator,
-      this.readOnly});
+      this.readOnly,
+      this.testId});
 
   @override
 
@@ -42,6 +45,7 @@ class DateOfBirthPicker extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       child: TextFormField(
+        key: testId != null ? Key(testId!) : null,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         controller: controller,
         keyboardType: TextInputType.datetime,
@@ -69,6 +73,7 @@ class DateOfBirthPicker extends StatelessWidget {
           helperText: ' ',
           hintText: labelText,
           suffixIcon: GestureDetector(
+            key: testId != null ? Key('${testId}_icon') : null,
             onTap: () async {
               DateTime? selectedDate = await showDatePicker(
                 initialEntryMode: DatePickerEntryMode.calendarOnly,

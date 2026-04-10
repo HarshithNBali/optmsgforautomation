@@ -19,13 +19,13 @@ class CustomTextFormField extends StatefulWidget {
   final VoidCallback? onChange; // New parameter for onChange event
   final TextInputFormatter? inputFormatter;
   final String? rightIcon;
-  final TextInputAction? inputAction;
   final String? name;
   final Color? borderColor;
   final Color? fillColor;
   final TextStyle? hintStyle;
   final TextStyle? style;
   final Iterable<String>? autofillHints;
+  final String? testId;
   const CustomTextFormField(
       {super.key,
       required this.controller,
@@ -45,7 +45,8 @@ class CustomTextFormField extends StatefulWidget {
       this.fillColor,
       this.hintStyle,
       this.style,
-      this.autofillHints});
+      this.autofillHints,
+      this.testId});
 
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
@@ -66,6 +67,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   Widget build(BuildContext context) {
     return SizedBox(
       child: TextFormField(
+        key: widget.testId != null ? Key(widget.testId!) : null,
         textCapitalization: widget.textCapitalization,
         autocorrect: false,
         enableIMEPersonalizedLearning: false,
@@ -156,6 +158,7 @@ class SimpleTextFormField extends StatelessWidget {
   final void Function(String)? onFieldSubmitted;
   final TextInputAction? inputAction;
   final Iterable<String>? autofillHints;
+  final String? testId;
   const SimpleTextFormField({
     super.key,
     this.textCapitalization,
@@ -170,6 +173,7 @@ class SimpleTextFormField extends StatelessWidget {
     this.onFieldSubmitted,
     this.inputAction,
     this.autofillHints,
+    this.testId,
   });
 
   @override
@@ -194,6 +198,7 @@ class SimpleTextFormField extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 4.0),
       child: SizedBox(
         child: TextFormField(
+          key: testId != null ? Key(testId!) : null,
           cursorColor: Theme.of(context).colorScheme.onSurface,
           textCapitalization: textCapitalization != null
               ? TextCapitalization.sentences
@@ -229,6 +234,8 @@ class GrayTextFormField extends StatelessWidget {
   final bool isPassword;
   final Iterable<String>? autofillHints;
 
+  final String? testId;
+
   const GrayTextFormField({
     super.key,
     required this.controller,
@@ -236,6 +243,7 @@ class GrayTextFormField extends StatelessWidget {
     required this.validator,
     this.isPassword = false,
     this.autofillHints,
+    this.testId,
   });
 
   @override
@@ -261,6 +269,7 @@ class GrayTextFormField extends StatelessWidget {
   /// The `onFieldSubmitted` callback is called when the text field is submitted.
   Widget build(BuildContext context) {
     return TextFormField(
+      key: testId != null ? Key(testId!) : null,
       controller: controller,
       autofillHints: autofillHints,
       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -293,6 +302,7 @@ class ClickableText extends StatefulWidget {
   final String? fourthText;
   final Color? fourthTextColor;
   final VoidCallback? onTap2;
+  final String? testId;
 
   const ClickableText({
     super.key,
@@ -306,6 +316,7 @@ class ClickableText extends StatefulWidget {
     this.fourthText,
     this.fourthTextColor,
     this.onTap2,
+    this.testId,
   });
 
   @override
@@ -340,6 +351,7 @@ class _ClickableTextState extends State<ClickableText> {
   @override
   Widget build(BuildContext context) {
     return RichText(
+      key: widget.testId != null ? Key(widget.testId!) : null,
       text: TextSpan(
         children: [
           TextSpan(

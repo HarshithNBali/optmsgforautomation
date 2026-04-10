@@ -23,6 +23,7 @@ class CustomRowWidget extends StatelessWidget {
   final TextInputFormatter? inputFormatter;
   final TextInputAction? inputAction;
   final bool applyBorder;
+  final String? testId;
 
   const CustomRowWidget({
     super.key,
@@ -43,6 +44,7 @@ class CustomRowWidget extends StatelessWidget {
     this.inputAction,
     this.validator,
     this.applyBorder = false,
+    this.testId,
   });
 
   @override
@@ -73,6 +75,7 @@ class CustomRowWidget extends StatelessWidget {
               ),
               const SizedBox(height: 4),
               TextFormField(
+                key: testId != null ? Key(testId!) : null,
                 textCapitalization: textCapitalization,
                 textInputAction: inputAction,
                 inputFormatters:

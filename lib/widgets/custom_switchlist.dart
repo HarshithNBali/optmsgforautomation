@@ -8,6 +8,7 @@ class CustomSwitchListTile extends StatelessWidget {
   final ValueChanged<bool> onChanged;
   final EdgeInsetsGeometry contentPadding;
   final Widget? secondary;
+  final String? testId;
 
   const CustomSwitchListTile({
     super.key,
@@ -16,6 +17,7 @@ class CustomSwitchListTile extends StatelessWidget {
     required this.onChanged,
     this.contentPadding = const EdgeInsets.only(left: 16.0, right: 10.0, top: 5.0),
     this.secondary,
+    this.testId,
   });
 
   @override
@@ -43,6 +45,7 @@ class CustomSwitchListTile extends StatelessWidget {
               Transform.scale(
                 scale: 0.75,
                 child: CupertinoSwitch(
+                  key: testId != null ? Key(testId!) : null,
                   value: value,
                   activeTrackColor: AppStyles.clickableTextColor,
                   onChanged: onChanged,

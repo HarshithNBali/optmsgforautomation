@@ -80,6 +80,7 @@ class _DrawerState extends ConsumerState<MyDrawer> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             MyDrawerItem(
+              testId: 'drawer_inbox_tile',
               title: inbox,
               svgIcon: svgInbox,
               isActive: isRoute(AppRoutes.inbox),
@@ -87,6 +88,7 @@ class _DrawerState extends ConsumerState<MyDrawer> {
               onTap: () => _navigate('Inbox2'),
             ),
             MyDrawerItem(
+              testId: 'drawer_drafts_tile',
               title: draft,
               svgIcon: svgDraft,
               draft: true,
@@ -95,6 +97,7 @@ class _DrawerState extends ConsumerState<MyDrawer> {
               onTap: () => _navigate('Draft'),
             ),
             MyDrawerItem(
+              testId: 'drawer_archive_tile',
               title: archive,
               svgIcon: svgArchive,
               isActive: isRoute(AppRoutes.archive),
@@ -102,12 +105,14 @@ class _DrawerState extends ConsumerState<MyDrawer> {
               onTap: () => _navigate('Archive'),
             ),
             MyDrawerItem(
+              testId: 'drawer_sent_tile',
               title: sent,
               svgIcon: svgSent,
               isActive: isRoute(AppRoutes.sent),
               onTap: () => _navigate('Sent'),
             ),
             MyDrawerItem(
+              testId: 'drawer_trash_tile',
               title: trash,
               svgIcon: svgTrash1,
               isActive: isRoute(AppRoutes.trash),
@@ -115,18 +120,21 @@ class _DrawerState extends ConsumerState<MyDrawer> {
               onTap: () => _navigate('Trash'),
             ),
             MyDrawerItem(
+              testId: 'drawer_contacts_tile',
               title: contacts,
               svgIcon: svgRoundUser,
               isActive: isRoute(AppRoutes.contacts),
               onTap: () => _navigate('ContactList'),
             ),
             MyDrawerItem(
+              testId: 'drawer_help_tile',
               title: helpCenter,
               svgIcon: svgHelp,
               isActive: isRoute(AppRoutes.helpCenter),
               onTap: () => _navigate('HelpCenter'),
             ),
             MyDrawerItem(
+              testId: 'drawer_settings_tile',
               title: settings,
               svgIcon: svgSettings,
               isActive: isRoute(AppRoutes.settings),

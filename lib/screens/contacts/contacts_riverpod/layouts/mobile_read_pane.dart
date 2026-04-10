@@ -81,6 +81,7 @@ Widget _buildMobileContent(
                           Contacts contact = s.filteredContacts[index];
                           final bool isMultiSelected = s.selectedContactIds.contains(contact.id);
                           return ContactListRow(
+                            testId: 'contact_list_row_${contact.id}',
                             contact: contact,
                             isMultiSelected: isMultiSelected,
                             showCheckbox: inMultiSelect && !isSelectionMode,

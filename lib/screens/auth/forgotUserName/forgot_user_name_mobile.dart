@@ -45,6 +45,7 @@ class _ForgotUserNameMobileState extends ConsumerState<ForgotUserNameMobile> {
           FocusScope.of(context).unfocus();
         },
         child: Scaffold(
+          key: const Key('forgot_username_screen'),
           resizeToAvoidBottomInset: false,
           body: GradientBackground(
             child: Column(
@@ -52,6 +53,7 @@ class _ForgotUserNameMobileState extends ConsumerState<ForgotUserNameMobile> {
                 Padding(
                   padding: const EdgeInsets.all(AppStyles.space16),
                   child: TextButton.icon(
+                    key: const Key('forgot_username_back_button'),
                     onPressed: () {
                       context.pop();
                     },
@@ -102,6 +104,7 @@ class _ForgotUserNameMobileState extends ConsumerState<ForgotUserNameMobile> {
                                   const SizedBox(width: AppStyles.space8),
                                   Expanded(
                                     child: CustomTextFormField(
+                                      testId: 'forgot_username_phone_input',
                                       inputAction: TextInputAction.done,
                                       inputFormatter:
                                           FilteringTextInputFormatter.allow(
@@ -122,6 +125,7 @@ class _ForgotUserNameMobileState extends ConsumerState<ForgotUserNameMobile> {
                               ),
                               const SizedBox(height: AppStyles.space32),
                               CustomGradientButton(
+                                testId: 'forgot_username_submit_button',
                                 onPressed: onPressed,
                                 text: submit,
                                 textStyle: AuthStyles.authButtonText(context),

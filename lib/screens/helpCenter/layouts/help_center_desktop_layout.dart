@@ -30,6 +30,7 @@ class HelpCenterDesktopLayout extends ConsumerWidget {
                 child: Column(
                   children: [
                     MyDrawerItem(
+                      testId: 'help_contact_us_tile',
                       title: contactUs,
                       svgIcon: svgContactUs,
                       showIndicator: false,
@@ -45,6 +46,7 @@ class HelpCenterDesktopLayout extends ConsumerWidget {
                     ),
 
                     MyDrawerItem(
+                      testId: 'help_faq_tile',
                       title: faq,
                       svgIcon: svgFaq,
                       showIndicator: false,
@@ -60,6 +62,7 @@ class HelpCenterDesktopLayout extends ConsumerWidget {
                     ),
 
                     MyDrawerItem(
+                      testId: 'help_privacy_policy_tile',
                       title: privacyPolicy,
                       svgIcon: svgPrivacyPolicy,
                       showIndicator: false,
@@ -75,6 +78,7 @@ class HelpCenterDesktopLayout extends ConsumerWidget {
                     ),
 
                     MyDrawerItem(
+                      testId: 'help_terms_conditions_tile',
                       title: termsAndConditions,
                       svgIcon: svgTermsAndCondition,
                       showIndicator: false,

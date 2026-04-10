@@ -117,6 +117,7 @@ class _SideMenuState extends ConsumerState<SideMenu> {
     final bool isCollapsed = widget.isCollapsed;
     return [
       WebMenuItems(
+        testId: 'sidebar_inbox_tile',
         title: inbox,
         labelText:
             countState.inboxCount > 0 ? countState.inboxCount.toString() : null,
@@ -128,6 +129,7 @@ class _SideMenuState extends ConsumerState<SideMenu> {
         isSelected: widget.selectedItem == AppRoutes.inbox,
       ),
       WebMenuItems(
+        testId: 'sidebar_drafts_tile',
         title: draft,
         svgIcon: svgDraft,
         draft: true,
@@ -140,6 +142,7 @@ class _SideMenuState extends ConsumerState<SideMenu> {
         isSelected: widget.selectedItem == AppRoutes.drafts,
       ),
       WebMenuItems(
+        testId: 'sidebar_archive_tile',
         title: archive,
         svgIcon: svgArchive,
         labelText: countState.archiveCount > 0
@@ -152,6 +155,7 @@ class _SideMenuState extends ConsumerState<SideMenu> {
         isSelected: widget.selectedItem == AppRoutes.archive,
       ),
       WebMenuItems(
+        testId: 'sidebar_sent_tile',
         title: sent,
         svgIcon: svgSent,
         isCollapsed: isCollapsed,
@@ -161,6 +165,7 @@ class _SideMenuState extends ConsumerState<SideMenu> {
         isSelected: widget.selectedItem == AppRoutes.sent,
       ),
       WebMenuItems(
+        testId: 'sidebar_trash_tile',
         title: trash,
         svgIcon: svgTrash1,
         labelText:
@@ -172,6 +177,7 @@ class _SideMenuState extends ConsumerState<SideMenu> {
         isSelected: widget.selectedItem == AppRoutes.trash,
       ),
       WebMenuItems(
+        testId: 'sidebar_contacts_tile',
         title: contacts,
         svgIcon: svgRoundUser,
         isCollapsed: isCollapsed,
@@ -181,6 +187,7 @@ class _SideMenuState extends ConsumerState<SideMenu> {
         isSelected: widget.selectedItem == AppRoutes.contacts,
       ),
       WebMenuItems(
+        testId: 'sidebar_help_tile',
         title: helpCenter,
         svgIcon: svgHelp,
         isCollapsed: isCollapsed,
@@ -190,6 +197,7 @@ class _SideMenuState extends ConsumerState<SideMenu> {
         isSelected: widget.selectedItem == AppRoutes.helpCenter,
       ),
       WebMenuItems(
+        testId: 'sidebar_settings_tile',
         title: settings,
         svgIcon: svgSettings,
         isCollapsed: isCollapsed,

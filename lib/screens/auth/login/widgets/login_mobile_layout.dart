@@ -81,6 +81,7 @@ class LoginMobileLayout extends StatelessWidget {
                           ),
                           const SizedBox(height: AppStyles.space8),
                           ClickableText(
+                            key: const Key('login_register_link'),
                             firstText: noAccount,
                             firstTextColor: AuthStyles.textSecondary,
                             secondText: " $clickHere",
@@ -133,6 +134,7 @@ class LoginMobileLayout extends StatelessWidget {
                           isLoading: isLoading,
                         ),
                         ClickableText(
+                          key: const Key('login_register_link'),
                           firstText: noAccount,
                           firstTextColor: AuthStyles.textSecondary,
                           secondText: " $clickHere",

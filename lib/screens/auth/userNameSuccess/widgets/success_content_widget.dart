@@ -37,6 +37,7 @@ class SuccessContentWidget extends StatelessWidget {
         ),
         SizedBox(height: screenHeight * 0.030),
         CustomGradientButton(
+          testId: 'username_success_login_button',
           onPressed: onBackToLogin,
           text: backToLogin,
           textStyle: AuthStyles.authButtonText(context),

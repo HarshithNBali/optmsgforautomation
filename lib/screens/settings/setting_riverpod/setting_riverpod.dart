@@ -41,6 +41,7 @@ class _SettingriverpodState extends ConsumerState<Settingriverpod> {
     final isLoading = ref.watch(settingsProvider.select((s) => s.isLoading));
 
     return ColoredBox(
+      key: const Key('settings_screen'),
       color: Theme.of(context).colorScheme.surface,
       child: SafeArea(
         top: false,
